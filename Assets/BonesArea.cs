@@ -50,7 +50,8 @@ public class BonesArea : MonoBehaviour
 		{
 		case SkeletonPart.SP_HEAD:
 			bones.bone1 = skeletonController.Head.transform;
-			bones.bone2 = bones.bone1;
+			// Neck object
+			bones.bone2 = skeletonController.Shoulder_Center.transform;
 			break;
 		case SkeletonPart.SP_HANDS:
 			bones.bone1 = skeletonController.Hand_Left.transform;
