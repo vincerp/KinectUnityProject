@@ -52,6 +52,7 @@ public class Player : MonoBehaviour {
 				bottomRight.collider.transform.GetComponent<Player>().Squish(this);
 			}
 			
+			//bool isJumpingRightNow = Input.GetButtonDown();
 			if(ChainJam.GetButtonJustPressed(playerID,ChainJam.BUTTON.A) || ChainJam.GetButtonJustPressed(playerID,ChainJam.BUTTON.B))
 			{
 				if (bottomLeft.collider || bottomMiddle.collider || bottomRight.collider) {	
