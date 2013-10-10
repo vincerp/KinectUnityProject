@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 	
-	public ChainJam.PLAYER playerID;					// Useful to remember which player it is :)
+	public InputAxisNames input;
 	
 	public float speed;									// Horizontal movement speed
 	public float jumpStrength;							// Jump power
@@ -52,30 +52,31 @@ public class Player : MonoBehaviour {
 				bottomRight.collider.transform.GetComponent<Player>().Squish(this);
 			}
 			
-			//bool isJumpingRightNow = Input.GetButtonDown();
-			if(ChainJam.GetButtonJustPressed(playerID,ChainJam.BUTTON.A) || ChainJam.GetButtonJustPressed(playerID,ChainJam.BUTTON.B))
+			bool isJumpingRightNow = Input.GetButtonDown(input.a) || Input.GetButtonDown(input.b);
+			if(isJumpingRightNow)
 			{
 				if (bottomLeft.collider || bottomMiddle.collider || bottomRight.collider) {	
 					rigidbody.velocity = (new Vector3(0, jumpStrength * jumpStrengthMultiplier,0));
-					SoundManager.i.Play(SoundManager.i.Jump);
+					//SoundManager.i.Play(SoundManager.i.Jump);
 					Debug.Log("normal jump");
 				}
 				else if(left.collider)
 				{
 					rigidbody.velocity = (new Vector3(jumpStrength* jumpStrengthMultiplier*0.3f, jumpStrength * jumpStrengthMultiplier*0.7f,0));
-					SoundManager.i.Play(SoundManager.i.Jump);
+					//SoundManager.i.Play(SoundManager.i.Jump);
 					lockLeft = 0.1f;
 					Debug.Log("side jump left" + jumpStrength + " " + jumpStrengthMultiplier );
 				}
 				else if(right.collider)
 				{
 					rigidbody.velocity = (new Vector3(-jumpStrength* jumpStrengthMultiplier*0.3f, jumpStrength* jumpStrengthMultiplier *0.7f,0));
-					SoundManager.i.Play(SoundManager.i.Jump);
+					//SoundManager.i.Play(SoundManager.i.Jump);
 					lockRight = 0.1f;
 					Debug.Log("side jump right" + jumpStrength + " " + jumpStrengthMultiplier );
 				}
 			}
-			if((ChainJam.GetButtonJustReleased(playerID,ChainJam.BUTTON.A) || ChainJam.GetButtonJustReleased(playerID,ChainJam.BUTTON.B)) && rigidbody.velocity.y > 0 )
+			bool releasedJumpingRightNow = Input.GetButtonUp(input.a) || Input.GetButtonUp(input.b);
+			if(releasedJumpingRightNow && rigidbody.velocity.y > 0 )
 			{
 				rigidbody.velocity = (new Vector3(rigidbody.velocity.x, rigidbody.velocity.y / 2,0));
 			}
@@ -87,12 +88,12 @@ public class Player : MonoBehaviour {
 	void FixedUpdate () {
 		if(!squished)
 		{
-		
-			if(ChainJam.GetButtonPressed(playerID,ChainJam.BUTTON.LEFT) && lockLeft <= 0)
+			
+			if(Input.GetAxis(input.horizontal) < -0.1 && lockLeft <= 0)
 			{
 				rigidbody.velocity = (new Vector3(-1 * speed * Time.deltaTime,rigidbody.velocity.y,0));
 			}
-			if(ChainJam.GetButtonPressed(playerID,ChainJam.BUTTON.RIGHT)  && lockRight <= 0)
+			if(Input.GetAxis(input.horizontal) > 0.1  && lockRight <= 0)
 			{
 				rigidbody.velocity=(new Vector3(speed * Time.deltaTime,rigidbody.velocity.y,0));
 			}
@@ -118,8 +119,8 @@ public class Player : MonoBehaviour {
 		{
 			if(squishedBy)
 			{
-				ChainJam.AddPoints(squishedBy.playerID,1	);
-				if(ChainJam.GetTotalPoints() >= 10) ChainJam.GameEnd();
+				//ChainJam.AddPoints(squishedBy.playerID,1	);
+				//if(ChainJam.GetTotalPoints() >= 10) ChainJam.GameEnd();
 			}
 
 			SoundManager.i.Play(SoundManager.i.Squish);
@@ -148,4 +149,11 @@ public class Player : MonoBehaviour {
 	}
 	
 
+}
+
+[System.Serializable]
+public class InputAxisNames{
+	public string horizontal = "Horizontal";
+	public string vertical = "Vertical";
+	public string a = "Jump", b = "Fire1", x = "Fire2", y = "Fire3";
 }
