@@ -21,7 +21,7 @@ public class PlatformInfo
 	public Transform transform;
 }
 
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(Rigidbody))]
 public class BonesArea : MonoBehaviour 
 {
@@ -38,6 +38,10 @@ public class BonesArea : MonoBehaviour
 	public float boneScaleFactor = 1f;
 	public float boneAngleFactor = 1f;
 	public float boneAngleAdjustment = -65f;
+	
+	public float curveFactor = 0.2f;
+	public AnimationCurve boneDistanceFactor;
+	public float minimumDistance = 0.3f;
 	
 	void Start()
 	{
@@ -77,8 +81,12 @@ public class BonesArea : MonoBehaviour
 		{
 			info.transform.position = Vector3.MoveTowards( info.transform.position, transform.position, Time.deltaTime * movingSpeed);
 			info.transform.rotation = Quaternion.RotateTowards( info.transform.rotation, Quaternion.AngleAxis(info.initialAngle + (bones.Angle+boneAngleAdjustment)*boneAngleFactor, Vector3.forward), Time.deltaTime * rotationSpeed);
-			info.transform.localScale = new Vector3(info.initialScale.x + bones.Distance*boneScaleFactor, info.initialScale.y, info.initialScale.z);
+			info.transform.localScale = Vector3.MoveTowards(info.transform.localScale, new Vector3(Mathf.Clamp(info.initialScale.x*GetBoneDistance(), minimumDistance, Mathf.Infinity), info.initialScale.y, info.initialScale.z), Time.deltaTime * scalingSpeed);
 		}
+	}
+	
+	float GetBoneDistance(){
+		return boneDistanceFactor.Evaluate(bones.Distance)*curveFactor;
 	}
 	
 	// bone area zone
@@ -107,7 +115,11 @@ public class BonesArea : MonoBehaviour
 	}
 	
 	void OnGUI(){
-		GUILayout.Box("Info:\nAngle:"+(bones.Angle+boneAngleAdjustment)+"\nDistance:"+bones.Distance+"\n1:"+bones.bone1.position.ToString()+"\n2:"+bones.bone2.position.ToString());
+		GUILayout.Box("Info:\nAngle:"+(bones.Angle+boneAngleAdjustment)+
+			"\nDistance:"+bones.Distance+
+			"\nGetBoneDistance:"+GetBoneDistance()+
+			"\n1:"+bones.bone1.position.ToString()+
+			"\n2:"+bones.bone2.position.ToString());
 		
 		GUILayout.Box("Angle:\n"+Vector3.Angle(Vector3.zero, Vector3.zero)+"\n"+Vector3.Angle(-Vector3.left, Vector3.right));
 	}
