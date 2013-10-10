@@ -37,7 +37,7 @@ public class BonesArea : MonoBehaviour
 	
 	public float boneScaleFactor = 1f;
 	public float boneAngleFactor = 1f;
-	public float boneAngleAdjustment = -65f;
+	public float boneAngleAdjustment = 0f;
 	
 	public float curveFactor = 0.2f;
 	public AnimationCurve boneDistanceFactor;
@@ -45,12 +45,15 @@ public class BonesArea : MonoBehaviour
 	
 	void Start()
 	{
+		if (skeletonController == null)
+			return;
 		// auto assignmentof bones game objects code
 		switch( part )
 		{
 		case SkeletonPart.SP_HEAD:
 			bones.bone1 = skeletonController.Head.transform;
-			bones.bone2 = bones.bone1;
+			// Neck object
+			bones.bone2 = skeletonController.Shoulder_Center.transform;
 			break;
 		case SkeletonPart.SP_HANDS:
 			bones.bone1 = skeletonController.Hand_Left.transform;
@@ -139,8 +142,13 @@ public class BonePair{
 		get{
 			Vector3 a = bone1.position, b = bone2.position;
 			
-			return Vector3.Angle(b-a, Vector3.right);
-			//TODO: Make this work between -180 and 180
+			if (bone1.position.y > bone2.position.y)
+			{
+				return Vector3.Angle(b-a, Vector3.right);
+			}
+			else	
+				return -Vector3.Angle(b-a, Vector3.right);
+			
 		}
 	}
 	
