@@ -124,7 +124,9 @@ public class BonesArea : MonoBehaviour
 			"\nDistance:"+bones.Distance+
 			"\nGetBoneDistance:"+GetBoneDistance()+
 			"\n1:"+bones.bone1.position.ToString()+
-			"\n2:"+bones.bone2.position.ToString());
+			"\n2:"+bones.bone2.position.ToString()+
+			"\ntrue angle:"+transform.localRotation.z
+			);
 		
 		GUILayout.Box("Angle:\n"+Vector3.Angle(Vector3.zero, Vector3.zero)+"\n"+Vector3.Angle(-Vector3.left, Vector3.right));
 	}
@@ -133,10 +135,13 @@ public class BonesArea : MonoBehaviour
 [System.Serializable]
 public class BonePair{
 	public Transform bone1, bone2;
+	public float centralPointOffset = 0.5f;
 	
 	public Vector3 CentralPoint{
 		get{
-			return Vector3.Lerp(bone1.position, bone2.position, 0.5f);
+			Vector3 shit = Vector3.Lerp(bone1.position, bone2.position, centralPointOffset);
+			shit = new Vector3(shit.x, shit.y, 0f);
+			return shit;
 		}
 	}
 	
