@@ -39,7 +39,7 @@ public class Player : MonoBehaviour {
 			Physics.Raycast (transform.position, transform.right, out right, 0.6f  * transform.localScale.x);		
 			Physics.Raycast (transform.position, -transform.right, out left, 0.6f  * transform.localScale.x);		
 
-			if(bottomLeft.collider && bottomLeft.collider.tag == "Player")
+			/*if(bottomLeft.collider && bottomLeft.collider.tag == "Player")
 			{
 				bottomLeft.collider.transform.GetComponent<Player>().Squish(this);
 			}
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour {
 			if(bottomRight.collider && bottomRight.collider.tag == "Player")
 			{
 				bottomRight.collider.transform.GetComponent<Player>().Squish(this);
-			}
+			}*/
 			
 			bool isJumpingRightNow = Input.GetButtonDown(input.a) || Input.GetButtonDown(input.b);
 			if(isJumpingRightNow)
@@ -58,21 +58,21 @@ public class Player : MonoBehaviour {
 				if (bottomLeft.collider || bottomMiddle.collider || bottomRight.collider) {	
 					rigidbody.velocity = (new Vector3(0, jumpStrength * jumpStrengthMultiplier,0));
 					//SoundManager.i.Play(SoundManager.i.Jump);
-					Debug.Log("normal jump");
+					//Debug.Log("normal jump");
 				}
 				else if(left.collider)
 				{
 					rigidbody.velocity = (new Vector3(jumpStrength* jumpStrengthMultiplier*0.3f, jumpStrength * jumpStrengthMultiplier*0.7f,0));
 					//SoundManager.i.Play(SoundManager.i.Jump);
 					lockLeft = 0.1f;
-					Debug.Log("side jump left" + jumpStrength + " " + jumpStrengthMultiplier );
+					//Debug.Log("side jump left" + jumpStrength + " " + jumpStrengthMultiplier );
 				}
 				else if(right.collider)
 				{
 					rigidbody.velocity = (new Vector3(-jumpStrength* jumpStrengthMultiplier*0.3f, jumpStrength* jumpStrengthMultiplier *0.7f,0));
 					//SoundManager.i.Play(SoundManager.i.Jump);
 					lockRight = 0.1f;
-					Debug.Log("side jump right" + jumpStrength + " " + jumpStrengthMultiplier );
+					//Debug.Log("side jump right" + jumpStrength + " " + jumpStrengthMultiplier );
 				}
 			}
 			bool releasedJumpingRightNow = Input.GetButtonUp(input.a) || Input.GetButtonUp(input.b);
@@ -115,6 +115,7 @@ public class Player : MonoBehaviour {
 	}
 	
 	public void Squish(Player squishedBy=null) {
+		return;
 		if(!squished)
 		{
 			if(squishedBy)
