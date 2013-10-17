@@ -26,6 +26,9 @@ public class PlatformChildServices : MonoBehaviour {
 			go = new GameObject("Platform Parent");
 			parents[_child] = go.transform;
 			
+			// add rigidbody, so iTween will call FixedUpdate instead of Update
+			Rigidbody rigid = parents[_child].gameObject.AddComponent<Rigidbody>();
+			rigid.isKinematic = true;
 		}
 		
 		foreach(var family in parents){
