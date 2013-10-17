@@ -32,6 +32,7 @@ public class BonesArea : MonoBehaviour
 	public float rotationSpeed = 1f;
 	public float scalingSpeed = 1f;
 	
+	
 	public BonePair bones = new BonePair();
 	public List<PlatformInfo> platforms = new List<PlatformInfo>();
 	
@@ -41,9 +42,14 @@ public class BonesArea : MonoBehaviour
 	
 	public float curveFactor = 0.2f;
 	public AnimationCurve boneDistanceFactor;
-	public float minimumDistance = 0.3f;
+	public float minimumPlatformScale = 0.3f;
+	public float maximumPlatformScale = 20f;
 	
-	public int angleSnapFactor = 5;
+	public float angleSnapFactor = 5;
+	public float snap45 = 45f;
+	public float snap45dif = 8;
+	
+	public bool displayPlatformAngles = true;
 	
 	void Start()
 	{
@@ -84,9 +90,30 @@ public class BonesArea : MonoBehaviour
 		
 		foreach ( PlatformInfo info in platforms )
 		{
+			//Platform Positioning
 			info.transform.parent.position = Vector3.MoveTowards( info.transform.position, transform.position, Time.deltaTime * movingSpeed);
-			info.transform.parent.rotation = Quaternion.RotateTowards( info.transform.rotation, Quaternion.AngleAxis(Mathf.Round((info.initialAngle + (bones.Angle+boneAngleAdjustment)*boneAngleFactor)/angleSnapFactor)*angleSnapFactor, Vector3.forward), Time.deltaTime * rotationSpeed);
-			info.transform.localScale = Vector3.MoveTowards(info.transform.localScale, new Vector3(Mathf.Clamp(info.initialScale.x*GetBoneDistance(), minimumDistance, Mathf.Infinity), info.initialScale.y, info.initialScale.z), Time.deltaTime * scalingSpeed);
+			
+			//Platform Rotation
+			float snapThis = (info.initialAngle + (bones.Angle+boneAngleAdjustment)*boneAngleFactor);
+			if(snapThis%snap45 < snap45dif) {
+				//here we snap to 45 degree angles
+				snapThis = MathUtilities.SnapTo(snapThis, snap45);
+			} else {
+				//here we snap to less precise angles
+				snapThis = MathUtilities.SnapTo(snapThis, angleSnapFactor);
+			}
+			
+			info.transform.parent.rotation = Quaternion.RotateTowards(
+				info.transform.rotation,
+				Quaternion.AngleAxis(snapThis, Vector3.forward),
+				Time.deltaTime * rotationSpeed);
+			//info.transform.parent.rotation = Quaternion.RotateTowards( info.transform.rotation, Quaternion.AngleAxis(Mathf.Round((info.initialAngle + (bones.Angle+boneAngleAdjustment)*boneAngleFactor)/angleSnapFactor)*angleSnapFactor, Vector3.forward), Time.deltaTime * rotationSpeed);
+			
+			//Platform Scaling
+			info.transform.localScale = Vector3.MoveTowards(
+				info.transform.localScale, 
+				new Vector3(Mathf.Clamp(info.initialScale.x*GetBoneDistance(), minimumPlatformScale, maximumPlatformScale), info.initialScale.y, info.initialScale.z), 
+				Time.deltaTime * scalingSpeed);
 		}
 	}
 	
@@ -129,6 +156,19 @@ public class BonesArea : MonoBehaviour
 			);
 		
 		GUILayout.Box("Angle:\n"+Vector3.Angle(Vector3.zero, Vector3.zero)+"\n"+Vector3.Angle(-Vector3.left, Vector3.right));
+		
+		
+		if(!displayPlatformAngles) return;
+		Rect _pos = new Rect(0f, 0f, 120f, 30f);
+		Vector3 _view;
+		foreach (var plat in platforms){
+			_view = Camera.main.WorldToScreenPoint(plat.transform.position);
+			
+			_pos.x = _view.x-60f;
+			_pos.y = Screen.height-_view.y-15f;
+			GUI.color = new Color(0f,0f,0f,0.7f);
+			GUI.Label(_pos, "zº:"+plat.transform.rotation.eulerAngles.z);
+		}
 	}
 }
 
