@@ -84,7 +84,7 @@ public class BonesArea : MonoBehaviour
 		}
 	}
 	
-	void Update()
+	void FixedUpdate()
 	{
 		transform.position = bones.CentralPoint;
 		

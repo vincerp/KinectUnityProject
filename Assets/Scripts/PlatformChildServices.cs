@@ -40,6 +40,7 @@ public class PlatformChildServices : MonoBehaviour {
 			_ptr.parent = _tr;
 			_ctr.parent = _ptr;
 			
+			_ptr.gameObject.layer = platformLayer;
 			_ctr.name += " is now happy with his new parent";
 		}
 	}

@@ -14,9 +14,11 @@ public class PlatformMomentum : MonoBehaviour {
 	public int frameTrackingAmount = 5;
 	//private System.Nullable<Vector3> lastPlayerPosition;
 	private Transform _transform;
+	private Quaternion _rotation;
 	
 	void Awake () {
 		_transform = transform;
+		_rotation = _transform.rotation;
 		recordedPlayerPos = new List<Vector3>();
 	}
 	
@@ -30,10 +32,12 @@ public class PlatformMomentum : MonoBehaviour {
 		recordedPlayerPos.Add(rigidbody.position/*_transform.position*/);
 		while(recordedPlayerPos.Count > frameTrackingAmount) recordedPlayerPos.RemoveAt(0);
 		
-		rigidbody.AddForce(GetMomentumVelocityVector() * velocityMultiplier);
+		//rigidbody.AddForce(GetMomentumVelocityVector() * velocityMultiplier);
+		_transform.rotation = _rotation;
 	}
 	
 	void OnCollisionEnter (Collision col) {
+		print ("ouch");
 		if(col.gameObject.layer != platformLayer) return;
 		
 		attachedTo = col.transform;
@@ -42,6 +46,7 @@ public class PlatformMomentum : MonoBehaviour {
 	}
 	
 	void OnCollisionExit (Collision col) {
+		print("not ouch");
 		if(col.gameObject.layer != platformLayer) return;
 		
 		if(attachedTo){
@@ -53,7 +58,6 @@ public class PlatformMomentum : MonoBehaviour {
 //			rigidbody.AddForce(col.contacts[0].normal * GetMomentumVelocity() * velocityMultiplier);
 			
 			attachedTo = null;
-			
 		}
 		
 	}
