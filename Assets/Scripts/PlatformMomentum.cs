@@ -14,14 +14,10 @@ public class PlatformMomentum : MonoBehaviour {
 	public int frameTrackingAmount = 5;
 	//private System.Nullable<Vector3> lastPlayerPosition;
 	private Transform _transform;
-	private Vector3 _scale;
-	private Quaternion _rotation;
 	
 	void Awake () {
 		_transform = transform;
 		recordedPlayerPos = new List<Vector3>();
-		_scale = _transform.localScale;
-		_rotation = _transform.rotation;
 	}
 	
 	void FixedUpdate(){
@@ -35,11 +31,6 @@ public class PlatformMomentum : MonoBehaviour {
 		while(recordedPlayerPos.Count > frameTrackingAmount) recordedPlayerPos.RemoveAt(0);
 		
 		rigidbody.AddForce(GetMomentumVelocityVector() * velocityMultiplier);
-		
-		_transform.parent = null;
-		_transform.rotation = _rotation;
-		_transform.localScale = _scale;
-		_transform.parent = attachedTo;
 	}
 	
 	void OnCollisionEnter (Collision col) {

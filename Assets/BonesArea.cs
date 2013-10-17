@@ -84,8 +84,8 @@ public class BonesArea : MonoBehaviour
 		
 		foreach ( PlatformInfo info in platforms )
 		{
-			info.transform.position = Vector3.MoveTowards( info.transform.position, transform.position, Time.deltaTime * movingSpeed);
-			info.transform.rotation = Quaternion.RotateTowards( info.transform.rotation, Quaternion.AngleAxis(Mathf.Round((info.initialAngle + (bones.Angle+boneAngleAdjustment)*boneAngleFactor)/angleSnapFactor)*angleSnapFactor, Vector3.forward), Time.deltaTime * rotationSpeed);
+			info.transform.parent.position = Vector3.MoveTowards( info.transform.position, transform.position, Time.deltaTime * movingSpeed);
+			info.transform.parent.rotation = Quaternion.RotateTowards( info.transform.rotation, Quaternion.AngleAxis(Mathf.Round((info.initialAngle + (bones.Angle+boneAngleAdjustment)*boneAngleFactor)/angleSnapFactor)*angleSnapFactor, Vector3.forward), Time.deltaTime * rotationSpeed);
 			info.transform.localScale = Vector3.MoveTowards(info.transform.localScale, new Vector3(Mathf.Clamp(info.initialScale.x*GetBoneDistance(), minimumDistance, Mathf.Infinity), info.initialScale.y, info.initialScale.z), Time.deltaTime * scalingSpeed);
 		}
 	}
