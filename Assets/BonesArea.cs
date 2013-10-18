@@ -2,25 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public enum SkeletonPart
-{
-	SP_HEAD,
-	SP_HANDS,
-	SP_SHOULDERS,
-	SP_HIPS,
-	SP_ELBOWS,
-	SP_KNEES
-}
-
-[System.Serializable]
-public class PlatformInfo
-{
-	public float initialAngle;
-	public Vector3 initialScale;
-	
-	public Transform transform;
-}
-
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(Rigidbody))]
 public class BonesArea : MonoBehaviour 
@@ -45,9 +26,21 @@ public class BonesArea : MonoBehaviour
 	public float minimumPlatformScale = 0.3f;
 	public float maximumPlatformScale = 20f;
 	
+	#region Rotation variables
 	public float angleSnapFactor = 5;
-	public float snap45 = 45f;
-	public float snap45dif = 8;
+	public float preciseSnap = 45f;
+	public float preciseSnapRange = 8;
+	
+	public float distanceDeadZone = 1f;
+	private float rotateTowardsAngle = 0f;
+	#endregion
+	
+	private Vector3 centralPoint;
+	public float magnetMovementSpeed = 10f;
+	public float distancePositionMultiplier = 1f;
+	
+	
+	public KeyCode releasePlatformsKeycode = KeyCode.Joystick1Button5;
 	
 	public bool displayPlatformAngles = true;
 	
@@ -76,6 +69,10 @@ public class BonesArea : MonoBehaviour
 		case SkeletonPart.SP_ELBOWS:
 			bones.bone1 = skeletonController.Elbow_Left.transform;
 			bones.bone2 = skeletonController.Elbow_Right.transform;
+			
+			centralPoint = Vector3.Lerp(skeletonController.Spine.transform.position,
+				skeletonController.Shoulder_Center.transform.position,
+				0.7f);
 			break;
 		case SkeletonPart.SP_KNEES:
 			bones.bone1 = skeletonController.Knee_Left.transform;
@@ -86,30 +83,39 @@ public class BonesArea : MonoBehaviour
 	
 	void FixedUpdate()
 	{
-		transform.position = bones.CentralPoint;
+		////Magnet positioning
+		transform.position = Vector3.MoveTowards(transform.position,
+			bones.CentralPoint + (bones.CentralPoint - centralPoint)*distancePositionMultiplier,
+			magnetMovementSpeed);
+		
+		if(!Input.GetKey(releasePlatformsKeycode)) return;
 		
 		foreach ( PlatformInfo info in platforms )
 		{
-			//Platform Positioning
+			////Platform Positioning
 			info.transform.parent.position = Vector3.MoveTowards( info.transform.position, transform.position, Time.deltaTime * movingSpeed);
 			
-			//Platform Rotation
-			float snapThis = (info.initialAngle + (bones.Angle+boneAngleAdjustment)*boneAngleFactor);
-			if(snapThis%snap45 < snap45dif) {
-				//here we snap to 45 degree angles
-				snapThis = MathUtilities.SnapTo(snapThis, snap45);
-			} else {
-				//here we snap to less precise angles
-				snapThis = MathUtilities.SnapTo(snapThis, angleSnapFactor);
+			////Platform Rotation
+			//if the bones are too close, we will have rotation issues
+			//so we will only update rotation if they are not too close
+			if(bones.Distance > distanceDeadZone){
+				rotateTowardsAngle = (info.initialAngle + (bones.Angle+boneAngleAdjustment)*boneAngleFactor);
+				//now we snap the value so it doesn't flicker
+				if(rotateTowardsAngle%preciseSnap < preciseSnapRange || rotateTowardsAngle%preciseSnap > preciseSnap - preciseSnapRange) {
+					//here we snap to precise degree angles
+					rotateTowardsAngle = MathUtilities.SnapTo(rotateTowardsAngle, preciseSnap);
+				} else {
+					//here we snap to less precise angles
+					rotateTowardsAngle = MathUtilities.SnapTo(rotateTowardsAngle, angleSnapFactor);
+				}
 			}
-			
+			//platform rotation happens here
 			info.transform.parent.rotation = Quaternion.RotateTowards(
 				info.transform.rotation,
-				Quaternion.AngleAxis(snapThis, Vector3.forward),
+				Quaternion.AngleAxis(rotateTowardsAngle, Vector3.forward),
 				Time.deltaTime * rotationSpeed);
-			//info.transform.parent.rotation = Quaternion.RotateTowards( info.transform.rotation, Quaternion.AngleAxis(Mathf.Round((info.initialAngle + (bones.Angle+boneAngleAdjustment)*boneAngleFactor)/angleSnapFactor)*angleSnapFactor, Vector3.forward), Time.deltaTime * rotationSpeed);
 			
-			//Platform Scaling
+			////Platform Scaling
 			info.transform.localScale = Vector3.MoveTowards(
 				info.transform.localScale, 
 				new Vector3(Mathf.Clamp(info.initialScale.x*GetBoneDistance(), minimumPlatformScale, maximumPlatformScale), info.initialScale.y, info.initialScale.z), 
@@ -205,3 +211,24 @@ public class BonePair{
 		}
 	}
 }
+
+#region Other Support Classes
+[System.Serializable]
+public class PlatformInfo
+{
+	public float initialAngle;
+	public Vector3 initialScale;
+	
+	public Transform transform;
+}
+
+public enum SkeletonPart
+{
+	SP_HEAD,
+	SP_HANDS,
+	SP_SHOULDERS,
+	SP_HIPS,
+	SP_ELBOWS,
+	SP_KNEES
+}
+#endregion
