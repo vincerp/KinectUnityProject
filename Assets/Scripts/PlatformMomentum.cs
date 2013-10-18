@@ -37,20 +37,20 @@ public class PlatformMomentum : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter (Collision col) {
-		print ("ouch");
+	
 		if(col.gameObject.layer != platformLayer) return;
 		
 		attachedTo = col.transform;
-		transform.parent = attachedTo;
+//		transform.parent = attachedTo;
 		print("Attached to " + attachedTo.name);
 	}
 	
 	void OnCollisionExit (Collision col) {
-		print("not ouch");
+
 		if(col.gameObject.layer != platformLayer) return;
 		
 		if(attachedTo){
-			transform.parent = null;
+//			transform.parent = null;
 			print("Dettached from " + attachedTo.name);
 			//apply momentum force here 
 //			rigidbody.AddForce(GetMomentumVelocityVector() * velocityMultiplier);

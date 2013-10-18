@@ -32,7 +32,6 @@ public class Player : MonoBehaviour {
 		{
 			// Jump and Squish check
 
-			RaycastHit bottomLeft, bottomMiddle, bottomRight, left, right;
 			Physics.Raycast (bottomLeftPoint.position, -bottomLeftPoint.up, out bottomLeft, 0.6f * transform.localScale.y);
 			Physics.Raycast (bottomMiddlePoint.position, -bottomMiddlePoint.up , out bottomMiddle, 0.6f  * transform.localScale.y);
 			Physics.Raycast (bottomRightPoint.position, -bottomRightPoint.up, out bottomRight, 0.6f  * transform.localScale.y);		
@@ -52,7 +51,19 @@ public class Player : MonoBehaviour {
 				bottomRight.collider.transform.GetComponent<Player>().Squish(this);
 			}*/
 			
-			bool isJumpingRightNow = Input.GetButtonDown(input.a) || Input.GetButtonDown(input.b);
+			isJumpingRightNow = Input.GetButtonDown(input.a) || Input.GetButtonDown(input.b);
+			releasedJumpingRightNow = Input.GetButtonUp(input.a) || Input.GetButtonUp(input.b);
+		}
+	}
+	
+	RaycastHit bottomLeft, bottomMiddle, bottomRight, left, right;	
+	bool isJumpingRightNow = false;
+	bool releasedJumpingRightNow = false;
+	
+	// Update is called once per frame
+	void FixedUpdate () {
+		if(!squished)
+		{
 			if(isJumpingRightNow)
 			{
 				if (bottomLeft.collider || bottomMiddle.collider || bottomRight.collider) {	
@@ -75,19 +86,11 @@ public class Player : MonoBehaviour {
 					//Debug.Log("side jump right" + jumpStrength + " " + jumpStrengthMultiplier );
 				}
 			}
-			bool releasedJumpingRightNow = Input.GetButtonUp(input.a) || Input.GetButtonUp(input.b);
+			
 			if(releasedJumpingRightNow && rigidbody.velocity.y > 0 )
 			{
 				rigidbody.velocity = (new Vector3(rigidbody.velocity.x, rigidbody.velocity.y / 2,0));
 			}
-		}
-	}
-		
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-		if(!squished)
-		{
 			
 			if(Input.GetAxis(input.horizontal) < -0.1 && lockLeft <= 0)
 			{
