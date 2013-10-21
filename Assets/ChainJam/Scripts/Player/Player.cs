@@ -9,34 +9,55 @@ public class Player : MonoBehaviour {
 	public float jumpStrength;							// Jump power
 	public float jumpStrengthMultiplier;				// Should be 1, but it can be changed by other functions
 	public float gravity;								// Rigidbodies can have their own gravity, but this makes it all a bit more tweakable
+	public float jumpSustainTime;
 	
-	public Transform bottomLeftPoint;					
-	public Transform bottomMiddlePoint;
-	public Transform bottomRightPoint;					// This are points inside the player object, from which we cast a "ray" to find out if it's touching something
+	public float raycastDistance = 0.40f;
+	private Vector3 raycastPoint;
 	
 	private float lockLeft;								// Don't allow left movement
 	private float lockRight;							// ... or right movement
-	private Vector3  startScale;						// Remember the start scale, for the squishing animation
 	private bool squished;								// Are we alive or what?
 	
-	private KeyCode keyLeft;
-	private KeyCode keyRight;	
-	private KeyCode keyUp;
-
+	public bool enableWallJump = true;
+	public float slopeSlideLimit = 50f;
+	
+	//Private stuff
+	RaycastHit bottomLeft, bottomMiddle, bottomRight, left, right;
+	bool isGrounded, isTouchingRight, isTouchingLeft;
+	bool isJumping = false;
+	bool releasedJumpingRightNow = false;
+	float jumpAirTime = 0f;
+	Vector3 jumpSpeed;
+	
+	Vector3 groundNormal;
+	
+	Transform _tr;
+	Rigidbody _rb;
+	
 	void Start () {
-		startScale = transform.localScale;
+		_tr = transform;
+		_rb = rigidbody;
+		raycastPoint = new Vector3(raycastDistance, 0f, 0f);
 	}
 	
 	void Update() {
 		if(!squished)
 		{
 			// Jump and Squish check
-
-			Physics.Raycast (bottomLeftPoint.position, -bottomLeftPoint.up, out bottomLeft, 0.6f * transform.localScale.y);
-			Physics.Raycast (bottomMiddlePoint.position, -bottomMiddlePoint.up , out bottomMiddle, 0.6f  * transform.localScale.y);
-			Physics.Raycast (bottomRightPoint.position, -bottomRightPoint.up, out bottomRight, 0.6f  * transform.localScale.y);		
-			Physics.Raycast (transform.position, transform.right, out right, 0.6f  * transform.localScale.x);		
-			Physics.Raycast (transform.position, -transform.right, out left, 0.6f  * transform.localScale.x);		
+			isGrounded = (
+				//Ground raycast checks
+				Physics.Raycast (_tr.position + -raycastPoint,
+					Vector3.down, out bottomLeft,
+					0.6f * _tr.localScale.y) ||
+				Physics.Raycast (_tr.position,
+					Vector3.down, out bottomMiddle,
+					0.6f  * _tr.localScale.y) ||
+				Physics.Raycast (_tr.position + raycastPoint,
+					Vector3.down, out bottomRight,
+					0.6f  * _tr.localScale.y)
+			);
+			isTouchingRight = Physics.Raycast (_tr.position, _tr.right, out right, 0.6f  * _tr.localScale.x);		
+			isTouchingLeft = Physics.Raycast (_tr.position, -_tr.right, out left, 0.6f  * _tr.localScale.x);		
 
 			/*if(bottomLeft.collider && bottomLeft.collider.tag == "Player")
 			{
@@ -51,74 +72,122 @@ public class Player : MonoBehaviour {
 				bottomRight.collider.transform.GetComponent<Player>().Squish(this);
 			}*/
 			
-			isJumpingRightNow = Input.GetButtonDown(input.a) || Input.GetButtonDown(input.b);
+			//Starts jumping when we press the button
+			if(!isJumping && (Input.GetButtonDown(input.a) || Input.GetButtonDown(input.b))){
+				StartJump();
+			}
+			
+			//Ends jumping when we release the button 
 			releasedJumpingRightNow = Input.GetButtonUp(input.a) || Input.GetButtonUp(input.b);
-		}
-	}
-	
-	RaycastHit bottomLeft, bottomMiddle, bottomRight, left, right;	
-	bool isJumpingRightNow = false;
-	bool releasedJumpingRightNow = false;
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-		if(!squished)
-		{
-			if(isJumpingRightNow)
-			{
-				if (bottomLeft.collider || bottomMiddle.collider || bottomRight.collider) {	
-					rigidbody.velocity = (new Vector3(0, jumpStrength * jumpStrengthMultiplier,0));
-					//SoundManager.i.Play(SoundManager.i.Jump);
-					//Debug.Log("normal jump");
-				}
-				else if(left.collider)
-				{
-					rigidbody.velocity = (new Vector3(jumpStrength* jumpStrengthMultiplier*0.3f, jumpStrength * jumpStrengthMultiplier*0.7f,0));
-					//SoundManager.i.Play(SoundManager.i.Jump);
-					lockLeft = 0.1f;
-					//Debug.Log("side jump left" + jumpStrength + " " + jumpStrengthMultiplier );
-				}
-				else if(right.collider)
-				{
-					rigidbody.velocity = (new Vector3(-jumpStrength* jumpStrengthMultiplier*0.3f, jumpStrength* jumpStrengthMultiplier *0.7f,0));
-					//SoundManager.i.Play(SoundManager.i.Jump);
-					lockRight = 0.1f;
-					//Debug.Log("side jump right" + jumpStrength + " " + jumpStrengthMultiplier );
-				}
+			if(releasedJumpingRightNow) {
+				jumpAirTime = 0f;
+				isJumping = false;
 			}
 			
-			if(releasedJumpingRightNow && rigidbody.velocity.y > 0 )
-			{
-				rigidbody.velocity = (new Vector3(rigidbody.velocity.x, rigidbody.velocity.y / 2,0));
-			}
-			
-			if(Input.GetAxis(input.horizontal) < -0.1 && lockLeft <= 0)
-			{
-				rigidbody.velocity = (new Vector3(-1 * speed * Time.deltaTime,rigidbody.velocity.y,0));
-			}
-			if(Input.GetAxis(input.horizontal) > 0.1  && lockRight <= 0)
-			{
-				rigidbody.velocity=(new Vector3(speed * Time.deltaTime,rigidbody.velocity.y,0));
-			}
 		}
-
-		
-		rigidbody.AddForce(new Vector3(0,gravity,0));
-		
+		if(jumpAirTime > 0f) jumpAirTime -= Time.deltaTime;
 		if(lockLeft > 0) lockLeft -= Time.deltaTime;
 		if(lockRight > 0) lockRight -= Time.deltaTime;
+		//Always updating movement
+		UpdateMovement();
 	}
+	
+	void StartJump(){
+		
+		if (isGrounded) {	
+			jumpSpeed = new Vector3(0, jumpStrength * jumpStrengthMultiplier,0);
+			jumpAirTime = jumpSustainTime;
+			isJumping = true;
+		}
+		else if(enableWallJump && left.collider)
+		{
+			jumpSpeed = new Vector3(jumpStrength* jumpStrengthMultiplier*0.3f, jumpStrength * jumpStrengthMultiplier*0.7f,0);
+			lockLeft = 0.1f;
+			jumpAirTime = jumpSustainTime;
+			isJumping = true;
+		}
+		else if(enableWallJump && right.collider)
+		{
+			jumpSpeed = new Vector3(-jumpStrength* jumpStrengthMultiplier*0.3f, jumpStrength* jumpStrengthMultiplier *0.7f,0);
+			lockRight = 0.1f;
+			jumpAirTime = jumpSustainTime;
+			isJumping = true;
+		}
+	}
+	
+	/// <summary>
+	/// Updates the movement. Might need to be rewritten when players are able to die.
+	/// </summary>
+	void UpdateMovement () {
+		if(jumpAirTime > 0f)
+		{
+			_rb.velocity = jumpSpeed;
+			
+		}
+		if(releasedJumpingRightNow && (_rb.velocity.y > 0f || jumpAirTime > 0f))
+		{
+			_rb.velocity = (new Vector3(_rb.velocity.x, _rb.velocity.y/2f, 0f));
+		}
+		
+		//moving left
+		if(Input.GetAxis(input.horizontal) < -0.1f && lockLeft <= 0f && !isTouchingLeft)
+		{
+			_rb.velocity = (new Vector3(-1f * speed * Time.deltaTime, _rb.velocity.y, 0f));
+		}
+		//moving right
+		if(Input.GetAxis(input.horizontal) > 0.1f  && lockRight <= 0f && !isTouchingRight)
+		{
+			_rb.velocity=(new Vector3(speed * Time.deltaTime, _rb.velocity.y, 0f));
+		}
+		
+		////old gravity application
+		//if(!isGrounded)_rigidbody.AddForce(new Vector3(0f, gravity, 0f));
+		
+		////Antislope and Gravity
+		if(bottomLeft.collider && Vector3.Angle(bottomLeft.normal, Vector3.up) < slopeSlideLimit){
+			//check angle and stop slope sliding
+			_rb.velocity = new Vector3(_rb.velocity.x, Mathf.Clamp(_rb.velocity.y, 0f, Mathf.Infinity), 0f);
+		} else if(bottomRight.collider && Vector3.Angle(bottomRight.normal, Vector3.up) < slopeSlideLimit){
+			//check angle and stop slope sliding
+			_rb.velocity = new Vector3(_rb.velocity.x, Mathf.Clamp(_rb.velocity.y, 0f, Mathf.Infinity), 0f);
+		} else if (bottomMiddle.collider){
+			//if something collides here, we stop movement
+			_rb.velocity = new Vector3(_rb.velocity.x, Mathf.Clamp(_rb.velocity.y, 0f, Mathf.Infinity), 0f);
+		} else {
+			//in any other case, gravity!
+			_rb.AddForce(new Vector3(0f, gravity, 0f));
+		}
+		
+	}
+	
+#if UNITY_EDITOR
+	/*
+	 * Here we define editor-specific functions that are useful only for debuging.
+	 * Keep debug stuff in here to make sure that nothing escapes into our release builds. 
+	 */
 	
 	void OnGUI() {
-		
-		Debug.DrawRay (bottomLeftPoint.position, 	-bottomLeftPoint.up*1f, Color.green,0.1f);
-		Debug.DrawRay (bottomMiddlePoint.position, 	-bottomMiddlePoint.up*1f, Color.red,0.1f);
-		Debug.DrawRay (bottomRightPoint.position, 	-bottomRightPoint.up*1f, Color.blue,0.1f);
+		GUILayout.Label(""+jumpAirTime);
+		string gr = "not grounded";
+		if(true){
+			if(bottomLeft.collider) gr = ""+ Vector3.Angle(bottomLeft.normal, Vector3.up);
+			if(bottomRight.collider) gr = ""+ Vector3.Angle(bottomRight.normal, Vector3.up);
+		}
+		GUILayout.Label(gr);
 		
 	}
 	
+	void OnDrawGizmos(){
+		if(!Application.isPlaying) return;
+		Debug.DrawRay (_tr.position + -raycastPoint, Vector3.down*1f, Color.green,0.1f);
+		Debug.DrawRay (_tr.position, 	Vector3.down*1f, Color.red,0.1f);
+		Debug.DrawRay (_tr.position + raycastPoint, 	Vector3.down*1f, Color.blue,0.1f);
+	}
+#endif
+	
+	//not used for now
 	public void Squish(Player squishedBy=null) {
-		return;
+		/*
 		if(!squished)
 		{
 			if(squishedBy)
@@ -127,29 +196,19 @@ public class Player : MonoBehaviour {
 				//if(ChainJam.GetTotalPoints() >= 10) ChainJam.GameEnd();
 			}
 
-			SoundManager.i.Play(SoundManager.i.Squish);
 			squished =true;
-			iTween.ScaleTo(gameObject,iTween.Hash(
-				"y",0.1f, 
-				"x",1.3f,
-				"time",0.2f,
-				"easeType", "linear"));
-			iTween.MoveTo(gameObject,iTween.Hash(
-				"y",transform.position.y - 0.4f,
-				"time",0.2f,
-				"easeType", "linear"));
+			//do the squish
 			StartCoroutine(Respawn());
 		}
+		*/
 	}
 	
+	//not used for now
 	IEnumerator Respawn() {
 		yield return new WaitForSeconds(2);
 		
-		iTween.ScaleTo(gameObject,iTween.Hash("scale",startScale,"time", 0.2f,"easeType", "linear"));
+		//do the respawn
 		squished = false;
-		SoundManager.i.Play(SoundManager.i.Respawn);
-		
-		transform.position = SpawnPoint.GetRandomSpawnpoint().position;
 	}
 	
 
