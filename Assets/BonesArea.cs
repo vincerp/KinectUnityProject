@@ -16,6 +16,7 @@ public class BonesArea : MonoBehaviour
 	
 	public BonePair bones = new BonePair();
 	public List<PlatformInfo> platforms = new List<PlatformInfo>();
+	private PlatformInfo currentPlatform = null;
 	
 	public float boneScaleFactor = 1f;
 	public float boneAngleFactor = 1f;
@@ -41,6 +42,8 @@ public class BonesArea : MonoBehaviour
 	
 	
 	public KeyCode releasePlatformsKeycode = KeyCode.Joystick1Button5;
+	public KeyCode switchPlatformKeycode = KeyCode.Joystick1Button6;
+	public bool isReleasePlatforms = false;
 	
 	public bool displayPlatformAngles = true;
 	
@@ -81,6 +84,51 @@ public class BonesArea : MonoBehaviour
 		}
 	}
 	
+	void Update()
+	{
+		if( currentPlatform == null )
+			return;
+		
+		isReleasePlatforms = Input.GetKey(releasePlatformsKeycode);
+		if(isReleasePlatforms)
+		{
+			if( currentPlatform.colorState != ColorState.CS_ACTIVE )
+			{
+				currentPlatform.colorState = ColorState.CS_ACTIVE;
+				currentPlatform.transform.renderer.material.color = new Color(1f, 0f, 0f, 1f);
+			}
+		}
+		else
+		{
+			if( currentPlatform.colorState != ColorState.CS_NOTACTIVE )
+			{
+				currentPlatform.colorState = ColorState.CS_NOTACTIVE;
+				currentPlatform.transform.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
+			}
+		}
+	
+		if( Input.GetKeyDown( switchPlatformKeycode ) )
+		{
+			if( platforms.Count > 1 )
+			{
+				int index = platforms.IndexOf( currentPlatform );
+				int nextIndex = index + 1 > platforms.Count - 1 ? 0 : index + 1;
+				int secondnext = nextIndex + 1 > platforms.Count - 1 ? 0 : nextIndex + 1;
+				
+				platforms[index].colorState = ColorState.CS_NOTSELECTED;
+				platforms[index].transform.renderer.material.color = Color.white;
+				
+				platforms[nextIndex].colorState = ColorState.CS_NOTACTIVE;
+				platforms[nextIndex].transform.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
+				
+				platforms[secondnext].colorState = ColorState.CS_NEXTTOSELECT;
+				platforms[secondnext].transform.renderer.material.color = Color.green;
+				
+				currentPlatform = platforms[nextIndex];
+			}
+		}
+	}
+	
 	void FixedUpdate()
 	{
 		////Magnet positioning
@@ -88,39 +136,41 @@ public class BonesArea : MonoBehaviour
 			bones.CentralPoint + (bones.CentralPoint - centralPoint)*distancePositionMultiplier,
 			magnetMovementSpeed);
 		
-		if(!Input.GetKey(releasePlatformsKeycode)) return;
+		if ( currentPlatform == null ) return;
 		
-		foreach ( PlatformInfo info in platforms )
-		{
-			////Platform Positioning
-			info.transform.parent.position = Vector3.MoveTowards( info.transform.position, transform.position, Time.deltaTime * movingSpeed);
-			
-			////Platform Rotation
-			//if the bones are too close, we will have rotation issues
-			//so we will only update rotation if they are not too close
-			if(bones.Distance > distanceDeadZone){
-				rotateTowardsAngle = (info.initialAngle + (bones.Angle+boneAngleAdjustment)*boneAngleFactor);
-				//now we snap the value so it doesn't flicker
-				if(rotateTowardsAngle%preciseSnap < preciseSnapRange || rotateTowardsAngle%preciseSnap > preciseSnap - preciseSnapRange) {
-					//here we snap to precise degree angles
-					rotateTowardsAngle = MathUtilities.SnapTo(rotateTowardsAngle, preciseSnap);
-				} else {
-					//here we snap to less precise angles
-					rotateTowardsAngle = MathUtilities.SnapTo(rotateTowardsAngle, angleSnapFactor);
-				}
+		if(!isReleasePlatforms) return;
+		
+		
+		
+		////Platform Positioning
+		currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.position, transform.position, Time.deltaTime * movingSpeed);
+		
+		////Platform Rotation
+		//if the bones are too close, we will have rotation issues
+		//so we will only update rotation if they are not too close
+		if(bones.Distance > distanceDeadZone){
+			rotateTowardsAngle = (currentPlatform.initialAngle + (bones.Angle+boneAngleAdjustment)*boneAngleFactor);
+			//now we snap the value so it doesn't flicker
+			if(rotateTowardsAngle%preciseSnap < preciseSnapRange || rotateTowardsAngle%preciseSnap > preciseSnap - preciseSnapRange) {
+				//here we snap to precise degree angles
+				rotateTowardsAngle = MathUtilities.SnapTo(rotateTowardsAngle, preciseSnap);
+			} else {
+				//here we snap to less precise angles
+				rotateTowardsAngle = MathUtilities.SnapTo(rotateTowardsAngle, angleSnapFactor);
 			}
-			//platform rotation happens here
-			info.transform.parent.rotation = Quaternion.RotateTowards(
-				info.transform.rotation,
-				Quaternion.AngleAxis(rotateTowardsAngle, Vector3.forward),
-				Time.deltaTime * rotationSpeed);
-			
-			////Platform Scaling
-			info.transform.localScale = Vector3.MoveTowards(
-				info.transform.localScale, 
-				new Vector3(Mathf.Clamp(info.initialScale.x*GetBoneDistance(), minimumPlatformScale, maximumPlatformScale), info.initialScale.y, info.initialScale.z), 
-				Time.deltaTime * scalingSpeed);
 		}
+		//platform rotation happens here
+		currentPlatform.transform.parent.rotation = Quaternion.RotateTowards(
+			currentPlatform.transform.rotation,
+			Quaternion.AngleAxis(rotateTowardsAngle, Vector3.forward),
+			Time.deltaTime * rotationSpeed);
+		
+		////Platform Scaling
+		currentPlatform.transform.localScale = Vector3.MoveTowards(
+			currentPlatform.transform.localScale, 
+			new Vector3(Mathf.Clamp(currentPlatform.initialScale.x*GetBoneDistance(), minimumPlatformScale, maximumPlatformScale), currentPlatform.initialScale.y, currentPlatform.initialScale.z), 
+			Time.deltaTime * scalingSpeed);
+		
 	}
 	
 	float GetBoneDistance(){
@@ -137,15 +187,106 @@ public class BonesArea : MonoBehaviour
 		
 		pinfo.transform = other.transform;
 		
+		// if platforms is empty
+		if( currentPlatform == null )
+		{
+			currentPlatform = pinfo;
+			
+			pinfo.colorState = ColorState.CS_NOTACTIVE;
+			other.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
+		}
+		// if there is no next
+		else if( platforms.Count == 1 )
+		{
+			pinfo.colorState = ColorState.CS_NEXTTOSELECT;
+			other.renderer.renderer.material.color = Color.green;
+		}
+		
 		platforms.Add(pinfo);
 	}
 	
 	void OnTriggerExit( Collider other )
 	{
 		// find the element in the list and remove it
-		platforms.Remove((from x in platforms 
+		PlatformInfo outPlatform = (from x in platforms 
 							where x.transform.collider == other 
-							select x).First() as PlatformInfo);
+							select x).First() as PlatformInfo;
+		
+		int index, nextIndex, secondnext;
+		index = platforms.IndexOf( currentPlatform );
+		
+		// 3 cases:
+		// when there is only one platform
+		// when there are 2 platforms (index == secondindex)
+		// when there are more
+		
+		// maybe there is a way to optimize cases
+
+		switch( platforms.Count )
+		{
+		case 1:
+			platforms[index].colorState = ColorState.CS_NOTSELECTED;
+			platforms[index].transform.renderer.material.color = Color.white;
+			
+			currentPlatform = null;
+			break;
+		case 2:
+			nextIndex = index + 1 > platforms.Count - 1 ? 0 : index + 1;
+			// if it is current
+			if( outPlatform == platforms[index] )
+			{		
+				platforms[index].colorState = ColorState.CS_NOTSELECTED;
+				platforms[index].transform.renderer.material.color = Color.white;
+				
+				platforms[nextIndex].colorState = ColorState.CS_NOTACTIVE;
+				platforms[nextIndex].transform.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
+
+				currentPlatform = platforms[nextIndex];
+			}
+			// if it is next one
+			else if( outPlatform == platforms[nextIndex] )
+			{
+				platforms[nextIndex].colorState = ColorState.CS_NOTSELECTED;
+				platforms[nextIndex].transform.renderer.material.color = Color.white;
+			}
+			break;
+		default:
+			nextIndex = index + 1 > platforms.Count - 1 ? 0 : index + 1;
+			secondnext = nextIndex + 1 > platforms.Count - 1 ? 0 : nextIndex + 1;
+			
+			// if it is current
+			if( outPlatform == platforms[index] )
+			{		
+				platforms[index].colorState = ColorState.CS_NOTSELECTED;
+				platforms[index].transform.renderer.material.color = Color.white;
+				
+				platforms[nextIndex].colorState = ColorState.CS_NOTACTIVE;
+				platforms[nextIndex].transform.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
+				
+				platforms[secondnext].colorState = ColorState.CS_NEXTTOSELECT;
+				platforms[secondnext].transform.renderer.material.color = Color.green;
+			
+				currentPlatform = platforms[nextIndex];
+			}
+			// if it is next one
+			else if( outPlatform == platforms[nextIndex] )
+			{
+				platforms[index].colorState = ColorState.CS_NOTACTIVE;
+				platforms[index].transform.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
+				
+				platforms[nextIndex].colorState = ColorState.CS_NOTSELECTED;
+				platforms[nextIndex].transform.renderer.material.color = Color.white;
+				
+				platforms[secondnext].colorState = ColorState.CS_NEXTTOSELECT;
+				platforms[secondnext].transform.renderer.material.color = Color.green;
+			
+				currentPlatform = platforms[index];
+			}
+			
+			break;
+		}
+		
+		platforms.Remove(outPlatform);
 	}
 	
 	void OnDrawGizmos(){
@@ -212,12 +353,21 @@ public class BonePair{
 	}
 }
 
+public enum ColorState
+{
+	CS_NOTSELECTED,
+	CS_NEXTTOSELECT,
+	CS_NOTACTIVE,
+	CS_ACTIVE
+}
+
 #region Other Support Classes
 [System.Serializable]
 public class PlatformInfo
 {
 	public float initialAngle;
 	public Vector3 initialScale;
+	public ColorState colorState;
 	
 	public Transform transform;
 }
