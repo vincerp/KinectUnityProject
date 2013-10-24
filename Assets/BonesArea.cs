@@ -38,7 +38,8 @@ public class BonesArea : MonoBehaviour
 	
 	private Vector3 centralPoint;
 	public float magnetMovementSpeed = 10f;
-	public float distancePositionMultiplier = 1f;
+	public float distanceXPositionMultiplier = 3f;
+	public float distanceYPositionMultiplier = 3f;
 	
 	
 	public KeyCode releasePlatformsKeycode = KeyCode.Joystick1Button5;
@@ -92,8 +93,7 @@ public class BonesArea : MonoBehaviour
 		if( currentPlatform == null )
 			return;
 		
-		if( Input.GetKeyDown(releasePlatformsKeycode) )
-			rotateFrom = currentPlatform.transform.parent.rotation;
+		rotateFrom = currentPlatform.transform.parent.rotation;
 		
 		isReleasePlatforms = Input.GetKey(releasePlatformsKeycode);
 		if(isReleasePlatforms)
@@ -179,8 +179,12 @@ public class BonesArea : MonoBehaviour
 	void FixedUpdate()
 	{
 		////Magnet positioning
+		Vector3 moveTo = (bones.CentralPoint - centralPoint);
+		moveTo = new Vector3(moveTo.x*distanceXPositionMultiplier, moveTo.y*distanceYPositionMultiplier, 0f);
+		moveTo += bones.CentralPoint;
+		
 		transform.position = Vector3.MoveTowards(transform.position,
-			bones.CentralPoint + (bones.CentralPoint - centralPoint)*distancePositionMultiplier,
+			moveTo,
 			magnetMovementSpeed);
 		
 		if ( currentPlatform == null ) return;
@@ -207,7 +211,7 @@ public class BonesArea : MonoBehaviour
 			}
 		}
 		//platform rotation happens here
-		currentPlatform.transform.parent.rotation = Quaternion.Slerp(
+		currentPlatform.transform.parent.rotation = Quaternion.RotateTowards(
 			rotateFrom,
 			Quaternion.AngleAxis(rotateTowardsAngle + currentPlatform.initialAngle, Vector3.forward),
 			Time.deltaTime * rotationSpeed);
@@ -341,12 +345,14 @@ public class BonesArea : MonoBehaviour
 	
 	void OnDrawGizmos(){
 		Gizmos.DrawWireSphere(transform.position, (collider as SphereCollider).radius);
+		Gizmos.DrawWireSphere(centralPoint, (collider as SphereCollider).radius/2f);
 	}
 	
 	void OnGUI(){
 		GUILayout.Box("Info:\nAngle:"+(bones.Angle+boneAngleAdjustment)+
 			"\nDistance:"+bones.Distance+
 			"\nGetBoneDistance:"+GetBoneDistance()+
+			"\nDistance from center:"+Vector3.Distance(centralPoint, bones.CentralPoint)+
 			"\n1:"+bones.bone1.position.ToString()+
 			"\n2:"+bones.bone2.position.ToString()+
 			"\ntrue angle:"+transform.localRotation.z
