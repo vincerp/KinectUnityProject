@@ -48,6 +48,8 @@ public class BonesArea : MonoBehaviour
 	
 	public bool displayPlatformAngles = true;
 	
+	private Quaternion rotateFrom = Quaternion.identity;
+	
 	void Start()
 	{
 		if (skeletonController == null)
@@ -89,6 +91,9 @@ public class BonesArea : MonoBehaviour
 	{
 		if( currentPlatform == null )
 			return;
+		
+		if( Input.GetKeyDown(releasePlatformsKeycode) )
+			rotateFrom = currentPlatform.transform.parent.rotation;
 		
 		isReleasePlatforms = Input.GetKey(releasePlatformsKeycode);
 		if(isReleasePlatforms)
@@ -185,7 +190,7 @@ public class BonesArea : MonoBehaviour
 		
 		
 		////Platform Positioning
-		currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.position, transform.position, Time.deltaTime * movingSpeed);
+		currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, transform.position, Time.deltaTime * movingSpeed);
 		
 		////Platform Rotation
 		//if the bones are too close, we will have rotation issues
@@ -202,9 +207,9 @@ public class BonesArea : MonoBehaviour
 			}
 		}
 		//platform rotation happens here
-		currentPlatform.transform.parent.rotation = Quaternion.RotateTowards(
-			currentPlatform.transform.rotation,
-			Quaternion.AngleAxis(rotateTowardsAngle, Vector3.forward),
+		currentPlatform.transform.parent.rotation = Quaternion.Slerp(
+			rotateFrom,
+			Quaternion.AngleAxis(rotateTowardsAngle + currentPlatform.initialAngle, Vector3.forward),
 			Time.deltaTime * rotationSpeed);
 		
 		////Platform Scaling
