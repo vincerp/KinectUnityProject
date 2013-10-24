@@ -42,7 +42,7 @@ public class BonesArea : MonoBehaviour
 	
 	
 	public KeyCode releasePlatformsKeycode = KeyCode.Joystick1Button5;
-	public KeyCode switchPlatformKeycode = KeyCode.Joystick1Button6;
+	public KeyCode switchPlatformKeycode = KeyCode.Joystick1Button4;
 	public bool isReleasePlatforms = false;
 	
 	public bool displayPlatformAngles = true;
@@ -75,7 +75,7 @@ public class BonesArea : MonoBehaviour
 			
 			centralPoint = Vector3.Lerp(skeletonController.Spine.transform.position,
 				skeletonController.Shoulder_Center.transform.position,
-				0.7f);
+				0.5f);
 			break;
 		case SkeletonPart.SP_KNEES:
 			bones.bone1 = skeletonController.Knee_Left.transform;
@@ -109,6 +109,7 @@ public class BonesArea : MonoBehaviour
 	
 		if( Input.GetKeyDown( switchPlatformKeycode ) )
 		{
+			//print ("switch pressed");
 			if( platforms.Count > 1 )
 			{
 				int index = platforms.IndexOf( currentPlatform );
