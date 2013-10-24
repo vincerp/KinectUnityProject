@@ -43,7 +43,8 @@ public class BonesArea : MonoBehaviour
 	
 	public KeyCode releasePlatformsKeycode = KeyCode.Joystick1Button5;
 	public KeyCode switchPlatformKeycode = KeyCode.Joystick1Button4;
-	public bool isReleasePlatforms = false;
+	public bool canSwitchWhileHolding = false;
+	private bool isReleasePlatforms = false;
 	
 	public bool displayPlatformAngles = true;
 	
@@ -106,26 +107,66 @@ public class BonesArea : MonoBehaviour
 				currentPlatform.transform.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
 			}
 		}
-	
+		
+		
+		
 		if( Input.GetKeyDown( switchPlatformKeycode ) )
 		{
-			//print ("switch pressed");
-			if( platforms.Count > 1 )
+			int index, nextIndex, secondnext;
+			switch( platforms.Count )
 			{
-				int index = platforms.IndexOf( currentPlatform );
-				int nextIndex = index + 1 > platforms.Count - 1 ? 0 : index + 1;
-				int secondnext = nextIndex + 1 > platforms.Count - 1 ? 0 : nextIndex + 1;
+			case 0:
+			case 1:		
+				break;
+			case 2:
+				index = platforms.IndexOf( currentPlatform );
+				nextIndex = index + 1 > platforms.Count - 1 ? 0 : index + 1;
 				
-				platforms[index].colorState = ColorState.CS_NOTSELECTED;
-				platforms[index].transform.renderer.material.color = Color.white;
+				if( !isReleasePlatforms )
+					return;
 				
-				platforms[nextIndex].colorState = ColorState.CS_NOTACTIVE;
-				platforms[nextIndex].transform.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
+				platforms[index].colorState = ColorState.CS_NOTACTIVE;
+				platforms[index].transform.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
+
+				platforms[nextIndex].colorState = ColorState.CS_NEXTTOSELECT;
+				platforms[nextIndex].transform.renderer.material.color = Color.green;
+				break;
 				
-				platforms[secondnext].colorState = ColorState.CS_NEXTTOSELECT;
-				platforms[secondnext].transform.renderer.material.color = Color.green;
+			default:
+				index = platforms.IndexOf( currentPlatform );
+				nextIndex = index + 1 > platforms.Count - 1 ? 0 : index + 1;
+				secondnext = nextIndex + 1 > platforms.Count - 1 ? 0 : nextIndex + 1;
 				
-				currentPlatform = platforms[nextIndex];
+				if( !isReleasePlatforms )
+				{
+					platforms[index].colorState = ColorState.CS_NOTSELECTED;
+					platforms[index].transform.renderer.material.color = Color.white;
+					
+					platforms[nextIndex].colorState = ColorState.CS_NOTACTIVE;
+					platforms[nextIndex].transform.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
+					
+					platforms[secondnext].colorState = ColorState.CS_NEXTTOSELECT;
+					platforms[secondnext].transform.renderer.material.color = Color.green;
+					
+					currentPlatform = platforms[nextIndex];
+				}
+				else
+				{
+					if( !canSwitchWhileHolding )
+						return;
+					
+					platforms[nextIndex].colorState = ColorState.CS_NOTSELECTED;
+					platforms[nextIndex].transform.renderer.material.color = Color.white;
+					
+					platforms[secondnext].colorState = ColorState.CS_NEXTTOSELECT;
+					platforms[secondnext].transform.renderer.material.color = Color.green;
+					
+					//swapping
+					PlatformInfo temp = platforms[nextIndex];
+					platforms[nextIndex] = platforms[secondnext];
+					platforms[secondnext] = temp;	
+				}
+				break;
 			}
 		}
 	}
@@ -225,6 +266,8 @@ public class BonesArea : MonoBehaviour
 
 		switch( platforms.Count )
 		{
+		case 0:
+			break;
 		case 1:
 			platforms[index].colorState = ColorState.CS_NOTSELECTED;
 			platforms[index].transform.renderer.material.color = Color.white;
@@ -251,6 +294,7 @@ public class BonesArea : MonoBehaviour
 				platforms[nextIndex].transform.renderer.material.color = Color.white;
 			}
 			break;
+		// more than 2
 		default:
 			nextIndex = index + 1 > platforms.Count - 1 ? 0 : index + 1;
 			secondnext = nextIndex + 1 > platforms.Count - 1 ? 0 : nextIndex + 1;
