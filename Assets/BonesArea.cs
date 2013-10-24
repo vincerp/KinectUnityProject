@@ -76,7 +76,7 @@ public class BonesArea : MonoBehaviour
 			
 			centralPoint = Vector3.Lerp(skeletonController.Spine.transform.position,
 				skeletonController.Shoulder_Center.transform.position,
-				0.5f);
+				0.6f);
 			break;
 		case SkeletonPart.SP_KNEES:
 			bones.bone1 = skeletonController.Knee_Left.transform;
@@ -191,7 +191,7 @@ public class BonesArea : MonoBehaviour
 		//if the bones are too close, we will have rotation issues
 		//so we will only update rotation if they are not too close
 		if(bones.Distance > distanceDeadZone){
-			rotateTowardsAngle = (currentPlatform.initialAngle + (bones.Angle+boneAngleAdjustment)*boneAngleFactor);
+			rotateTowardsAngle = (bones.Angle+boneAngleAdjustment)*boneAngleFactor;
 			//now we snap the value so it doesn't flicker
 			if(rotateTowardsAngle%preciseSnap < preciseSnapRange || rotateTowardsAngle%preciseSnap > preciseSnap - preciseSnapRange) {
 				//here we snap to precise degree angles
