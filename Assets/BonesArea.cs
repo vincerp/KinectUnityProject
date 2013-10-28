@@ -15,8 +15,10 @@ public class BonesArea : MonoBehaviour
 	
 	
 	public BonePair bones = new BonePair();
+	
 	public List<PlatformInfo> platforms = new List<PlatformInfo>();
 	private PlatformInfo currentPlatform = null;
+	private int lastPlatformIndex = 0;
 	
 	public float boneScaleFactor = 1f;
 	public float boneAngleFactor = 1f;
@@ -38,14 +40,14 @@ public class BonesArea : MonoBehaviour
 	
 	private Vector3 centralPoint;
 	public float magnetMovementSpeed = 10f;
-	public float distanceXPositionMultiplier = 3f;
-	public float distanceYPositionMultiplier = 3f;
+	public float distancePositionMultiplier = 1f;
 	
 	
 	public KeyCode releasePlatformsKeycode = KeyCode.Joystick1Button5;
-	public KeyCode switchPlatformKeycode = KeyCode.Joystick1Button4;
-	public bool canSwitchWhileHolding = false;
-	private bool isReleasePlatforms = false;
+	public KeyCode grabPlatformKeycode = KeyCode.Joystick1Button4;
+	public KeyCode switchPlatformKeycode = KeyCode.Joystick1Button3;
+//	public bool canSwitchWhileHolding = false;
+//	private bool isReleasePlatforms = false;
 	
 	public bool displayPlatformAngles = true;
 	
@@ -90,104 +92,100 @@ public class BonesArea : MonoBehaviour
 	
 	void Update()
 	{
-		if( currentPlatform == null )
-			return;
-		
-		rotateFrom = currentPlatform.transform.parent.rotation;
-		
-		isReleasePlatforms = Input.GetKey(releasePlatformsKeycode);
-		if(isReleasePlatforms)
+		if( Input.GetKeyDown(grabPlatformKeycode) )
 		{
-			if( currentPlatform.colorState != ColorState.CS_ACTIVE )
-			{
+			if( platforms.Count == 0 )
+					return;
+			
+			if( currentPlatform == null )
+			{				
+				currentPlatform = platforms[lastPlatformIndex];
+				platforms.RemoveAt(lastPlatformIndex);
+				
+				if( lastPlatformIndex >= platforms.Count )
+					lastPlatformIndex = 0;
+				
 				currentPlatform.colorState = ColorState.CS_ACTIVE;
-				currentPlatform.transform.renderer.material.color = new Color(1f, 0f, 0f, 1f);
+				currentPlatform.transform.renderer.material.color = Color.red;
+				
+				if( platforms.Count > 0 )
+				{
+					platforms[lastPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
+					platforms[lastPlatformIndex].transform.renderer.material.color = Color.green;
+				}
 			}
-		}
-		else
-		{
-			if( currentPlatform.colorState != ColorState.CS_NOTACTIVE )
+			else
 			{
 				currentPlatform.colorState = ColorState.CS_NOTACTIVE;
-				currentPlatform.transform.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
+				currentPlatform.transform.renderer.material.color = Color.white;
+				
+				platforms.Add(currentPlatform);
+				
+				currentPlatform = platforms[lastPlatformIndex];
+				platforms.RemoveAt(lastPlatformIndex);
+				
+				currentPlatform.colorState = ColorState.CS_ACTIVE;
+				currentPlatform.transform.renderer.material.color = Color.red;
+				
+				if( platforms.Count > 0 )
+				{
+					platforms[lastPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
+					platforms[lastPlatformIndex].transform.renderer.material.color = Color.green;
+				}	
 			}
 		}
-		
-		
-		
-		if( Input.GetKeyDown( switchPlatformKeycode ) )
+			
+		if( Input.GetKeyDown(releasePlatformsKeycode) )
 		{
-			int index, nextIndex, secondnext;
-			switch( platforms.Count )
-			{
-			case 0:
-			case 1:		
-				break;
-			case 2:
-				index = platforms.IndexOf( currentPlatform );
-				nextIndex = index + 1 > platforms.Count - 1 ? 0 : index + 1;
-				
-				if( !isReleasePlatforms )
-					return;
-				
-				platforms[index].colorState = ColorState.CS_NOTACTIVE;
-				platforms[index].transform.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
 
-				platforms[nextIndex].colorState = ColorState.CS_NEXTTOSELECT;
-				platforms[nextIndex].transform.renderer.material.color = Color.green;
-				break;
-				
-			default:
-				index = platforms.IndexOf( currentPlatform );
-				nextIndex = index + 1 > platforms.Count - 1 ? 0 : index + 1;
-				secondnext = nextIndex + 1 > platforms.Count - 1 ? 0 : nextIndex + 1;
-				
-				if( !isReleasePlatforms )
-				{
-					platforms[index].colorState = ColorState.CS_NOTSELECTED;
-					platforms[index].transform.renderer.material.color = Color.white;
-					
-					platforms[nextIndex].colorState = ColorState.CS_NOTACTIVE;
-					platforms[nextIndex].transform.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
-					
-					platforms[secondnext].colorState = ColorState.CS_NEXTTOSELECT;
-					platforms[secondnext].transform.renderer.material.color = Color.green;
-					
-					currentPlatform = platforms[nextIndex];
-				}
-				else
-				{
-					if( !canSwitchWhileHolding )
-						return;
-					
-					platforms[nextIndex].colorState = ColorState.CS_NOTSELECTED;
-					platforms[nextIndex].transform.renderer.material.color = Color.white;
-					
-					platforms[secondnext].colorState = ColorState.CS_NEXTTOSELECT;
-					platforms[secondnext].transform.renderer.material.color = Color.green;
-					
-					//swapping
-					PlatformInfo temp = platforms[nextIndex];
-					platforms[nextIndex] = platforms[secondnext];
-					platforms[secondnext] = temp;	
-				}
-				break;
-			}
+			if( currentPlatform == null )
+				return;
+			
+			
+			currentPlatform.colorState = ColorState.CS_NOTACTIVE;
+			currentPlatform.transform.renderer.material.color = Color.white;
+			
+			platforms.Add(currentPlatform);
+			currentPlatform = null;
+			
+			platforms[lastPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
+			platforms[lastPlatformIndex].transform.renderer.material.color = Color.green;
+			
 		}
+		
+		if( Input.GetKeyDown(switchPlatformKeycode) )
+		{
+			if( platforms.Count < 2 )
+				return;
+			
+			platforms[lastPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
+			platforms[lastPlatformIndex].transform.renderer.material.color = Color.white;
+			
+			lastPlatformIndex = lastPlatformIndex + 1 > platforms.Count - 1 ? 0 : lastPlatformIndex + 1;
+			
+			platforms[lastPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
+			platforms[lastPlatformIndex].transform.renderer.material.color = Color.green;
+		}
+
 	}
 	
 	void FixedUpdate()
 	{
 		////Magnet positioning
-		Vector3 moveTo = (bones.CentralPoint - centralPoint);
-		moveTo = new Vector3(moveTo.x*distanceXPositionMultiplier, moveTo.y*distanceYPositionMultiplier, 0f);
-		moveTo += bones.CentralPoint;
-		
 		transform.position = Vector3.MoveTowards(transform.position,
-			moveTo,
+			bones.CentralPoint + (bones.CentralPoint - centralPoint)*distancePositionMultiplier,
 			magnetMovementSpeed);
 		
-		//Platform rotation getting
+		if ( currentPlatform == null ) return;
+		
+//		if(!isReleasePlatforms) return;
+		
+		
+		
+		////Platform Positioning
+		currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, transform.position, Time.deltaTime * movingSpeed);
+		
+		////Platform Rotation
 		//if the bones are too close, we will have rotation issues
 		//so we will only update rotation if they are not too close
 		if(bones.Distance > distanceDeadZone){
@@ -201,19 +199,8 @@ public class BonesArea : MonoBehaviour
 				rotateTowardsAngle = MathUtilities.SnapTo(rotateTowardsAngle, angleSnapFactor);
 			}
 		}
-		
-		if ( currentPlatform == null ) return;
-		
-		if(!isReleasePlatforms) return;
-		
-		
-		
-		////Platform Positioning
-		currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, transform.position, Time.deltaTime * movingSpeed);
-		
-		////Platform Rotation
 		//platform rotation happens here
-		currentPlatform.transform.parent.rotation = Quaternion.RotateTowards(
+		currentPlatform.transform.parent.rotation = Quaternion.Slerp(
 			rotateFrom,
 			Quaternion.AngleAxis(rotateTowardsAngle + currentPlatform.initialAngle, Vector3.forward),
 			Time.deltaTime * rotationSpeed);
@@ -240,19 +227,10 @@ public class BonesArea : MonoBehaviour
 		
 		pinfo.transform = other.transform;
 		
-		// if platforms is empty
-		if( currentPlatform == null )
-		{
-			currentPlatform = pinfo;
-			
-			pinfo.colorState = ColorState.CS_NOTACTIVE;
-			other.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
-		}
-		// if there is no next
-		else if( platforms.Count == 1 )
+		if( platforms.Count == 0 )
 		{
 			pinfo.colorState = ColorState.CS_NEXTTOSELECT;
-			other.renderer.renderer.material.color = Color.green;
+			pinfo.transform.renderer.material.color = Color.green;
 		}
 		
 		platforms.Add(pinfo);
@@ -265,142 +243,52 @@ public class BonesArea : MonoBehaviour
 							where x.transform.collider == other 
 							select x).First() as PlatformInfo;
 		
-		int index, nextIndex, secondnext;
-		index = platforms.IndexOf( currentPlatform );
+		int index = platforms.IndexOf( outPlatform );
 		
-		// 3 cases:
-		// when there is only one platform
-		// when there are 2 platforms (index == secondindex)
-		// when there are more
-		
-		// maybe there is a way to optimize cases
-
-		switch( platforms.Count )
-		{
-		case 0:
-			break;
-		case 1:
-			platforms[index].colorState = ColorState.CS_NOTSELECTED;
-			platforms[index].transform.renderer.material.color = Color.white;
-			
-			currentPlatform = null;
-			break;
-		case 2:
-			nextIndex = index + 1 > platforms.Count - 1 ? 0 : index + 1;
-			// if it is current
-			if( outPlatform == platforms[index] )
-			{		
-				platforms[index].colorState = ColorState.CS_NOTSELECTED;
-				platforms[index].transform.renderer.material.color = Color.white;
-				
-				platforms[nextIndex].colorState = ColorState.CS_NOTACTIVE;
-				platforms[nextIndex].transform.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
-
-				currentPlatform = platforms[nextIndex];
-			}
-			// if it is next one
-			else if( outPlatform == platforms[nextIndex] )
-			{
-				platforms[nextIndex].colorState = ColorState.CS_NOTSELECTED;
-				platforms[nextIndex].transform.renderer.material.color = Color.white;
-			}
-			break;
-		// more than 2
-		default:
-			nextIndex = index + 1 > platforms.Count - 1 ? 0 : index + 1;
-			secondnext = nextIndex + 1 > platforms.Count - 1 ? 0 : nextIndex + 1;
-			
-			// if it is current
-			if( outPlatform == platforms[index] )
-			{		
-				platforms[index].colorState = ColorState.CS_NOTSELECTED;
-				platforms[index].transform.renderer.material.color = Color.white;
-				
-				platforms[nextIndex].colorState = ColorState.CS_NOTACTIVE;
-				platforms[nextIndex].transform.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
-				
-				platforms[secondnext].colorState = ColorState.CS_NEXTTOSELECT;
-				platforms[secondnext].transform.renderer.material.color = Color.green;
-			
-				currentPlatform = platforms[nextIndex];
-			}
-			// if it is next one
-			else if( outPlatform == platforms[nextIndex] )
-			{
-				platforms[index].colorState = ColorState.CS_NOTACTIVE;
-				platforms[index].transform.renderer.material.color = new Color(1f, 0f, 0.7f, 1f);
-				
-				platforms[nextIndex].colorState = ColorState.CS_NOTSELECTED;
-				platforms[nextIndex].transform.renderer.material.color = Color.white;
-				
-				platforms[secondnext].colorState = ColorState.CS_NEXTTOSELECT;
-				platforms[secondnext].transform.renderer.material.color = Color.green;
-			
-				currentPlatform = platforms[index];
-			}
-			
-			break;
-		}
+		platforms[index].colorState = ColorState.CS_NOTACTIVE;
+		platforms[index].transform.renderer.material.color = Color.white;
 		
 		platforms.Remove(outPlatform);
+		
+		if( platforms.Count == 0 )
+			return;
+		
+		if( lastPlatformIndex == index )
+		{						
+			lastPlatformIndex = lastPlatformIndex - 1 < 0 ? 0 : lastPlatformIndex - 1;
+			
+			platforms[lastPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
+			platforms[lastPlatformIndex].transform.renderer.material.color = Color.green;
+		}
 	}
 	
 	void OnDrawGizmos(){
 		Gizmos.DrawWireSphere(transform.position, (collider as SphereCollider).radius);
-		Gizmos.DrawWireSphere(centralPoint, (collider as SphereCollider).radius/2f);
 	}
 	
-	public bool displayDebugValues = true;
-	public bool displayInterfaceBox = true;
-	
 	void OnGUI(){
-		//DEBUG GUI: Shows all the info for the magnet
-		if(displayDebugValues){
-			GUILayout.Box("Info:\nAngle:"+(bones.Angle+boneAngleAdjustment)+
-				"\nDistance:"+bones.Distance+
-				"\nGetBoneDistance:"+GetBoneDistance()+
-				"\nDistance from center:"+Vector3.Distance(centralPoint, bones.CentralPoint)+
-				"\n1:"+bones.bone1.position.ToString()+
-				"\n2:"+bones.bone2.position.ToString()+
-				"\ntrue angle:"+transform.localRotation.z
-				);
+		GUILayout.Box("Info:\nAngle:"+(bones.Angle+boneAngleAdjustment)+
+			"\nDistance:"+bones.Distance+
+			"\nGetBoneDistance:"+GetBoneDistance()+
+			"\n1:"+bones.bone1.position.ToString()+
+			"\n2:"+bones.bone2.position.ToString()+
+			"\ntrue angle:"+transform.localRotation.z
+			);
+		
+		GUILayout.Box("Angle:\n"+Vector3.Angle(Vector3.zero, Vector3.zero)+"\n"+Vector3.Angle(-Vector3.left, Vector3.right));
+		
+		
+		if(!displayPlatformAngles) return;
+		Rect _pos = new Rect(0f, 0f, 120f, 30f);
+		Vector3 _view;
+		foreach (var plat in platforms){
+			_view = Camera.main.WorldToScreenPoint(plat.transform.position);
 			
-			GUILayout.Box("Angle:\n"+Vector3.Angle(Vector3.zero, Vector3.zero)+"\n"+Vector3.Angle(-Vector3.left, Vector3.right));
+			_pos.x = _view.x-60f;
+			_pos.y = Screen.height-_view.y-15f;
+			GUI.color = new Color(0f,0f,0f,0.7f);
+			GUI.Label(_pos, "zº:"+plat.transform.rotation.eulerAngles.z);
 		}
-		
-		//DEBUG GUI: Shows angles for the platforms
-		if(!displayPlatformAngles){
-			Rect _pos = new Rect(0f, 0f, 120f, 30f);
-			Vector3 _view;
-			foreach (var plat in platforms){
-				_view = Camera.main.WorldToScreenPoint(plat.transform.position);
-				
-				_pos.x = _view.x-60f;
-				_pos.y = Screen.height-_view.y-15f;
-				GUI.color = new Color(0f,0f,0f,0.7f);
-				GUI.Label(_pos, "zº:"+plat.transform.rotation.eulerAngles.z);
-			}
-		}
-		
-		if(!displayInterfaceBox) return;
-		
-		Vector3 _magPos = Camera.main.WorldToScreenPoint(transform.position);
-		_magPos = new Vector3(_magPos.x, Screen.height - _magPos.y, 0f);
-		Rect _boxyThing = new Rect(0f, 0f, 20f, 20f);
-		float _distPercent = GetBoneDistance() / boneDistanceFactor.Evaluate(1000);
-		float _minimumDistanceAmount = 20f;
-		float _distAmount = 400f;
-		float _angle = rotateTowardsAngle;
-		_distAmount *= _distPercent;
-		_distAmount += _minimumDistanceAmount;
-		
-		GUIUtility.RotateAroundPivot(-rotateTowardsAngle, new Vector2(_magPos.x, _magPos.y));
-		_boxyThing.y = _magPos.y-10f;
-		_boxyThing.x = _magPos.x - _distAmount - 10f;
-		GUI.Box(_boxyThing, "");
-		print(""+_distAmount);
-		_boxyThing.x = _magPos.x + _distAmount - 10f;
-		GUI.Box(_boxyThing, "");
 	}
 }
 
