@@ -193,7 +193,7 @@ public class BonesArea : MonoBehaviour
 		if(bones.Distance > distanceDeadZone){
 			rotateTowardsAngle = (bones.Angle+boneAngleAdjustment)*boneAngleFactor;
 			//now we snap the value so it doesn't flicker
-			if(rotateTowardsAngle%preciseSnap < preciseSnapRange || rotateTowardsAngle%preciseSnap > preciseSnap - preciseSnapRange) {
+			if(Mathf.Abs(rotateTowardsAngle)%preciseSnap < preciseSnapRange || Mathf.Abs(rotateTowardsAngle)%preciseSnap > preciseSnap - preciseSnapRange) {
 				//here we snap to precise degree angles
 				rotateTowardsAngle = MathUtilities.SnapTo(rotateTowardsAngle, preciseSnap);
 			} else {
@@ -314,7 +314,6 @@ public class BonesArea : MonoBehaviour
 		_boxyThing.y = _magPos.y-10f;
 		_boxyThing.x = _magPos.x - _distAmount - 10f;
 		GUI.Box(_boxyThing, "");
-		print(""+_distAmount);
 		_boxyThing.x = _magPos.x + _distAmount - 10f;
 		GUI.Box(_boxyThing, "");
 
