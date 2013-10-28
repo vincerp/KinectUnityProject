@@ -49,7 +49,9 @@ public class BonesArea : MonoBehaviour
 //	public bool canSwitchWhileHolding = false;
 //	private bool isReleasePlatforms = false;
 	
+	public bool displayDebugValues = false;
 	public bool displayPlatformAngles = true;
+	public bool displayInterfaceBox = true;
 	
 	private Quaternion rotateFrom = Quaternion.identity;
 	
@@ -267,28 +269,55 @@ public class BonesArea : MonoBehaviour
 	}
 	
 	void OnGUI(){
-		GUILayout.Box("Info:\nAngle:"+(bones.Angle+boneAngleAdjustment)+
-			"\nDistance:"+bones.Distance+
-			"\nGetBoneDistance:"+GetBoneDistance()+
-			"\n1:"+bones.bone1.position.ToString()+
-			"\n2:"+bones.bone2.position.ToString()+
-			"\ntrue angle:"+transform.localRotation.z
-			);
-		
-		GUILayout.Box("Angle:\n"+Vector3.Angle(Vector3.zero, Vector3.zero)+"\n"+Vector3.Angle(-Vector3.left, Vector3.right));
-		
-		
-		if(!displayPlatformAngles) return;
-		Rect _pos = new Rect(0f, 0f, 120f, 30f);
-		Vector3 _view;
-		foreach (var plat in platforms){
-			_view = Camera.main.WorldToScreenPoint(plat.transform.position);
+		//DEBUG GUI: Shows all the info for the magnet
+		if(displayDebugValues){
+			GUILayout.Box("Info:\nAngle:"+(bones.Angle+boneAngleAdjustment)+
+				"\nDistance:"+bones.Distance+
+				"\nGetBoneDistance:"+GetBoneDistance()+
+				"\nDistance from center:"+Vector3.Distance(centralPoint, bones.CentralPoint)+
+				"\n1:"+bones.bone1.position.ToString()+
+				"\n2:"+bones.bone2.position.ToString()+
+				"\ntrue angle:"+transform.localRotation.z
+				);
 			
-			_pos.x = _view.x-60f;
-			_pos.y = Screen.height-_view.y-15f;
-			GUI.color = new Color(0f,0f,0f,0.7f);
-			GUI.Label(_pos, "zº:"+plat.transform.rotation.eulerAngles.z);
+			GUILayout.Box("Angle:\n"+Vector3.Angle(Vector3.zero, Vector3.zero)+"\n"+Vector3.Angle(-Vector3.left, Vector3.right));
 		}
+
+		//DEBUG GUI: Shows angles for the platforms
+		if(!displayPlatformAngles){
+			Rect _pos = new Rect(0f, 0f, 120f, 30f);
+			Vector3 _view;
+			foreach (var plat in platforms){
+				_view = Camera.main.WorldToScreenPoint(plat.transform.position);
+				
+				_pos.x = _view.x-60f;
+				_pos.y = Screen.height-_view.y-15f;
+				GUI.color = new Color(0f,0f,0f,0.7f);
+				GUI.Label(_pos, "zº:"+plat.transform.rotation.eulerAngles.z);
+			}
+		}
+
+		
+		if(!displayInterfaceBox) return;
+ 		
+		Vector3 _magPos = Camera.main.WorldToScreenPoint(transform.position);
+		_magPos = new Vector3(_magPos.x, Screen.height - _magPos.y, 0f);
+		Rect _boxyThing = new Rect(0f, 0f, 20f, 20f);
+		float _distPercent = GetBoneDistance() / boneDistanceFactor.Evaluate(1000);
+		float _minimumDistanceAmount = 20f;
+		float _distAmount = 400f;
+		float _angle = rotateTowardsAngle;
+		_distAmount *= _distPercent;
+		_distAmount += _minimumDistanceAmount;
+		
+		GUIUtility.RotateAroundPivot(-rotateTowardsAngle, new Vector2(_magPos.x, _magPos.y));
+		_boxyThing.y = _magPos.y-10f;
+		_boxyThing.x = _magPos.x - _distAmount - 10f;
+		GUI.Box(_boxyThing, "");
+		print(""+_distAmount);
+		_boxyThing.x = _magPos.x + _distAmount - 10f;
+		GUI.Box(_boxyThing, "");
+
 	}
 }
 
