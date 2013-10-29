@@ -21,6 +21,9 @@ public class Player : MonoBehaviour {
 	public bool enableWallJump = true;
 	public float slopeSlideLimit = 50f;
 	
+	public float maxHealth = 150f;
+	public float health = 100f;
+	
 	//Private stuff
 	RaycastHit bottomLeft, bottomMiddle, bottomRight, left, right;
 	bool isGrounded, isTouchingRight, isTouchingLeft;
@@ -56,6 +59,7 @@ public class Player : MonoBehaviour {
 					Vector3.down, out bottomRight,
 					0.6f  * _tr.localScale.y)
 			);
+			
 			isTouchingRight = Physics.Raycast (_tr.position, _tr.right, out right, 0.6f  * _tr.localScale.x);		
 			isTouchingLeft = Physics.Raycast (_tr.position, -_tr.right, out left, 0.6f  * _tr.localScale.x);		
 
@@ -160,6 +164,21 @@ public class Player : MonoBehaviour {
 		
 	}
 	
+	#region Health-related
+	public void ApplyDamage(float amount){
+		health += -amount;
+		if(health < 0f){
+			health = 0f;
+			Debug.Log(name + " is dead!");
+		}
+	}
+	
+	public void Heal(float amount){
+		health += amount;
+		if(health > maxHealth) health = maxHealth;
+	}
+	#endregion
+	
 #if UNITY_EDITOR
 	/*
 	 * Here we define editor-specific functions that are useful only for debuging.
@@ -174,6 +193,10 @@ public class Player : MonoBehaviour {
 			if(bottomRight.collider) gr = ""+ Vector3.Angle(bottomRight.normal, Vector3.up);
 		}
 		GUILayout.Label(gr);
+		
+		Vector3 _pos = Camera.main.WorldToScreenPoint(_tr.position);
+		Rect _rect = new Rect(_pos.x-40f, Screen.height-_pos.y-25f, 80f, 20f);
+		GUI.Box(_rect, "<3:"+health);
 		
 	}
 	
