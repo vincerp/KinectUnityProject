@@ -1,0 +1,1322 @@
+fileFormatVersion: 2
+guid: 945b9b0e9807c724f9d7b3056b8de6e0
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: group
+    100002: group1
+    100004: group10
+    100006: group10 1
+    100008: group10 2
+    100010: group10 3
+    100012: group100
+    100014: group100 1
+    100016: group100 2
+    100018: group100 3
+    100020: group101
+    100022: group101 1
+    100024: group101 2
+    100026: group101 3
+    100028: group102
+    100030: group102 1
+    100032: group102 2
+    100034: group102 3
+    100036: group103
+    100038: group103 1
+    100040: group103 2
+    100042: group103 3
+    100044: group104
+    100046: group104 1
+    100048: group104 2
+    100050: group104 3
+    100052: group105
+    100054: group105 1
+    100056: group105 2
+    100058: group105 3
+    100060: group106
+    100062: group106 1
+    100064: group106 2
+    100066: group106 3
+    100068: group107
+    100070: group107 1
+    100072: group107 2
+    100074: group107 3
+    100076: group108
+    100078: group108 1
+    100080: group108 2
+    100082: group108 3
+    100084: group109
+    100086: group109 1
+    100088: group109 2
+    100090: group109 3
+    100092: group11
+    100094: group11 1
+    100096: group11 2
+    100098: group11 3
+    100100: group110
+    100102: group110 1
+    100104: group110 2
+    100106: group110 3
+    100108: group111
+    100110: group111 1
+    100112: group111 2
+    100114: group111 3
+    100116: group112
+    100118: group112 1
+    100120: group112 2
+    100122: group112 3
+    100124: group113
+    100126: group113 1
+    100128: group113 2
+    100130: group113 3
+    100132: group114
+    100134: group114 1
+    100136: group114 2
+    100138: group114 3
+    100140: group115
+    100142: group115 1
+    100144: group115 2
+    100146: group115 3
+    100148: group116
+    100150: group116 1
+    100152: group116 2
+    100154: group116 3
+    100156: group117
+    100158: group118
+    100160: group118 1
+    100162: group118 2
+    100164: group118 3
+    100166: group119
+    100168: group119 1
+    100170: group119 2
+    100172: group119 3
+    100174: group12
+    100176: group12 1
+    100178: group12 2
+    100180: group12 3
+    100182: group120
+    100184: group120 1
+    100186: group120 2
+    100188: group120 3
+    100190: group121
+    100192: group121 1
+    100194: group121 2
+    100196: group121 3
+    100198: group122
+    100200: group122 1
+    100202: group122 2
+    100204: group122 3
+    100206: group123
+    100208: group123 1
+    100210: group123 2
+    100212: group123 3
+    100214: group124
+    100216: group124 1
+    100218: group124 2
+    100220: group124 3
+    100222: group125
+    100224: group125 1
+    100226: group125 2
+    100228: group125 3
+    100230: group126
+    100232: group126 1
+    100234: group126 2
+    100236: group126 3
+    100238: group127
+    100240: group127 1
+    100242: group127 2
+    100244: group127 3
+    100246: group128
+    100248: group128 1
+    100250: group128 2
+    100252: group128 3
+    100254: group129
+    100256: group129 1
+    100258: group129 2
+    100260: group129 3
+    100262: group13
+    100264: group13 1
+    100266: group13 2
+    100268: group13 3
+    100270: group130
+    100272: group14
+    100274: group14 1
+    100276: group14 2
+    100278: group14 3
+    100280: group15
+    100282: group15 1
+    100284: group15 2
+    100286: group15 3
+    100288: group16
+    100290: group16 1
+    100292: group16 2
+    100294: group16 3
+    100296: group17
+    100298: group17 1
+    100300: group17 2
+    100302: group17 3
+    100304: group18
+    100306: group18 1
+    100308: group18 2
+    100310: group18 3
+    100312: group19
+    100314: group19 1
+    100316: group19 2
+    100318: group19 3
+    100320: group2
+    100322: group20
+    100324: group20 1
+    100326: group20 2
+    100328: group20 3
+    100330: group21
+    100332: group21 1
+    100334: group21 2
+    100336: group21 3
+    100338: group22
+    100340: group22 1
+    100342: group22 2
+    100344: group22 3
+    100346: group23
+    100348: group23 1
+    100350: group23 2
+    100352: group23 3
+    100354: group24
+    100356: group24 1
+    100358: group24 2
+    100360: group24 3
+    100362: group25
+    100364: group25 1
+    100366: group25 2
+    100368: group25 3
+    100370: group26
+    100372: group26 1
+    100374: group26 2
+    100376: group26 3
+    100378: group27
+    100380: group27 1
+    100382: group27 2
+    100384: group27 3
+    100386: group28
+    100388: group28 1
+    100390: group28 2
+    100392: group28 3
+    100394: group29
+    100396: group29 1
+    100398: group29 2
+    100400: group29 3
+    100402: group3
+    100404: group30
+    100406: group30 1
+    100408: group30 2
+    100410: group30 3
+    100412: group31
+    100414: group31 1
+    100416: group31 2
+    100418: group31 3
+    100420: group32
+    100422: group32 1
+    100424: group32 2
+    100426: group32 3
+    100428: group33
+    100430: group33 1
+    100432: group33 2
+    100434: group33 3
+    100436: group34
+    100438: group34 1
+    100440: group34 2
+    100442: group34 3
+    100444: group35
+    100446: group35 1
+    100448: group35 2
+    100450: group35 3
+    100452: group36
+    100454: group36 1
+    100456: group36 2
+    100458: group36 3
+    100460: group37
+    100462: group37 1
+    100464: group37 2
+    100466: group37 3
+    100468: group38
+    100470: group38 1
+    100472: group38 2
+    100474: group38 3
+    100476: group39
+    100478: group39 1
+    100480: group39 2
+    100482: group39 3
+    100484: group4
+    100486: group4 1
+    100488: group4 2
+    100490: group4 3
+    100492: group40
+    100494: group40 1
+    100496: group40 2
+    100498: group40 3
+    100500: group41
+    100502: group41 1
+    100504: group41 2
+    100506: group41 3
+    100508: group42
+    100510: group42 1
+    100512: group42 2
+    100514: group42 3
+    100516: group43
+    100518: group43 1
+    100520: group43 2
+    100522: group43 3
+    100524: group44
+    100526: group44 1
+    100528: group44 2
+    100530: group44 3
+    100532: group45
+    100534: group45 1
+    100536: group45 2
+    100538: group45 3
+    100540: group46
+    100542: group46 1
+    100544: group46 2
+    100546: group46 3
+    100548: group47
+    100550: group47 1
+    100552: group47 2
+    100554: group47 3
+    100556: group48
+    100558: group48 1
+    100560: group48 2
+    100562: group48 3
+    100564: group49
+    100566: group49 1
+    100568: group49 2
+    100570: group49 3
+    100572: group5
+    100574: group5 1
+    100576: group5 2
+    100578: group5 3
+    100580: group50
+    100582: group50 1
+    100584: group50 2
+    100586: group50 3
+    100588: group51
+    100590: group51 1
+    100592: group51 2
+    100594: group51 3
+    100596: group52
+    100598: group52 1
+    100600: group52 2
+    100602: group52 3
+    100604: group53
+    100606: group53 1
+    100608: group53 2
+    100610: group53 3
+    100612: group54
+    100614: group54 1
+    100616: group54 2
+    100618: group54 3
+    100620: group55
+    100622: group55 1
+    100624: group55 2
+    100626: group55 3
+    100628: group56
+    100630: group56 1
+    100632: group56 2
+    100634: group56 3
+    100636: group57
+    100638: group57 1
+    100640: group57 2
+    100642: group57 3
+    100644: group58
+    100646: group58 1
+    100648: group58 2
+    100650: group58 3
+    100652: group59
+    100654: group59 1
+    100656: group59 2
+    100658: group59 3
+    100660: group6
+    100662: group6 1
+    100664: group6 2
+    100666: group6 3
+    100668: group60
+    100670: group60 1
+    100672: group60 2
+    100674: group60 3
+    100676: group61
+    100678: group61 1
+    100680: group61 2
+    100682: group61 3
+    100684: group62
+    100686: group62 1
+    100688: group62 2
+    100690: group62 3
+    100692: group63
+    100694: group63 1
+    100696: group63 2
+    100698: group63 3
+    100700: group64
+    100702: group64 1
+    100704: group64 2
+    100706: group64 3
+    100708: group65
+    100710: group65 1
+    100712: group65 2
+    100714: group65 3
+    100716: group66
+    100718: group66 1
+    100720: group66 2
+    100722: group66 3
+    100724: group67
+    100726: group67 1
+    100728: group67 2
+    100730: group67 3
+    100732: group68
+    100734: group68 1
+    100736: group68 2
+    100738: group68 3
+    100740: group69
+    100742: group69 1
+    100744: group69 2
+    100746: group69 3
+    100748: group7
+    100750: group7 1
+    100752: group7 2
+    100754: group7 3
+    100756: group70
+    100758: group70 1
+    100760: group70 2
+    100762: group70 3
+    100764: group71
+    100766: group71 1
+    100768: group71 2
+    100770: group71 3
+    100772: group72
+    100774: group72 1
+    100776: group72 2
+    100778: group72 3
+    100780: group73
+    100782: group73 1
+    100784: group73 2
+    100786: group73 3
+    100788: group74
+    100790: group74 1
+    100792: group74 2
+    100794: group74 3
+    100796: group75
+    100798: group75 1
+    100800: group75 2
+    100802: group75 3
+    100804: group76
+    100806: group76 1
+    100808: group76 2
+    100810: group76 3
+    100812: group77
+    100814: group77 1
+    100816: group77 2
+    100818: group77 3
+    100820: group78
+    100822: group78 1
+    100824: group78 2
+    100826: group78 3
+    100828: group79
+    100830: group79 1
+    100832: group79 2
+    100834: group79 3
+    100836: group8
+    100838: group8 1
+    100840: group8 2
+    100842: group8 3
+    100844: group80
+    100846: group80 1
+    100848: group80 2
+    100850: group80 3
+    100852: group81
+    100854: group81 1
+    100856: group81 2
+    100858: group81 3
+    100860: group82
+    100862: group82 1
+    100864: group82 2
+    100866: group82 3
+    100868: group83
+    100870: group83 1
+    100872: group83 2
+    100874: group83 3
+    100876: group84
+    100878: group84 1
+    100880: group84 2
+    100882: group84 3
+    100884: group85
+    100886: group85 1
+    100888: group85 2
+    100890: group85 3
+    100892: group86
+    100894: group86 1
+    100896: group86 2
+    100898: group86 3
+    100900: group87
+    100902: group87 1
+    100904: group87 2
+    100906: group87 3
+    100908: group88
+    100910: group88 1
+    100912: group88 2
+    100914: group88 3
+    100916: group89
+    100918: group89 1
+    100920: group89 2
+    100922: group89 3
+    100924: group9
+    100926: group9 1
+    100928: group9 2
+    100930: group9 3
+    100932: group90
+    100934: group90 1
+    100936: group90 2
+    100938: group90 3
+    100940: group91
+    100942: group91 1
+    100944: group91 2
+    100946: group91 3
+    100948: group92
+    100950: group92 1
+    100952: group92 2
+    100954: group92 3
+    100956: group93
+    100958: group93 1
+    100960: group93 2
+    100962: group93 3
+    100964: group94
+    100966: group94 1
+    100968: group94 2
+    100970: group94 3
+    100972: group95
+    100974: group95 1
+    100976: group95 2
+    100978: group95 3
+    100980: group96
+    100982: group96 1
+    100984: group96 2
+    100986: group96 3
+    100988: group97
+    100990: group97 1
+    100992: group97 2
+    100994: group97 3
+    100996: group98
+    100998: group98 1
+    101000: group98 2
+    101002: group98 3
+    101004: group99
+    101006: group99 1
+    101008: group99 2
+    101010: group99 3
+    101012: joint1
+    101014: joint2
+    101016: joint2 1
+    101018: joint21
+    101020: joint22
+    101022: joint23
+    101024: joint24
+    101026: joint25
+    101028: joint27
+    101030: joint28
+    101032: joint29
+    101034: joint3
+    101036: joint3 1
+    101038: joint31
+    101040: joint32
+    101042: joint32 1
+    101044: joint33
+    101046: joint33 1
+    101048: joint34
+    101050: joint34 1
+    101052: joint35
+    101054: joint35 1
+    101056: joint36
+    101058: joint36 1
+    101060: joint36 2
+    101062: joint36 3
+    101064: joint36 4
+    101066: joint36 5
+    101068: joint36 6
+    101070: joint36 7
+    101072: joint37
+    101074: joint37 1
+    101076: joint37 2
+    101078: joint37 3
+    101080: joint37 4
+    101082: joint37 5
+    101084: joint37 6
+    101086: joint37 7
+    101088: joint38
+    101090: joint38 1
+    101092: joint38 2
+    101094: joint38 3
+    101096: joint38 4
+    101098: joint38 5
+    101100: joint38 6
+    101102: joint38 7
+    101104: joint39
+    101106: joint39 1
+    101108: joint4
+    101110: joint4 1
+    101112: joint40
+    101114: joint40 1
+    101116: joint41
+    101118: joint41 1
+    101120: joint42
+    101122: joint42 1
+    101124: joint43
+    101126: joint43 1
+    101128: joint44
+    101130: joint44 1
+    101132: joint45
+    101134: joint45 1
+    101136: joint5
+    101138: joint5 1
+    101140: joint72
+    101142: joint78
+    101144: mma_people_amim_24_no_kinimatiks_01_group
+    101146: mma_people_amim_24_no_kinimatiks_01_group1
+    101148: mma_people_amim_24_no_kinimatiks_01_group2
+    101150: mma_people_amim_24_no_kinimatiks_01_group3
+    101152: mma_people_amim_24_no_kinimatiks_01_nurbsCube1
+    101154: mma_people_amim_24_no_kinimatiks_01_nurbsSquare1
+    101156: mma_people_amim_24_no_kinimatiks_01_nurbsSquare2
+    101158: mma_people_amim_24_no_kinimatiks_01_nurbsSquare3
+    101160: mma_people_amim_24_no_kinimatiks_11_Pos_01_group
+    101162: mma_people_amim_24_no_kinimatiks_11_Pos_01_group1
+    101164: mma_people_amim_24_no_kinimatiks_11_Pos_01_group117
+    101166: mma_people_amim_24_no_kinimatiks_11_Pos_01_group130
+    101168: mma_people_amim_24_no_kinimatiks_11_Pos_01_group2
+    101170: mma_people_amim_24_no_kinimatiks_11_Pos_01_group3
+    101172: mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsCube1
+    101174: mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsSquare1
+    101176: mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsSquare2
+    101178: mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsSquare3
+    101180: mma_people_amim_24_no_kinimatiks_89_cop__group
+    101182: mma_people_amim_24_no_kinimatiks_89_cop__group1
+    101184: mma_people_amim_24_no_kinimatiks_89_cop__group117
+    101186: mma_people_amim_24_no_kinimatiks_89_cop__group130
+    101188: mma_people_amim_24_no_kinimatiks_89_cop__group2
+    101190: mma_people_amim_24_no_kinimatiks_89_cop__group3
+    101192: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_group
+    101194: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_group1
+    101196: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_group2
+    101198: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_group3
+    101200: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_nurbsCube1
+    101202: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_nurbsSquare1
+    101204: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_nurbsSquare2
+    101206: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_nurbsSquare3
+    101208: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_group
+    101210: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_group1
+    101212: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_group117
+    101214: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_group130
+    101216: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_group2
+    101218: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_group3
+    101220: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsCube1
+    101222: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsSquare1
+    101224: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsSquare2
+    101226: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsSquare3
+    101228: mma_people_amim_24_no_kinimatiks_89_cop__nurbsCube1
+    101230: mma_people_amim_24_no_kinimatiks_89_cop__nurbsSquare1
+    101232: mma_people_amim_24_no_kinimatiks_89_cop__nurbsSquare2
+    101234: mma_people_amim_24_no_kinimatiks_89_cop__nurbsSquare3
+    101236: mma_people_UV_03:Group2
+    101238: mma_Shorti_Low_01:polySurface1
+    101240: nack
+    101242: null1
+    101244: null1 1
+    101246: null1 2
+    101248: null1 3
+    101250: nurbsCube1
+    101252: nurbsSquare1
+    101254: nurbsSquare2
+    101256: nurbsSquare3
+    101258: //RootNode
+    400000: group
+    400002: group1
+    400004: group10
+    400006: group10 1
+    400008: group10 2
+    400010: group10 3
+    400012: group100
+    400014: group100 1
+    400016: group100 2
+    400018: group100 3
+    400020: group101
+    400022: group101 1
+    400024: group101 2
+    400026: group101 3
+    400028: group102
+    400030: group102 1
+    400032: group102 2
+    400034: group102 3
+    400036: group103
+    400038: group103 1
+    400040: group103 2
+    400042: group103 3
+    400044: group104
+    400046: group104 1
+    400048: group104 2
+    400050: group104 3
+    400052: group105
+    400054: group105 1
+    400056: group105 2
+    400058: group105 3
+    400060: group106
+    400062: group106 1
+    400064: group106 2
+    400066: group106 3
+    400068: group107
+    400070: group107 1
+    400072: group107 2
+    400074: group107 3
+    400076: group108
+    400078: group108 1
+    400080: group108 2
+    400082: group108 3
+    400084: group109
+    400086: group109 1
+    400088: group109 2
+    400090: group109 3
+    400092: group11
+    400094: group11 1
+    400096: group11 2
+    400098: group11 3
+    400100: group110
+    400102: group110 1
+    400104: group110 2
+    400106: group110 3
+    400108: group111
+    400110: group111 1
+    400112: group111 2
+    400114: group111 3
+    400116: group112
+    400118: group112 1
+    400120: group112 2
+    400122: group112 3
+    400124: group113
+    400126: group113 1
+    400128: group113 2
+    400130: group113 3
+    400132: group114
+    400134: group114 1
+    400136: group114 2
+    400138: group114 3
+    400140: group115
+    400142: group115 1
+    400144: group115 2
+    400146: group115 3
+    400148: group116
+    400150: group116 1
+    400152: group116 2
+    400154: group116 3
+    400156: group117
+    400158: group118
+    400160: group118 1
+    400162: group118 2
+    400164: group118 3
+    400166: group119
+    400168: group119 1
+    400170: group119 2
+    400172: group119 3
+    400174: group12
+    400176: group12 1
+    400178: group12 2
+    400180: group12 3
+    400182: group120
+    400184: group120 1
+    400186: group120 2
+    400188: group120 3
+    400190: group121
+    400192: group121 1
+    400194: group121 2
+    400196: group121 3
+    400198: group122
+    400200: group122 1
+    400202: group122 2
+    400204: group122 3
+    400206: group123
+    400208: group123 1
+    400210: group123 2
+    400212: group123 3
+    400214: group124
+    400216: group124 1
+    400218: group124 2
+    400220: group124 3
+    400222: group125
+    400224: group125 1
+    400226: group125 2
+    400228: group125 3
+    400230: group126
+    400232: group126 1
+    400234: group126 2
+    400236: group126 3
+    400238: group127
+    400240: group127 1
+    400242: group127 2
+    400244: group127 3
+    400246: group128
+    400248: group128 1
+    400250: group128 2
+    400252: group128 3
+    400254: group129
+    400256: group129 1
+    400258: group129 2
+    400260: group129 3
+    400262: group13
+    400264: group13 1
+    400266: group13 2
+    400268: group13 3
+    400270: group130
+    400272: group14
+    400274: group14 1
+    400276: group14 2
+    400278: group14 3
+    400280: group15
+    400282: group15 1
+    400284: group15 2
+    400286: group15 3
+    400288: group16
+    400290: group16 1
+    400292: group16 2
+    400294: group16 3
+    400296: group17
+    400298: group17 1
+    400300: group17 2
+    400302: group17 3
+    400304: group18
+    400306: group18 1
+    400308: group18 2
+    400310: group18 3
+    400312: group19
+    400314: group19 1
+    400316: group19 2
+    400318: group19 3
+    400320: group2
+    400322: group20
+    400324: group20 1
+    400326: group20 2
+    400328: group20 3
+    400330: group21
+    400332: group21 1
+    400334: group21 2
+    400336: group21 3
+    400338: group22
+    400340: group22 1
+    400342: group22 2
+    400344: group22 3
+    400346: group23
+    400348: group23 1
+    400350: group23 2
+    400352: group23 3
+    400354: group24
+    400356: group24 1
+    400358: group24 2
+    400360: group24 3
+    400362: group25
+    400364: group25 1
+    400366: group25 2
+    400368: group25 3
+    400370: group26
+    400372: group26 1
+    400374: group26 2
+    400376: group26 3
+    400378: group27
+    400380: group27 1
+    400382: group27 2
+    400384: group27 3
+    400386: group28
+    400388: group28 1
+    400390: group28 2
+    400392: group28 3
+    400394: group29
+    400396: group29 1
+    400398: group29 2
+    400400: group29 3
+    400402: group3
+    400404: group30
+    400406: group30 1
+    400408: group30 2
+    400410: group30 3
+    400412: group31
+    400414: group31 1
+    400416: group31 2
+    400418: group31 3
+    400420: group32
+    400422: group32 1
+    400424: group32 2
+    400426: group32 3
+    400428: group33
+    400430: group33 1
+    400432: group33 2
+    400434: group33 3
+    400436: group34
+    400438: group34 1
+    400440: group34 2
+    400442: group34 3
+    400444: group35
+    400446: group35 1
+    400448: group35 2
+    400450: group35 3
+    400452: group36
+    400454: group36 1
+    400456: group36 2
+    400458: group36 3
+    400460: group37
+    400462: group37 1
+    400464: group37 2
+    400466: group37 3
+    400468: group38
+    400470: group38 1
+    400472: group38 2
+    400474: group38 3
+    400476: group39
+    400478: group39 1
+    400480: group39 2
+    400482: group39 3
+    400484: group4
+    400486: group4 1
+    400488: group4 2
+    400490: group4 3
+    400492: group40
+    400494: group40 1
+    400496: group40 2
+    400498: group40 3
+    400500: group41
+    400502: group41 1
+    400504: group41 2
+    400506: group41 3
+    400508: group42
+    400510: group42 1
+    400512: group42 2
+    400514: group42 3
+    400516: group43
+    400518: group43 1
+    400520: group43 2
+    400522: group43 3
+    400524: group44
+    400526: group44 1
+    400528: group44 2
+    400530: group44 3
+    400532: group45
+    400534: group45 1
+    400536: group45 2
+    400538: group45 3
+    400540: group46
+    400542: group46 1
+    400544: group46 2
+    400546: group46 3
+    400548: group47
+    400550: group47 1
+    400552: group47 2
+    400554: group47 3
+    400556: group48
+    400558: group48 1
+    400560: group48 2
+    400562: group48 3
+    400564: group49
+    400566: group49 1
+    400568: group49 2
+    400570: group49 3
+    400572: group5
+    400574: group5 1
+    400576: group5 2
+    400578: group5 3
+    400580: group50
+    400582: group50 1
+    400584: group50 2
+    400586: group50 3
+    400588: group51
+    400590: group51 1
+    400592: group51 2
+    400594: group51 3
+    400596: group52
+    400598: group52 1
+    400600: group52 2
+    400602: group52 3
+    400604: group53
+    400606: group53 1
+    400608: group53 2
+    400610: group53 3
+    400612: group54
+    400614: group54 1
+    400616: group54 2
+    400618: group54 3
+    400620: group55
+    400622: group55 1
+    400624: group55 2
+    400626: group55 3
+    400628: group56
+    400630: group56 1
+    400632: group56 2
+    400634: group56 3
+    400636: group57
+    400638: group57 1
+    400640: group57 2
+    400642: group57 3
+    400644: group58
+    400646: group58 1
+    400648: group58 2
+    400650: group58 3
+    400652: group59
+    400654: group59 1
+    400656: group59 2
+    400658: group59 3
+    400660: group6
+    400662: group6 1
+    400664: group6 2
+    400666: group6 3
+    400668: group60
+    400670: group60 1
+    400672: group60 2
+    400674: group60 3
+    400676: group61
+    400678: group61 1
+    400680: group61 2
+    400682: group61 3
+    400684: group62
+    400686: group62 1
+    400688: group62 2
+    400690: group62 3
+    400692: group63
+    400694: group63 1
+    400696: group63 2
+    400698: group63 3
+    400700: group64
+    400702: group64 1
+    400704: group64 2
+    400706: group64 3
+    400708: group65
+    400710: group65 1
+    400712: group65 2
+    400714: group65 3
+    400716: group66
+    400718: group66 1
+    400720: group66 2
+    400722: group66 3
+    400724: group67
+    400726: group67 1
+    400728: group67 2
+    400730: group67 3
+    400732: group68
+    400734: group68 1
+    400736: group68 2
+    400738: group68 3
+    400740: group69
+    400742: group69 1
+    400744: group69 2
+    400746: group69 3
+    400748: group7
+    400750: group7 1
+    400752: group7 2
+    400754: group7 3
+    400756: group70
+    400758: group70 1
+    400760: group70 2
+    400762: group70 3
+    400764: group71
+    400766: group71 1
+    400768: group71 2
+    400770: group71 3
+    400772: group72
+    400774: group72 1
+    400776: group72 2
+    400778: group72 3
+    400780: group73
+    400782: group73 1
+    400784: group73 2
+    400786: group73 3
+    400788: group74
+    400790: group74 1
+    400792: group74 2
+    400794: group74 3
+    400796: group75
+    400798: group75 1
+    400800: group75 2
+    400802: group75 3
+    400804: group76
+    400806: group76 1
+    400808: group76 2
+    400810: group76 3
+    400812: group77
+    400814: group77 1
+    400816: group77 2
+    400818: group77 3
+    400820: group78
+    400822: group78 1
+    400824: group78 2
+    400826: group78 3
+    400828: group79
+    400830: group79 1
+    400832: group79 2
+    400834: group79 3
+    400836: group8
+    400838: group8 1
+    400840: group8 2
+    400842: group8 3
+    400844: group80
+    400846: group80 1
+    400848: group80 2
+    400850: group80 3
+    400852: group81
+    400854: group81 1
+    400856: group81 2
+    400858: group81 3
+    400860: group82
+    400862: group82 1
+    400864: group82 2
+    400866: group82 3
+    400868: group83
+    400870: group83 1
+    400872: group83 2
+    400874: group83 3
+    400876: group84
+    400878: group84 1
+    400880: group84 2
+    400882: group84 3
+    400884: group85
+    400886: group85 1
+    400888: group85 2
+    400890: group85 3
+    400892: group86
+    400894: group86 1
+    400896: group86 2
+    400898: group86 3
+    400900: group87
+    400902: group87 1
+    400904: group87 2
+    400906: group87 3
+    400908: group88
+    400910: group88 1
+    400912: group88 2
+    400914: group88 3
+    400916: group89
+    400918: group89 1
+    400920: group89 2
+    400922: group89 3
+    400924: group9
+    400926: group9 1
+    400928: group9 2
+    400930: group9 3
+    400932: group90
+    400934: group90 1
+    400936: group90 2
+    400938: group90 3
+    400940: group91
+    400942: group91 1
+    400944: group91 2
+    400946: group91 3
+    400948: group92
+    400950: group92 1
+    400952: group92 2
+    400954: group92 3
+    400956: group93
+    400958: group93 1
+    400960: group93 2
+    400962: group93 3
+    400964: group94
+    400966: group94 1
+    400968: group94 2
+    400970: group94 3
+    400972: group95
+    400974: group95 1
+    400976: group95 2
+    400978: group95 3
+    400980: group96
+    400982: group96 1
+    400984: group96 2
+    400986: group96 3
+    400988: group97
+    400990: group97 1
+    400992: group97 2
+    400994: group97 3
+    400996: group98
+    400998: group98 1
+    401000: group98 2
+    401002: group98 3
+    401004: group99
+    401006: group99 1
+    401008: group99 2
+    401010: group99 3
+    401012: joint1
+    401014: joint2
+    401016: joint2 1
+    401018: joint21
+    401020: joint22
+    401022: joint23
+    401024: joint24
+    401026: joint25
+    401028: joint27
+    401030: joint28
+    401032: joint29
+    401034: joint3
+    401036: joint3 1
+    401038: joint31
+    401040: joint32
+    401042: joint32 1
+    401044: joint33
+    401046: joint33 1
+    401048: joint34
+    401050: joint34 1
+    401052: joint35
+    401054: joint35 1
+    401056: joint36
+    401058: joint36 1
+    401060: joint36 2
+    401062: joint36 3
+    401064: joint36 4
+    401066: joint36 5
+    401068: joint36 6
+    401070: joint36 7
+    401072: joint37
+    401074: joint37 1
+    401076: joint37 2
+    401078: joint37 3
+    401080: joint37 4
+    401082: joint37 5
+    401084: joint37 6
+    401086: joint37 7
+    401088: joint38
+    401090: joint38 1
+    401092: joint38 2
+    401094: joint38 3
+    401096: joint38 4
+    401098: joint38 5
+    401100: joint38 6
+    401102: joint38 7
+    401104: joint39
+    401106: joint39 1
+    401108: joint4
+    401110: joint4 1
+    401112: joint40
+    401114: joint40 1
+    401116: joint41
+    401118: joint41 1
+    401120: joint42
+    401122: joint42 1
+    401124: joint43
+    401126: joint43 1
+    401128: joint44
+    401130: joint44 1
+    401132: joint45
+    401134: joint45 1
+    401136: joint5
+    401138: joint5 1
+    401140: joint72
+    401142: joint78
+    401144: mma_people_amim_24_no_kinimatiks_01_group
+    401146: mma_people_amim_24_no_kinimatiks_01_group1
+    401148: mma_people_amim_24_no_kinimatiks_01_group2
+    401150: mma_people_amim_24_no_kinimatiks_01_group3
+    401152: mma_people_amim_24_no_kinimatiks_01_nurbsCube1
+    401154: mma_people_amim_24_no_kinimatiks_01_nurbsSquare1
+    401156: mma_people_amim_24_no_kinimatiks_01_nurbsSquare2
+    401158: mma_people_amim_24_no_kinimatiks_01_nurbsSquare3
+    401160: mma_people_amim_24_no_kinimatiks_11_Pos_01_group
+    401162: mma_people_amim_24_no_kinimatiks_11_Pos_01_group1
+    401164: mma_people_amim_24_no_kinimatiks_11_Pos_01_group117
+    401166: mma_people_amim_24_no_kinimatiks_11_Pos_01_group130
+    401168: mma_people_amim_24_no_kinimatiks_11_Pos_01_group2
+    401170: mma_people_amim_24_no_kinimatiks_11_Pos_01_group3
+    401172: mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsCube1
+    401174: mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsSquare1
+    401176: mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsSquare2
+    401178: mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsSquare3
+    401180: mma_people_amim_24_no_kinimatiks_89_cop__group
+    401182: mma_people_amim_24_no_kinimatiks_89_cop__group1
+    401184: mma_people_amim_24_no_kinimatiks_89_cop__group117
+    401186: mma_people_amim_24_no_kinimatiks_89_cop__group130
+    401188: mma_people_amim_24_no_kinimatiks_89_cop__group2
+    401190: mma_people_amim_24_no_kinimatiks_89_cop__group3
+    401192: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_group
+    401194: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_group1
+    401196: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_group2
+    401198: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_group3
+    401200: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_nurbsCube1
+    401202: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_nurbsSquare1
+    401204: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_nurbsSquare2
+    401206: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_01_nurbsSquare3
+    401208: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_group
+    401210: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_group1
+    401212: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_group117
+    401214: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_group130
+    401216: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_group2
+    401218: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_group3
+    401220: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsCube1
+    401222: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsSquare1
+    401224: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsSquare2
+    401226: mma_people_amim_24_no_kinimatiks_89_cop__mma_people_amim_24_no_kinimatiks_11_Pos_01_nurbsSquare3
+    401228: mma_people_amim_24_no_kinimatiks_89_cop__nurbsCube1
+    401230: mma_people_amim_24_no_kinimatiks_89_cop__nurbsSquare1
+    401232: mma_people_amim_24_no_kinimatiks_89_cop__nurbsSquare2
+    401234: mma_people_amim_24_no_kinimatiks_89_cop__nurbsSquare3
+    401236: mma_people_UV_03:Group2
+    401238: mma_Shorti_Low_01:polySurface1
+    401240: nack
+    401242: null1
+    401244: null1 1
+    401246: null1 2
+    401248: null1 3
+    401250: nurbsCube1
+    401252: nurbsSquare1
+    401254: nurbsSquare2
+    401256: nurbsSquare3
+    401258: //RootNode
+    4300000: mma_people_UV_03:Group2
+    4300002: mma_Shorti_Low_01:polySurface1
+    9500000: //RootNode
+    13700000: mma_people_UV_03:Group2
+    13700002: mma_Shorti_Low_01:polySurface1
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 2
+  userData: 
