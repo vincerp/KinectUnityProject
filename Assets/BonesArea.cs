@@ -187,7 +187,31 @@ public class BonesArea : MonoBehaviour
 		
 		
 		////Platform Positioning
-		currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, transform.position, Time.deltaTime * movingSpeed);
+		if ( currentPlatform == null ) return;
+		
+//		if(!isReleasePlatforms) return;
+		
+		Platform pl = currentPlatform.transform.GetComponent<Platform>();
+		
+//		if (pl.pt == Platform.PlatformType.PT_RAIL)
+//		{
+//		float y = currentPlatform.transform.parent.position.y;
+//
+//		////Platform Positioning
+//		currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, y, transform.position.z), Time.deltaTime * movingSpeed);
+//		}
+		
+		float y = currentPlatform.transform.parent.position.y;
+		switch(pl.pt)
+		{
+		case Platform.PlatformType.PT_RAIL:
+			currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, y, transform.position.z), Time.deltaTime * movingSpeed);
+			break;
+			
+		case Platform.PlatformType.PT_CHAINED:
+			currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, y, transform.position.z), Time.deltaTime * movingSpeed);
+			break;
+		}
 		
 		////Platform Rotation
 		//if the bones are too close, we will have rotation issues
