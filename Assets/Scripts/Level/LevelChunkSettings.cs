@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class LevelChunkSettings : MonoBehaviour {
-
+	
 	public string chunkId = "gimme some ID, bro!";
 	/// <summary>
 	/// The progression needed for this chunk to be able to be sorted.

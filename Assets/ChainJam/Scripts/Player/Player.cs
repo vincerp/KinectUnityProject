@@ -28,6 +28,7 @@ public class Player : MonoBehaviour {
 	
 	[HideInInspector]
 	public bool isGrounded;
+	public LayerMask ignoreLayers;
 	
 	//Private stuff
 	RaycastHit bottomLeft, bottomMiddle, bottomRight, left, right;
@@ -55,26 +56,26 @@ public class Player : MonoBehaviour {
 				//Ground raycast checks
 				Physics.Raycast (_tr.position + -raycastPoint,
 					Vector3.down, out bottomLeft,
-					raycastRaysize * _tr.localScale.y) ||
+					raycastRaysize * _tr.localScale.y, ignoreLayers) ||
 				Physics.Raycast (_tr.position,
 					Vector3.down, out bottomMiddle,
-					raycastRaysize  * _tr.localScale.y) ||
+					raycastRaysize  * _tr.localScale.y, ignoreLayers) ||
 				Physics.Raycast (_tr.position + raycastPoint,
 					Vector3.down, out bottomRight,
-					raycastRaysize  * _tr.localScale.y)
+					raycastRaysize  * _tr.localScale.y, ignoreLayers)
 			);
 			canJump = (
 				//Ground raycast checks
 				Physics.Raycast (_tr.position + -raycastPoint,
-					Vector3.down, canJumpRaycastSize * _tr.localScale.y) ||
+					Vector3.down, canJumpRaycastSize * _tr.localScale.y, ignoreLayers) ||
 				Physics.Raycast (_tr.position,
-					Vector3.down,canJumpRaycastSize  * _tr.localScale.y) ||
+					Vector3.down,canJumpRaycastSize  * _tr.localScale.y, ignoreLayers) ||
 				Physics.Raycast (_tr.position + raycastPoint,
-					Vector3.down, canJumpRaycastSize  * _tr.localScale.y)
+					Vector3.down, canJumpRaycastSize  * _tr.localScale.y, ignoreLayers)
 			);
 			
-			isTouchingRight = Physics.Raycast (_tr.position, _tr.right, out right, 0.6f  * _tr.localScale.x);		
-			isTouchingLeft = Physics.Raycast (_tr.position, -_tr.right, out left, 0.6f  * _tr.localScale.x);		
+			isTouchingRight = Physics.Raycast (_tr.position, _tr.right, out right, 0.6f  * _tr.localScale.x, ignoreLayers);		
+			isTouchingLeft = Physics.Raycast (_tr.position, -_tr.right, out left, 0.6f  * _tr.localScale.x, ignoreLayers);		
 
 			//Starts jumping when we press the button
 			if(!isJumping && (Input.GetButtonDown(input.a) || Input.GetButtonDown(input.b))){

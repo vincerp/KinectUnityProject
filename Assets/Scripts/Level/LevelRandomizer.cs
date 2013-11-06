@@ -16,10 +16,51 @@ public class LevelRandomizer : MonoBehaviour {
 	public int skillTolerableAmount = 2;
 	public int rememberHowManyChunks = 3;
 	
-	public void Start(){
+	public int chunksAtATime = 3;
+	public float verticalSpeed = 1f;
+	public List<LevelChunkSettings> chunksLoaded;
+	
+	private void Start(){
 		instance = this;
+		LevelChunkSettings _lcs;
+		float _addedHeight = 0f;
+		int nOfChunks = 0;
 		
-		Instantiate(SortNewChunk());
+		while(nOfChunks<chunksAtATime){
+			_lcs = Instantiate(SortNewChunk()) as LevelChunkSettings;
+			chunksLoaded.Add(_lcs);
+			_lcs.transform.position = Vector3.up * _addedHeight;
+			_lcs.transform.parent = transform;
+			_addedHeight += _lcs.height;
+			nOfChunks++;
+		}
+	}
+	
+	private void FixedUpdate(){
+		Transform _ctr;
+		
+		if(verticalSpeed <= 0f) return;
+		for(int i = chunksLoaded.Count-1; i >= 0; i--){
+			_ctr = chunksLoaded[i].transform;
+			_ctr.Translate(Vector3.down*verticalSpeed*Time.fixedDeltaTime);
+			if(_ctr.position.y <= -chunksLoaded[i].height){
+				CreateNewChunk();
+			}
+		}
+	}
+	
+	private void CreateNewChunk(){
+		LevelChunkSettings last, newOb = Instantiate(SortNewChunk()) as LevelChunkSettings;
+		Vector3 pos;
+		
+		currentSkillLevel += chunksLoaded[0].skillAwarded;
+		Destroy(chunksLoaded[0].gameObject);
+		chunksLoaded.RemoveAt(0);
+		last = chunksLoaded[chunksLoaded.Count-1];
+		pos = last.transform.position + (Vector3.up * last.height);
+		newOb.transform.position = pos;
+		last.transform.parent = transform;
+		chunksLoaded.Add(newOb);
 	}
 	
 	public LevelChunkSettings SortNewChunk(){
