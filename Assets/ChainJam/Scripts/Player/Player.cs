@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
 	public float jumpSustainTime;
 	
 	public float raycastDistance = 0.40f;
+	public float raycastRaysize = 0.55f;
+	public float canJumpRaycastSize = 0.65f;
 	private Vector3 raycastPoint;
 	
 	private float lockLeft;								// Don't allow left movement
@@ -24,9 +26,12 @@ public class Player : MonoBehaviour {
 	public float maxHealth = 150f;
 	public float health = 100f;
 	
+	[HideInInspector]
+	public bool isGrounded;
+	
 	//Private stuff
 	RaycastHit bottomLeft, bottomMiddle, bottomRight, left, right;
-	bool isGrounded, isTouchingRight, isTouchingLeft;
+	bool isTouchingRight, isTouchingLeft, canJump;
 	bool isJumping = false;
 	bool releasedJumpingRightNow = false;
 	float jumpAirTime = 0f;
@@ -46,36 +51,31 @@ public class Player : MonoBehaviour {
 	void Update() {
 		if(!squished)
 		{
-			// Jump and Squish check
 			isGrounded = (
 				//Ground raycast checks
 				Physics.Raycast (_tr.position + -raycastPoint,
 					Vector3.down, out bottomLeft,
-					0.6f * _tr.localScale.y) ||
+					raycastRaysize * _tr.localScale.y) ||
 				Physics.Raycast (_tr.position,
 					Vector3.down, out bottomMiddle,
-					0.6f  * _tr.localScale.y) ||
+					raycastRaysize  * _tr.localScale.y) ||
 				Physics.Raycast (_tr.position + raycastPoint,
 					Vector3.down, out bottomRight,
-					0.6f  * _tr.localScale.y)
+					raycastRaysize  * _tr.localScale.y)
+			);
+			canJump = (
+				//Ground raycast checks
+				Physics.Raycast (_tr.position + -raycastPoint,
+					Vector3.down, canJumpRaycastSize * _tr.localScale.y) ||
+				Physics.Raycast (_tr.position,
+					Vector3.down,canJumpRaycastSize  * _tr.localScale.y) ||
+				Physics.Raycast (_tr.position + raycastPoint,
+					Vector3.down, canJumpRaycastSize  * _tr.localScale.y)
 			);
 			
 			isTouchingRight = Physics.Raycast (_tr.position, _tr.right, out right, 0.6f  * _tr.localScale.x);		
 			isTouchingLeft = Physics.Raycast (_tr.position, -_tr.right, out left, 0.6f  * _tr.localScale.x);		
 
-			/*if(bottomLeft.collider && bottomLeft.collider.tag == "Player")
-			{
-				bottomLeft.collider.transform.GetComponent<Player>().Squish(this);
-			}
-			if(bottomMiddle.collider && bottomMiddle.collider.tag == "Player")
-			{
-				bottomMiddle.collider.transform.GetComponent<Player>().Squish(this);
-			}
-			if(bottomRight.collider && bottomRight.collider.tag == "Player")
-			{
-				bottomRight.collider.transform.GetComponent<Player>().Squish(this);
-			}*/
-			
 			//Starts jumping when we press the button
 			if(!isJumping && (Input.GetButtonDown(input.a) || Input.GetButtonDown(input.b))){
 				StartJump();
@@ -98,7 +98,7 @@ public class Player : MonoBehaviour {
 	
 	void StartJump(){
 		
-		if (isGrounded) {	
+		if (canJump) {	
 			jumpSpeed = new Vector3(0, jumpStrength * jumpStrengthMultiplier,0);
 			jumpAirTime = jumpSustainTime;
 			isJumping = true;
@@ -144,8 +144,6 @@ public class Player : MonoBehaviour {
 			_rb.velocity=(new Vector3(speed * Time.deltaTime, _rb.velocity.y, 0f));
 		}
 		
-		////old gravity application
-		//if(!isGrounded)_rigidbody.AddForce(new Vector3(0f, gravity, 0f));
 		
 		////Antislope and Gravity
 		if(bottomLeft.collider && Vector3.Angle(bottomLeft.normal, Vector3.up) < slopeSlideLimit){

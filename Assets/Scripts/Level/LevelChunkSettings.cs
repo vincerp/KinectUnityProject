@@ -13,5 +13,5 @@ public class LevelChunkSettings : MonoBehaviour {
 	/// </summary>/
 	public PlayerProgression skillAwarded;
 	
-	public float height;
+	public float height = 5f;
 }
