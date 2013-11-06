@@ -104,7 +104,8 @@ public class BonesArea : MonoBehaviour
 				currentPlatform = platforms[lastPlatformIndex];
 				platforms.RemoveAt(lastPlatformIndex);
 				
-				if( lastPlatformIndex >= platforms.Count )
+				lastPlatformIndex--;
+				if( lastPlatformIndex < 0 )
 					lastPlatformIndex = 0;
 				
 				currentPlatform.colorState = ColorState.CS_ACTIVE;
@@ -125,6 +126,7 @@ public class BonesArea : MonoBehaviour
 				
 				currentPlatform = platforms[lastPlatformIndex];
 				platforms.RemoveAt(lastPlatformIndex);
+
 				
 				currentPlatform.colorState = ColorState.CS_ACTIVE;
 				currentPlatform.transform.renderer.material.color = Color.red;
