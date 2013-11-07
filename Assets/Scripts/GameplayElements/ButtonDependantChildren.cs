@@ -6,6 +6,7 @@ public class ButtonDependantChildren : MonoBehaviour {
 	public bool not = false; //inverts checking behaviour
 	public bool activateOnlyOnce = true;
 	private bool hasActivated = false;
+	public bool triggerScriptsInThisObject = false;
 	
 	public List<Button> buttonsDependant = new List<Button>();
 	
@@ -28,6 +29,7 @@ public class ButtonDependantChildren : MonoBehaviour {
 			if(!bt.isActive) isActive = false;
 		}
 		if(activateOnlyOnce && isActive) hasActivated = true;
+		if(triggerScriptsInThisObject) SendMessage("Trigger", isActive);
 		
 		foreach(GameObject child in children){
 			child.SetActive(

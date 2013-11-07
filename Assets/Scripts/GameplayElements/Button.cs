@@ -11,6 +11,7 @@ public class Button : MonoBehaviour {
 	public bool not = false;
 	public bool activateOnlyOnce = true;
 	private bool hasActivated = false;
+	public bool triggerScriptsInThisObject = false;
 	
 	private int nOfPlayers = 0;
 	
@@ -33,8 +34,11 @@ public class Button : MonoBehaviour {
 		
 		//play sound here
 		nOfPlayers ++;
-		if(nOfPlayers==1) ButtonChanged(); //this is such a shitty piece of code
-		if(activateOnlyOnce) hasActivated = true;
+		if(nOfPlayers==1) { //this is such a shitty piece of code
+			ButtonChanged();
+			if(activateOnlyOnce) hasActivated = true;
+			if(triggerScriptsInThisObject) SendMessage("Trigger", isActive);
+		}
 	}
 	
 	void OnTriggerExit(Collider col){
@@ -42,6 +46,9 @@ public class Button : MonoBehaviour {
 		
 		//play sound here
 		nOfPlayers --;
-		if(nOfPlayers == 0) ButtonChanged(); //this is such a shitty piece of code
+		if(nOfPlayers == 0) { //this is such a shitty piece of code
+			ButtonChanged();
+			if(triggerScriptsInThisObject) SendMessage("Trigger", isActive);
+		}
 	}
 }

@@ -18,6 +18,7 @@ public class LevelRandomizer : MonoBehaviour {
 	
 	public int chunksAtATime = 3;
 	public float verticalSpeed = 1f;
+	public ScrollType scrollType = ScrollType.Static;
 	public List<LevelChunkSettings> chunksLoaded;
 	
 	private void Start(){
@@ -39,7 +40,7 @@ public class LevelRandomizer : MonoBehaviour {
 	private void FixedUpdate(){
 		Transform _ctr;
 		
-		if(verticalSpeed <= 0f) return;
+		if(scrollType == ScrollType.Static) return;
 		for(int i = chunksLoaded.Count-1; i >= 0; i--){
 			_ctr = chunksLoaded[i].transform;
 			_ctr.Translate(Vector3.down*verticalSpeed*Time.fixedDeltaTime);
@@ -61,6 +62,11 @@ public class LevelRandomizer : MonoBehaviour {
 		newOb.transform.position = pos;
 		last.transform.parent = transform;
 		chunksLoaded.Add(newOb);
+		
+		if(scrollType == ScrollType.ScrollToNextPiece){
+			//Here we make it scroll only one piece for the tutorial part
+			scrollType = ScrollType.Static;
+		}
 	}
 	
 	public LevelChunkSettings SortNewChunk(){
@@ -95,6 +101,12 @@ public class LevelRandomizer : MonoBehaviour {
 		}
 		return _possibleChunks[_randomNumber];
 	}
+}
+
+public enum ScrollType{
+	Static,
+	ScrollToNextPiece,
+	InfiniteScrolling
 }
 
 [System.Serializable]

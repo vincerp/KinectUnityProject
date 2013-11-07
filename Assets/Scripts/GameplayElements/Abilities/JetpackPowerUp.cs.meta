@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 000adf3adb2b2944aa5e6837d6d5d61d
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - jetpackParticles: {fileID: 100000, guid: 7fbbda3436eb3394fa6c8f14e0ab46da, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

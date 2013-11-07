@@ -46,10 +46,13 @@ public class Player : MonoBehaviour {
 	void Start () {
 		_tr = transform;
 		_rb = rigidbody;
+		
 		raycastPoint = new Vector3(raycastDistance, 0f, 0f);
+		tag = "Player";
 	}
 	
 	void Update() {
+		if(_rb.IsSleeping()) _rb.WakeUp();
 		if(!squished)
 		{
 			isGrounded = (
