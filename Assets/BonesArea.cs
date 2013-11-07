@@ -202,6 +202,8 @@ public class BonesArea : MonoBehaviour
 //		currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, y, transform.position.z), Time.deltaTime * movingSpeed);
 //		}
 		
+		
+		///Platform Positioning Constraints
 		float y = currentPlatform.transform.parent.position.y;
 		switch(pl.pt)
 		{
@@ -229,11 +231,13 @@ public class BonesArea : MonoBehaviour
 			}
 		}
 		//platform rotation happens here
-		currentPlatform.transform.parent.rotation = Quaternion.Slerp(
-			rotateFrom,
-			Quaternion.AngleAxis(rotateTowardsAngle + currentPlatform.initialAngle, Vector3.forward),
-			Time.deltaTime * rotationSpeed);
-		
+		if (pl.pt != Platform.PlatformType.PT_RAIL)
+		{
+			currentPlatform.transform.parent.rotation = Quaternion.Slerp(
+				rotateFrom,
+				Quaternion.AngleAxis(rotateTowardsAngle + currentPlatform.initialAngle, Vector3.forward),
+				Time.deltaTime * rotationSpeed);
+		}
 		////Platform Scaling
 		currentPlatform.transform.localScale = Vector3.MoveTowards(
 			currentPlatform.transform.localScale, 
