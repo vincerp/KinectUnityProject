@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(Rigidbody))]
@@ -201,6 +202,8 @@ public class BonesArea : MonoBehaviour
 //		currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, y, transform.position.z), Time.deltaTime * movingSpeed);
 //		}
 		
+		
+		///Platform Positioning Constraints
 		float y = currentPlatform.transform.parent.position.y;
 		switch(pl.pt)
 		{
@@ -228,11 +231,13 @@ public class BonesArea : MonoBehaviour
 			}
 		}
 		//platform rotation happens here
-		currentPlatform.transform.parent.rotation = Quaternion.Slerp(
-			rotateFrom,
-			Quaternion.AngleAxis(rotateTowardsAngle + currentPlatform.initialAngle, Vector3.forward),
-			Time.deltaTime * rotationSpeed);
-		
+		if (pl.pt != Platform.PlatformType.PT_RAIL)
+		{
+			currentPlatform.transform.parent.rotation = Quaternion.Slerp(
+				rotateFrom,
+				Quaternion.AngleAxis(rotateTowardsAngle + currentPlatform.initialAngle, Vector3.forward),
+				Time.deltaTime * rotationSpeed);
+		}
 		////Platform Scaling
 		currentPlatform.transform.localScale = Vector3.MoveTowards(
 			currentPlatform.transform.localScale, 
@@ -267,10 +272,19 @@ public class BonesArea : MonoBehaviour
 	void OnTriggerExit( Collider other )
 	{
 		// find the element in the list and remove it
-		PlatformInfo outPlatform = (from x in platforms 
-							where x.transform.collider == other 
-							select x).First() as PlatformInfo;
+		PlatformInfo outPlatform = null;
 		
+
+		IEnumerable<PlatformInfo> pls = (from x in platforms 
+							where x.transform.collider == other 
+							select x);
+		
+		if( pls.Count() == 0 )
+			return;
+			
+		outPlatform = pls.First() as PlatformInfo;
+
+			
 		int index = platforms.IndexOf( outPlatform );
 		
 		platforms[index].colorState = ColorState.CS_NOTACTIVE;
