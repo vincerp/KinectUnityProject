@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(Rigidbody))]
@@ -267,10 +268,19 @@ public class BonesArea : MonoBehaviour
 	void OnTriggerExit( Collider other )
 	{
 		// find the element in the list and remove it
-		PlatformInfo outPlatform = (from x in platforms 
-							where x.transform.collider == other 
-							select x).First() as PlatformInfo;
+		PlatformInfo outPlatform = null;
 		
+
+		IEnumerable<PlatformInfo> pls = (from x in platforms 
+							where x.transform.collider == other 
+							select x);
+		
+		if( pls.Count() == 0 )
+			return;
+			
+		outPlatform = pls.First() as PlatformInfo;
+
+			
 		int index = platforms.IndexOf( outPlatform );
 		
 		platforms[index].colorState = ColorState.CS_NOTACTIVE;
