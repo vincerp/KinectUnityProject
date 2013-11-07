@@ -18,6 +18,7 @@ public class PlatformChildServices : MonoBehaviour {
 		GameObject go;
 		Transform _tr = transform;
 		Transform _ptr, _ctr;
+		Platform _plat;
 		Dictionary<Transform, Transform> parents = new Dictionary<Transform, Transform>();
 		
 		foreach(Transform _child in _tr){
@@ -35,7 +36,12 @@ public class PlatformChildServices : MonoBehaviour {
 			_ptr = family.Value;
 			_ctr = family.Key;
 			//parents go to the orphan child's place
-			_ptr.position = _ctr.position;
+			_plat = _ctr.GetComponent<Platform>();
+			if(_plat){
+				_ptr.position = _ctr.position + _plat.offset;
+			} else {
+				_ptr.position = _ctr.position;
+			}
 			//and adopt them
 			_ptr.parent = _tr;
 			_ctr.parent = _ptr;

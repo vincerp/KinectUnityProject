@@ -205,17 +205,50 @@ public class BonesArea : MonoBehaviour
 		
 		///Platform Positioning Constraints
 		float y = currentPlatform.transform.parent.position.y;
+		float x = currentPlatform.transform.parent.position.x;
+		Vector3 startingPos = currentPlatform.transform.parent.position;
+		
+		
 		switch(pl.pt)
 		{
-		case Platform.PlatformType.PT_RAIL:
+		case Platform.PlatformType.PT_ORAIL:
+		case Platform.PlatformType.PT_ORAILPINNED:
 			currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, y, transform.position.z), Time.deltaTime * movingSpeed);
 			break;
 			
-		case Platform.PlatformType.PT_CHAINED:
-			currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, y, transform.position.z), Time.deltaTime * movingSpeed);
+		case Platform.PlatformType.PT_VRAIL:
+		case Platform.PlatformType.PT_VRAILPINNED:
+			currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
 			break;
+			
+		case Platform.PlatformType.PT_PINNED:
+//			currentPlatform.transform.parent = pl.pin.transform;
+			currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (x, y, transform.position.z), Time.deltaTime * movingSpeed);
+			break;
+			
+		case Platform.PlatformType.PT_CHAINED:
+			currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
+			float pinPlatDist = Vector3.Distance (pl.pin.transform.position, currentPlatform.transform.parent.position);
+			if (pinPlatDist <= pl.chainLenght)
+				currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
+			else
+				currentPlatform.transform.parent.position = startingPos;
+			break;
+
+//		case Platform.PlatformType.PT_EVERYTHING:
+//			currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
+//			
+//			float pinPlatDist2 = Vector3.Distance (pl.pin.transform.position, currentPlatform.transform.parent.position);
+//			if (pinPlatDist2 <= pl.chainLenght)
+//				currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
+//			else
+//				if (
+//				currentPlatform.transform.parent.position = startingPos;
+//			break;
+			
 		}
 		
+					
 		////Platform Rotation
 		//if the bones are too close, we will have rotation issues
 		//so we will only update rotation if they are not too close
@@ -231,12 +264,17 @@ public class BonesArea : MonoBehaviour
 			}
 		}
 		//platform rotation happens here
-		if (pl.pt != Platform.PlatformType.PT_RAIL)
+		if (pl.pt != Platform.PlatformType.PT_VRAIL && pl.pt != Platform.PlatformType.PT_ORAIL)
 		{
 			currentPlatform.transform.parent.rotation = Quaternion.Slerp(
 				rotateFrom,
 				Quaternion.AngleAxis(rotateTowardsAngle + currentPlatform.initialAngle, Vector3.forward),
 				Time.deltaTime * rotationSpeed);
+		}
+		else if(pl.pt != Platform.PlatformType.PT_PINNED)
+		{
+			
+			
 		}
 		////Platform Scaling
 		currentPlatform.transform.localScale = Vector3.MoveTowards(
