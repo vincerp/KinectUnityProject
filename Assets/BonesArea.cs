@@ -213,13 +213,25 @@ public class BonesArea : MonoBehaviour
 		{
 		case Platform.PlatformType.PT_ORAIL:
 		case Platform.PlatformType.PT_ORAILPINNED:
-			currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, y, transform.position.z), Time.deltaTime * movingSpeed);
+			Vector3 projectedPos0 = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, y, transform.position.z), Time.deltaTime * movingSpeed);
+			float railPlatDist0 = Vector3.Distance(pl.rail.transform.position, projectedPos0);
+			if(railPlatDist0 > pl.rail.transform.localScale.y/2)
+				currentPlatform.transform.parent.position = startingPos;
+			else
+				currentPlatform.transform.parent.position = projectedPos0;
 			break;
 			
 		case Platform.PlatformType.PT_VRAIL:
 		case Platform.PlatformType.PT_VRAILPINNED:
-			currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
+			Vector3 projectedPos1 = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
+			float railPlatDist1 = Vector3.Distance(pl.rail.transform.position, projectedPos1);
+			if(railPlatDist1 > pl.rail.transform.localScale.x/2)
+				currentPlatform.transform.parent.position = startingPos;
+			else
+				currentPlatform.transform.parent.position = projectedPos1;
 			break;
+			
+			
 			
 		case Platform.PlatformType.PT_PINNED:
 //			currentPlatform.transform.parent = pl.pin.transform;
@@ -227,10 +239,10 @@ public class BonesArea : MonoBehaviour
 			break;
 			
 		case Platform.PlatformType.PT_CHAINED:
-			currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
-			float pinPlatDist = Vector3.Distance (pl.pin.transform.position, currentPlatform.transform.parent.position);
+			Vector3 projectedPos2 = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
+			float pinPlatDist = Vector3.Distance (pl.pin.transform.position, projectedPos2);
 			if (pinPlatDist <= pl.chainLenght)
-				currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
+				currentPlatform.transform.parent.position = projectedPos2;
 			else
 				currentPlatform.transform.parent.position = startingPos;
 			break;
