@@ -15,8 +15,6 @@ public class Lava : MonoBehaviour {
 		{
 			hit.rigidbody.GetComponent<Player>().Squish();
 			transform.localScale = transform.localScale * GrowByBlood;
-	
-			SoundManager.i.Play(SoundManager.i.applause);
 		}
     }
 }
