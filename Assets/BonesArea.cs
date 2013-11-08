@@ -226,6 +226,11 @@ public class BonesArea : MonoBehaviour
 		
 		Platform pl = currentPlatform.transform.GetComponentInChildren<Platform>();
 		
+		if( pl == null )
+		{
+			currentPlatform = null;
+			return;
+		}
 			
 //		if (pl.pt == Platform.PlatformType.PT_RAIL)
 //		{
@@ -560,12 +565,15 @@ public class BonesArea : MonoBehaviour
 			Rect _pos = new Rect(0f, 0f, 120f, 30f);
 			Vector3 _view;
 			foreach (var plat in platforms){
-				_view = Camera.main.WorldToScreenPoint(plat.transform.position);
-				
-				_pos.x = _view.x-60f;
-				_pos.y = Screen.height-_view.y-15f;
-				GUI.color = new Color(0f,0f,0f,0.7f);
-				GUI.Label(_pos, "zº:"+plat.transform.rotation.eulerAngles.z);
+				if( plat.transform != null )
+				{
+					_view = Camera.main.WorldToScreenPoint(plat.transform.position);
+					
+					_pos.x = _view.x-60f;
+					_pos.y = Screen.height-_view.y-15f;
+					GUI.color = new Color(0f,0f,0f,0.7f);
+					GUI.Label(_pos, "zº:"+plat.transform.rotation.eulerAngles.z);
+				}
 			}
 		}
 
