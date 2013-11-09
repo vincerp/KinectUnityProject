@@ -8,6 +8,7 @@ public class Platform : MonoBehaviour {
 	public int chainLenght = 5;
 	public int railLenght;
 	public Pin pin;
+	public Rail rail;
 	
 	
 	public Vector3 offset;
