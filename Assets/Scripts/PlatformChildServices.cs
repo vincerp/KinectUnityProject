@@ -2,6 +2,7 @@
  * This class finds homes for platforms that have no parents.
  */
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class PlatformChildServices : MonoBehaviour {
@@ -14,7 +15,8 @@ public class PlatformChildServices : MonoBehaviour {
 	/**
 	 * A parenting love story between transforms
 	 */
-	void Start () {
+	IEnumerator Start () {
+		yield return new WaitForEndOfFrame();
 		GameObject go;
 		Transform _tr = transform;
 		Transform _ptr, _ctr;

@@ -13,13 +13,14 @@ public class Platform : MonoBehaviour {
 	public Vector3 offset;
 	
 	public void Start(){
+		gameObject.layer = 9;
 		if(pt == PlatformType.PT_ORAIL ||
 			pt == PlatformType.PT_ORAILPINNED ||
 			pt == PlatformType.PT_VRAIL ||
 			pt == PlatformType.PT_VRAILPINNED ||
 			pt == PlatformType.PT_EVERYTHING){
 			rail = transform.GetChild(0).GetComponent<Rail>();
-			rail.transform.parent = transform.root;
+			rail.transform.parent = transform.parent;
 		} 
 	}
 	
