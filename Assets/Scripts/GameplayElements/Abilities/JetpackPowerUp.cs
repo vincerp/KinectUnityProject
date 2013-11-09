@@ -7,12 +7,21 @@ public class JetpackPowerUp : BaseAbility {
 	
 	Player _pl;
 	Rigidbody _rb;
+	AudioSource _as;
 	
 	void Start () {
 		_pl = GetComponent<Player>();
 		_rb = rigidbody;
 		SetupParticles();
 		particles.tag = "DangerousParticles";
+		_as = gameObject.AddComponent<AudioSource>();
+		_as.loop = true;
+		_as.clip = SoundManager.instance.GetSound("Jetpack");
+	}
+	
+	void OnDestroy(){
+		if(_as.isPlaying)_as.Stop();
+		Destroy(_as);
 	}
 	
 	protected override void UpdateAbility ()
@@ -23,6 +32,9 @@ public class JetpackPowerUp : BaseAbility {
 		
 		if(!_pl.isGrounded && pressingButton){
 			_rb.AddForce(Vector3.up * jetpackStrength);
+			if(!_as.isPlaying) _as.Play();
+		} else {
+			_as.Stop();
 		}
 	}
 }

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
+[RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour {
 	
 	public static SoundManager instance;
 	
+	#region Music-Related
 	private AudioSource _musicSource;
 	private float _musicVolume = 1f;
 	private bool _musicMute = false;
@@ -23,7 +25,9 @@ public class SoundManager : MonoBehaviour {
 			_musicSource.mute = value;
 		}
 	}
+	#endregion
 	
+	#region SFX-Related
 	private float _sfxVolume = 1f;
 	private bool _sfxMute = false;
 	public float sfxVolume{
@@ -40,9 +44,10 @@ public class SoundManager : MonoBehaviour {
 			foreach(AudioSource a in registeredSources) a.mute = value;
 		}
 	}
+	#endregion
 	
 	public List<SoundFile> soundFiles = new List<SoundFile>();
-	public List<AudioSource> registeredSources = new List<AudioSource>();
+	private List<AudioSource> registeredSources = new List<AudioSource>();
 	
 	public void Start(){
 		if(instance != null && instance != this){
@@ -61,13 +66,12 @@ public class SoundManager : MonoBehaviour {
 	public void PlaySoundAt(AudioSource source, string soundId){
 		if(!registeredSources.Contains(source)) registeredSources.Add(source);
 		
-		source.clip = GetSound(soundId);
-		source.volume = _sfxVolume;
-		source.mute = _sfxMute;
-		source.Play();
+		AudioClip _clip = GetSound(soundId);
+		if(!_sfxMute)source.PlayOneShot(_clip, _sfxVolume);
+		Debug.Log("Playing sound " + soundId + " at " + source.name);
 	}
 	
-	private AudioClip GetSound(string id){
+	public AudioClip GetSound(string id){
 		return soundFiles.First(x => x.id == id).sound;
 	}
 }

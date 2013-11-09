@@ -26,6 +26,9 @@ public class Player : MonoBehaviour {
 	public float maxHealth = 150f;
 	public float health = 100f;
 	
+	public float stepTimeDistance = 0.3f;
+	private float timeSinceLastStep = 0f;
+	
 	[HideInInspector]
 	public bool isGrounded;
 	public LayerMask ignoreLayers;
@@ -106,6 +109,7 @@ public class Player : MonoBehaviour {
 			jumpSpeed = new Vector3(0, jumpStrength * jumpStrengthMultiplier,0);
 			jumpAirTime = jumpSustainTime;
 			isJumping = true;
+			SoundManager.instance.PlaySoundAt(audio, "Jump");
 		}
 		else if(enableWallJump && left.collider)
 		{
@@ -113,6 +117,7 @@ public class Player : MonoBehaviour {
 			lockLeft = 0.1f;
 			jumpAirTime = jumpSustainTime;
 			isJumping = true;
+			SoundManager.instance.PlaySoundAt(audio, "Jump");
 		}
 		else if(enableWallJump && right.collider)
 		{
@@ -120,6 +125,7 @@ public class Player : MonoBehaviour {
 			lockRight = 0.1f;
 			jumpAirTime = jumpSustainTime;
 			isJumping = true;
+			SoundManager.instance.PlaySoundAt(audio, "Jump");
 		}
 	}
 	
@@ -127,6 +133,7 @@ public class Player : MonoBehaviour {
 	/// Updates the movement. Might need to be rewritten when players are able to die.
 	/// </summary>
 	void UpdateMovement () {
+		bool isMoving = false;
 		if(jumpAirTime > 0f)
 		{
 			_rb.velocity = jumpSpeed;
@@ -140,11 +147,13 @@ public class Player : MonoBehaviour {
 		//moving left
 		if(Input.GetAxis(input.horizontal) < -0.1f && lockLeft <= 0f && !isTouchingLeft)
 		{
+			isMoving = true;
 			_rb.velocity = (new Vector3(-1f * speed * Time.deltaTime, _rb.velocity.y, 0f));
 		}
 		//moving right
 		if(Input.GetAxis(input.horizontal) > 0.1f  && lockRight <= 0f && !isTouchingRight)
 		{
+			isMoving = true;
 			_rb.velocity=(new Vector3(speed * Time.deltaTime, _rb.velocity.y, 0f));
 		}
 		
@@ -164,11 +173,23 @@ public class Player : MonoBehaviour {
 			_rb.AddForce(new Vector3(0f, gravity, 0f));
 		}
 		
+		//steps audio
+		if(isMoving && canJump){
+			timeSinceLastStep -= Time.deltaTime;
+			if(timeSinceLastStep <= 0f) {
+				timeSinceLastStep = stepTimeDistance;
+				SoundManager.instance.PlaySoundAt(audio, "Step");
+			}
+		}
+		if(!canJump){
+			timeSinceLastStep = 0f;
+		}
 	}
 	
 	#region Health-related
 	public void ApplyDamage(float amount){
 		health += -amount;
+		SoundManager.instance.PlaySoundAt(audio, "Damage");
 		if(health < 0f){
 			health = 0f;
 			Debug.Log(name + " is dead!");

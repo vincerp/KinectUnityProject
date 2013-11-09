@@ -31,6 +31,7 @@ public abstract class BaseAbility : MonoBehaviour {
 	
 	public static void BestowAbility(AbilitySettings abilitySettings, Player toPlayer){
 		BaseAbility _ability = toPlayer.GetComponent(abilitySettings.scriptName) as BaseAbility;
+		SoundManager.instance.PlaySoundAt(toPlayer.audio, abilitySettings.pickupSound);
 		if(_ability == null){
 			Debug.Log("Adding ability to player.");
 			_ability = toPlayer.gameObject.AddComponent(abilitySettings.scriptName) as BaseAbility;
