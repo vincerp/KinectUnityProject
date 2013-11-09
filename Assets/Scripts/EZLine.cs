@@ -7,7 +7,10 @@ public class EZLine : MonoBehaviour {
 	public Vector3 end;
 	public Vector3 point;
 	
+	private float d1;
+	private float d2;
 	private float percent;
+	private float eulero;
 	private Vector3 lastTracked;
 	
 	public float lineSize{
@@ -21,12 +24,12 @@ public class EZLine : MonoBehaviour {
 		if(Vector3.Angle(fromWhere-start, end-start) > 90f) return start;
 		if(Vector3.Angle(fromWhere-end, start-end) > 90f) return end;
 		
-		float d1 = Vector3.Distance(fromWhere, start);
-		float d2 = Vector3.Distance(fromWhere, end);
+		d1 = Vector3.Distance(fromWhere, start);
+		d2 = Vector3.Distance(fromWhere, end);
 		float ls = lineSize;
-		float eucl = d1*d1/ls;
-		percent = eucl/ls;
-		return Vector3.Lerp(start, end, eucl/ls);
+		eulero = (d1*Mathf.Sin(90 - Vector3.Angle(fromWhere-start, end-start)))/Mathf.Sin(90);
+		percent = eulero/ls;
+		return Vector3.Lerp(start, end, percent);
 	}
 	
 	void Update(){
@@ -36,6 +39,10 @@ public class EZLine : MonoBehaviour {
 	[ExecuteInEditMode]
 	public void OnGUI(){
 		GUILayout.Box("percent:" + percent);
+		GUILayout.Box("eulero:" + eulero);
+		GUILayout.Box("d1:" + d1);
+		GUILayout.Box("d2:" + d2);
+		
 		if(GUILayout.Button("track")){
 			lastTracked = GetPositionInLine(point);
 		}

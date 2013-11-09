@@ -220,7 +220,7 @@ public class BonesArea : MonoBehaviour
 		case Platform.PlatformType.PT_ORAILPINNED:
 			Vector3 projectedPos0 = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, y, transform.position.z), Time.deltaTime * movingSpeed);
 			float railPlatDist0 = Vector3.Distance(pl.rail.transform.position, projectedPos0);
-			if(railPlatDist0 > pl.rail.transform.localScale.x/2)
+			if(railPlatDist0 > pl.rail.transform.localScale.y/2)
 				currentPlatform.transform.parent.position = startingPos;
 			else
 				currentPlatform.transform.parent.position = projectedPos0;
