@@ -55,6 +55,7 @@ public class Player : MonoBehaviour {
 	}
 	
 	void Update() {
+		if(PauseGame.isGamePaused) return;
 		if(_rb.IsSleeping()) _rb.WakeUp();
 		if(!squished)
 		{
