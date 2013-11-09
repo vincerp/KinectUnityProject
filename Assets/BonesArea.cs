@@ -192,8 +192,9 @@ public class BonesArea : MonoBehaviour
 		
 //		if(!isReleasePlatforms) return;
 		
-		Platform pl = currentPlatform.transform.GetComponent<Platform>();
+		Platform pl = currentPlatform.transform.GetComponentInChildren<Platform>();
 		
+			
 //		if (pl.pt == Platform.PlatformType.PT_RAIL)
 //		{
 //		float y = currentPlatform.transform.parent.position.y;
@@ -209,13 +210,14 @@ public class BonesArea : MonoBehaviour
 		Vector3 startingPos = currentPlatform.transform.parent.position;
 		
 		
+		
 		switch(pl.pt)
 		{
 		case Platform.PlatformType.PT_ORAIL:
 		case Platform.PlatformType.PT_ORAILPINNED:
 			Vector3 projectedPos0 = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, y, transform.position.z), Time.deltaTime * movingSpeed);
 			float railPlatDist0 = Vector3.Distance(pl.rail.transform.position, projectedPos0);
-			if(railPlatDist0 > pl.rail.transform.localScale.y/2)
+			if(railPlatDist0 > pl.rail.transform.localScale.x/2)
 				currentPlatform.transform.parent.position = startingPos;
 			else
 				currentPlatform.transform.parent.position = projectedPos0;
@@ -225,7 +227,7 @@ public class BonesArea : MonoBehaviour
 		case Platform.PlatformType.PT_VRAILPINNED:
 			Vector3 projectedPos1 = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
 			float railPlatDist1 = Vector3.Distance(pl.rail.transform.position, projectedPos1);
-			if(railPlatDist1 > pl.rail.transform.localScale.x/2)
+			if(railPlatDist1 > pl.rail.transform.localScale.y)
 				currentPlatform.transform.parent.position = startingPos;
 			else
 				currentPlatform.transform.parent.position = projectedPos1;
