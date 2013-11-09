@@ -41,7 +41,8 @@ public class BonesArea : MonoBehaviour
 	
 	private Vector3 centralPoint;
 	public float magnetMovementSpeed = 10f;
-	public float distancePositionMultiplier = 1f;
+	public float distancePositionMultiplierX = 1f;
+	public float distancePositionMultiplierY = 1f;
 	
 	
 	public KeyCode releasePlatformsKeycode = KeyCode.Joystick1Button5;
@@ -176,9 +177,11 @@ public class BonesArea : MonoBehaviour
 	
 	void FixedUpdate()
 	{
+		Vector3 moveTo = bones.CentralPoint + new Vector3((bones.CentralPoint.x - centralPoint.x)*distancePositionMultiplierX, (bones.CentralPoint.y - centralPoint.y)*distancePositionMultiplierY, 0f);
+		
 		////Magnet positioning
 		transform.position = Vector3.MoveTowards(transform.position,
-			bones.CentralPoint + (bones.CentralPoint - centralPoint)*distancePositionMultiplier,
+			moveTo,
 			magnetMovementSpeed);
 		
 		if ( currentPlatform == null ) return;
