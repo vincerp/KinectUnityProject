@@ -68,7 +68,7 @@ public class SoundManager : MonoBehaviour {
 		
 		AudioClip _clip = GetSound(soundId);
 		if(!_sfxMute)source.PlayOneShot(_clip, _sfxVolume);
-		Debug.Log("Playing sound " + soundId + " at " + source.name);
+		//Debug.Log("Playing sound " + soundId + " at " + source.name);
 	}
 	
 	public AudioClip GetSound(string id){
