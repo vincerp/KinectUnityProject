@@ -10,8 +10,18 @@ public class Platform : MonoBehaviour {
 	public Pin pin;
 	public Rail rail;
 	
-	
 	public Vector3 offset;
+	
+	public void Start(){
+		if(pt == PlatformType.PT_ORAIL ||
+			pt == PlatformType.PT_ORAILPINNED ||
+			pt == PlatformType.PT_VRAIL ||
+			pt == PlatformType.PT_VRAILPINNED ||
+			pt == PlatformType.PT_EVERYTHING){
+			rail = transform.GetChild(0).GetComponent<Rail>();
+			rail.transform.parent = transform.root;
+		} 
+	}
 	
 	public void OnDrawGizmos(){
 		if(offset == Vector3.zero || Application.isPlaying) return;
