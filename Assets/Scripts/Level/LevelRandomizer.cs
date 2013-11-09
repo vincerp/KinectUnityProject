@@ -10,6 +10,7 @@ public class LevelRandomizer : MonoBehaviour {
 	public PlayerProgression currentSkillLevel = new PlayerProgression();
 	
 	public List<LevelChunkSettings> availableChunks = new List<LevelChunkSettings>();
+	public List<LevelChunkSettings> initialChunks = new List<LevelChunkSettings>();
 	
 	private List<string> lastUsedChunkIds = new List<string>();
 	
@@ -27,8 +28,16 @@ public class LevelRandomizer : MonoBehaviour {
 		float _addedHeight = 0f;
 		int nOfChunks = 0;
 		
+//		while(nOfChunks<chunksAtATime){
+//			_lcs = Instantiate(SortNewChunk()) as LevelChunkSettings;
+//			chunksLoaded.Add(_lcs);
+//			_lcs.transform.position = Vector3.up * _addedHeight;
+//			_lcs.transform.parent = transform;
+//			_addedHeight += _lcs.height;
+//			nOfChunks++;
+//		}
 		while(nOfChunks<chunksAtATime){
-			_lcs = Instantiate(SortNewChunk()) as LevelChunkSettings;
+			_lcs = Instantiate(initialChunks[nOfChunks]) as LevelChunkSettings;
 			chunksLoaded.Add(_lcs);
 			_lcs.transform.position = Vector3.up * _addedHeight;
 			_lcs.transform.parent = transform;
