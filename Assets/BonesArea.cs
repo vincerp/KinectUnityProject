@@ -294,10 +294,10 @@ public class BonesArea : MonoBehaviour
 			
 		}
 		////Platform Scaling
-		currentPlatform.transform.localScale = Vector3.MoveTowards(
-			currentPlatform.transform.localScale, 
-			new Vector3(Mathf.Clamp(currentPlatform.initialScale.x*GetBoneDistance(), minimumPlatformScale, maximumPlatformScale), currentPlatform.initialScale.y, currentPlatform.initialScale.z), 
-			Time.deltaTime * scalingSpeed);
+//		currentPlatform.transform.localScale = Vector3.MoveTowards(
+//			currentPlatform.transform.localScale, 
+//			new Vector3(Mathf.Clamp(currentPlatform.initialScale.x*GetBoneDistance(), minimumPlatformScale, maximumPlatformScale), currentPlatform.initialScale.y, currentPlatform.initialScale.z), 
+//			Time.deltaTime * scalingSpeed);
 		
 	}
 	
