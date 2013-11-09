@@ -14,6 +14,14 @@ public class Platform : MonoBehaviour {
 	
 	public void Start(){
 		gameObject.layer = 9;
+		
+		rail = transform.GetComponentInChildren<Rail>();
+		if(rail != null){
+			rail.transform.parent = transform.parent;
+			rail.platform = this;
+			return;
+		}
+		
 		if(pt == PlatformType.PT_ORAIL ||
 			pt == PlatformType.PT_ORAILPINNED ||
 			pt == PlatformType.PT_VRAIL ||
@@ -21,7 +29,7 @@ public class Platform : MonoBehaviour {
 			pt == PlatformType.PT_EVERYTHING){
 			rail = transform.GetChild(0).GetComponent<Rail>();
 			rail.transform.parent = transform.parent;
-		} 
+		}
 	}
 	
 	public void OnDrawGizmos(){
@@ -32,7 +40,6 @@ public class Platform : MonoBehaviour {
 	
 	public enum PlatformType 
 	{
-		
 		PT_VRAIL,
 		PT_ORAIL,
 		PT_PINNED,
@@ -40,6 +47,5 @@ public class Platform : MonoBehaviour {
 		PT_VRAILPINNED,
 		PT_ORAILPINNED,
 		PT_EVERYTHING
-		
 	}
 }
