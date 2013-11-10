@@ -241,6 +241,10 @@ public class BonesArea : MonoBehaviour
 		
 		switch(pl.pt)
 		{
+		case Platform.PlatformType.PT_EZLINE:
+			Vector3 projectedPos70 = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
+			currentPlatform.transform.parent.position = projectedPos70;
+			break;
 		case Platform.PlatformType.PT_ORAIL:
 		case Platform.PlatformType.PT_ORAILPINNED:
 			Vector3 projectedPos0 = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, y, transform.position.z), Time.deltaTime * movingSpeed);
@@ -308,7 +312,7 @@ public class BonesArea : MonoBehaviour
 		}*/
 		#endregion
 		//platform rotation happens here
-		if (pl.pt != Platform.PlatformType.PT_VRAIL && pl.pt != Platform.PlatformType.PT_ORAIL)
+		if (pl.pt != Platform.PlatformType.PT_VRAIL && pl.pt != Platform.PlatformType.PT_ORAIL && pl.pt != Platform.PlatformType.PT_EZLINE)
 		{
 			currentPlatform.transform.parent.rotation = Quaternion.Slerp(
 				rotateFrom,

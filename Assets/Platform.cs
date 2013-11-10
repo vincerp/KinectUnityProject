@@ -19,6 +19,7 @@ public class Platform : MonoBehaviour {
 		if(rail != null){
 			rail.transform.parent = transform.parent;
 			rail.platform = this;
+			pt = PlatformType.PT_EZLINE;
 			return;
 		}
 		
@@ -46,6 +47,7 @@ public class Platform : MonoBehaviour {
 		PT_CHAINED,
 		PT_VRAILPINNED,
 		PT_ORAILPINNED,
-		PT_EVERYTHING
+		PT_EVERYTHING,
+		PT_EZLINE
 	}
 }
