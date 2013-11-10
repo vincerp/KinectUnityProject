@@ -14,6 +14,7 @@ public class Button : MonoBehaviour {
 	public bool triggerScriptsInThisObject = false;
 	
 	private int nOfPlayers = 0;
+	private int ignoreRaycastLayer = 2;
 	
 	private bool wasValue;
 	public bool isActive{
@@ -26,7 +27,7 @@ public class Button : MonoBehaviour {
 	
 	void Start () {
 		collider.isTrigger = true;
-		
+		gameObject.layer = ignoreRaycastLayer;
 	}
 	
 	void OnTriggerEnter(Collider col){
@@ -38,6 +39,7 @@ public class Button : MonoBehaviour {
 			ButtonChanged();
 			if(activateOnlyOnce) hasActivated = true;
 			if(triggerScriptsInThisObject) SendMessage("Trigger", isActive);
+			animation.Play("on");
 		}
 	}
 	
@@ -49,6 +51,7 @@ public class Button : MonoBehaviour {
 		if(nOfPlayers == 0) { //this is such a shitty piece of code
 			ButtonChanged();
 			if(triggerScriptsInThisObject) SendMessage("Trigger", isActive);
+			animation.Play("off");
 		}
 	}
 }

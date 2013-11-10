@@ -50,6 +50,8 @@ public class Player : MonoBehaviour {
 	Rigidbody _rb;
 	
 	void Start () {
+		Application.targetFrameRate = 30;
+		
 		_tr = transform;
 		_rb = rigidbody;
 		
@@ -84,8 +86,8 @@ public class Player : MonoBehaviour {
 					Vector3.down, canJumpRaycastSize  * _tr.localScale.y, ignoreLayers)
 			);
 			
-			isTouchingRight = Physics.Raycast (_tr.position, _tr.right, out right, 0.6f  * _tr.localScale.x, ignoreLayers);		
-			isTouchingLeft = Physics.Raycast (_tr.position, -_tr.right, out left, 0.6f  * _tr.localScale.x, ignoreLayers);		
+			isTouchingRight = Physics.Raycast (_tr.position, _tr.right, out right, 1.1f  * _tr.localScale.x, ignoreLayers);		
+			isTouchingLeft = Physics.Raycast (_tr.position, -_tr.right, out left, 1.1f  * _tr.localScale.x, ignoreLayers);		
 
 			//Starts jumping when we press the button
 			if(!isJumping && (Input.GetButtonDown(input.a) || Input.GetButtonDown(input.b))){
@@ -213,21 +215,6 @@ public class Player : MonoBehaviour {
 	 * Here we define editor-specific functions that are useful only for debuging.
 	 * Keep debug stuff in here to make sure that nothing escapes into our release builds. 
 	 */
-	
-	void OnGUI() {
-		GUILayout.Label(""+jumpAirTime);
-		string gr = "not grounded";
-		if(true){
-			if(bottomLeft.collider) gr = ""+ Vector3.Angle(bottomLeft.normal, Vector3.up);
-			if(bottomRight.collider) gr = ""+ Vector3.Angle(bottomRight.normal, Vector3.up);
-		}
-		GUILayout.Label(gr);
-		
-		Vector3 _pos = Camera.main.WorldToScreenPoint(_tr.position);
-		Rect _rect = new Rect(_pos.x-40f, Screen.height-_pos.y-25f, 80f, 20f);
-		GUI.Box(_rect, "<3:"+health);
-		
-	}
 	
 	void OnDrawGizmos(){
 		if(!Application.isPlaying) return;

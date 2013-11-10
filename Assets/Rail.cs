@@ -12,6 +12,7 @@ public class Rail : EZLine {
 		lr = gameObject.AddComponent<LineRenderer>();
 		transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
 		Destroy(collider);
+		lr.material = EZGrabber.instance.GetLinkedItem("RailMaterial") as Material;
 	}
 	
 	void LateUpdate(){
