@@ -218,6 +218,12 @@ public class BonesArea : MonoBehaviour
 		////Platform Positioning
 		if ( currentPlatform == null ) return;
 		
+		// the platform has been deleted somewhere
+		if ( currentPlatform.transform == null )
+		{
+			currentPlatform = null;
+			return;
+		}
 //		if(!isReleasePlatforms) return;
 		
 		Platform pl = currentPlatform.transform.GetComponentInChildren<Platform>();
