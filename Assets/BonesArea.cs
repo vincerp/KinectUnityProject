@@ -57,6 +57,7 @@ public class BonesArea : MonoBehaviour
 	public bool displayInterfaceBox = true;
 	public GUISkin clawSkin;
 	public Color playerColor;
+	public float clawSize = 40f;
 	
 	private Quaternion rotateFrom = Quaternion.identity;
 	
@@ -567,25 +568,26 @@ public class BonesArea : MonoBehaviour
 		
 		Vector3 _magPos = Camera.main.WorldToScreenPoint(transform.position);
 		_magPos = new Vector3(_magPos.x, Screen.height - _magPos.y, 0f);
-		Rect _boxyThing = new Rect(0f, 0f, 20f, 20f);
+		Rect _boxyThing = new Rect(0f, 0f, clawSize, clawSize);
 		float _distPercent = GetBoneDistance() / boneDistanceFactor.Evaluate(1000);
-		float _minimumDistanceAmount = 20f;
+		float _minimumDistanceAmount = clawSize;
 		float _distAmount = 400f;
 		float _angle = rotateTowardsAngle;
 		_distAmount *= _distPercent;
 		_distAmount += _minimumDistanceAmount;
-		_distAmount = 50f; //this is a HACK!
+		_distAmount = 80f; //this is a HACK!
 		
 		bool isHolding = currentPlatform != null;
+		float halfClaw = clawSize/2;
 		
 		GUIUtility.RotateAroundPivot(-rotateTowardsAngle, new Vector2(_magPos.x, _magPos.y));
-		_boxyThing.y = _magPos.y-10f;
-		_boxyThing.x = _magPos.x-10f;
+		_boxyThing.y = _magPos.y-halfClaw;
+		_boxyThing.x = _magPos.x-halfClaw;
 		GUI.Box(_boxyThing, "", "Target");
-		_boxyThing.x = _magPos.x - _distAmount - 10f;
+		_boxyThing.x = _magPos.x - _distAmount - halfClaw;
 		GUI.Toggle(_boxyThing, isHolding, "", "Claw");
-		_boxyThing.x = _magPos.x + _distAmount + 10f;
-		_boxyThing.width = -20f;
+		_boxyThing.x = _magPos.x + _distAmount + halfClaw;
+		_boxyThing.width = -clawSize;
 		GUI.Toggle(_boxyThing, isHolding, "", "Claw");
 
 	}
