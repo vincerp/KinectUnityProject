@@ -99,10 +99,10 @@ public class BonesArea : MonoBehaviour
 	{
 		
 			
-		if( Input.GetKeyDown(releasePlatformsKeycode) )
+		if( Input.GetKeyDown(releasePlatformsKeycode) && currentPlatform != null )
 		{
-			if( currentPlatform == null )
-				return;
+//			if( currentPlatform == null )
+//				return;
 			
 			
 			currentPlatform.colorState = ColorState.CS_NOTACTIVE;
@@ -119,7 +119,7 @@ public class BonesArea : MonoBehaviour
 				platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
 				platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
 			}
-			
+			return;
 		}
 		
 		if( Input.GetKeyDown(grabPlatformKeycode) )
