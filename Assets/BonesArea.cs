@@ -19,7 +19,7 @@ public class BonesArea : MonoBehaviour
 	
 	public List<PlatformInfo> platforms = new List<PlatformInfo>();
 	private PlatformInfo currentPlatform = null;
-	private int lastPlatformIndex = 0;
+	private int nextPlatformIndex = 0;
 	
 	public float boneScaleFactor = 1f;
 	public float boneAngleFactor = 1f;
@@ -103,20 +103,23 @@ public class BonesArea : MonoBehaviour
 			
 			if( currentPlatform == null )
 			{				
-				currentPlatform = platforms[lastPlatformIndex];
-				platforms.RemoveAt(lastPlatformIndex);
+				currentPlatform = platforms[nextPlatformIndex];
+//				platforms.RemoveAt(lastPlatformIndex);
 				
-				lastPlatformIndex--;
-				if( lastPlatformIndex < 0 )
-					lastPlatformIndex = 0;
+//				lastPlatformIndex--;
+//				if( lastPlatformIndex < 0 )
+//					lastPlatformIndex = 0;
 				
 				currentPlatform.colorState = ColorState.CS_ACTIVE;
 				currentPlatform.transform.renderer.material.color = Color.red;
 				
-				if( platforms.Count > 0 )
+				
+				if( platforms.Count > 1 )
 				{
-					platforms[lastPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
-					platforms[lastPlatformIndex].transform.renderer.material.color = Color.green;
+					nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
+					
+					platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
+					platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
 				}
 			}
 			else
@@ -124,26 +127,27 @@ public class BonesArea : MonoBehaviour
 				currentPlatform.colorState = ColorState.CS_NOTACTIVE;
 				currentPlatform.transform.renderer.material.color = Color.white;
 				
-				platforms.Add(currentPlatform);
+//				platforms.Add(currentPlatform);
 				
-				currentPlatform = platforms[lastPlatformIndex];
-				platforms.RemoveAt(lastPlatformIndex);
+				currentPlatform = platforms[nextPlatformIndex];
+//				platforms.RemoveAt(nextPlatformIndex);
 
 				
 				currentPlatform.colorState = ColorState.CS_ACTIVE;
 				currentPlatform.transform.renderer.material.color = Color.red;
 				
-				if( platforms.Count > 0 )
+				if( platforms.Count > 1 )
 				{
-					platforms[lastPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
-					platforms[lastPlatformIndex].transform.renderer.material.color = Color.green;
+					nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
+					
+					platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
+					platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
 				}	
 			}
 		}
 			
 		if( Input.GetKeyDown(releasePlatformsKeycode) )
 		{
-
 			if( currentPlatform == null )
 				return;
 			
@@ -151,11 +155,18 @@ public class BonesArea : MonoBehaviour
 			currentPlatform.colorState = ColorState.CS_NOTACTIVE;
 			currentPlatform.transform.renderer.material.color = Color.white;
 			
-			platforms.Add(currentPlatform);
+//			platforms.Add(currentPlatform);
 			currentPlatform = null;
 			
-			platforms[lastPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
-			platforms[lastPlatformIndex].transform.renderer.material.color = Color.green;
+			// 2 cases: 
+			// - if there is just one platform, then it will become green
+			// - if there is more, then there will be reassignment to the same color
+			
+			if( platforms.Count > 0 )
+			{
+				platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
+				platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
+			}
 			
 		}
 		
@@ -164,13 +175,17 @@ public class BonesArea : MonoBehaviour
 			if( platforms.Count < 2 )
 				return;
 			
-			platforms[lastPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
-			platforms[lastPlatformIndex].transform.renderer.material.color = Color.white;
+			platforms[nextPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
+			platforms[nextPlatformIndex].transform.renderer.material.color = Color.white;
 			
-			lastPlatformIndex = lastPlatformIndex + 1 > platforms.Count - 1 ? 0 : lastPlatformIndex + 1;
+			nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
 			
-			platforms[lastPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
-			platforms[lastPlatformIndex].transform.renderer.material.color = Color.green;
+			// skip the platform if it is held
+			if( currentPlatform != null && platforms[nextPlatformIndex] == currentPlatform )
+				nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
+			
+			platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
+			platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
 		}
 
 	}
@@ -308,6 +323,12 @@ public class BonesArea : MonoBehaviour
 	// bone area zone
 	void OnTriggerEnter( Collider other )
 	{
+		if( currentPlatform != null && other.transform == currentPlatform.transform )
+		{
+			platforms.Add(currentPlatform);
+			return;
+		}
+		
 		PlatformInfo pinfo = new PlatformInfo();
 		
 		pinfo.initialAngle = other.transform.rotation.eulerAngles.z;
@@ -315,11 +336,25 @@ public class BonesArea : MonoBehaviour
 		
 		pinfo.transform = other.transform;
 		
-		if( platforms.Count == 0 )
+		switch( platforms.Count )
 		{
+		case 0:
 			pinfo.colorState = ColorState.CS_NEXTTOSELECT;
 			pinfo.transform.renderer.material.color = Color.green;
+			
+			nextPlatformIndex = 0;
+			break;
+		case 1:
+			if( platforms.Contains( currentPlatform ) )
+			{
+				pinfo.colorState = ColorState.CS_NEXTTOSELECT;
+				pinfo.transform.renderer.material.color = Color.green;
+				
+				nextPlatformIndex = 1;
+			}
+			break;
 		}
+		
 		
 		platforms.Add(pinfo);
 	}
@@ -333,30 +368,134 @@ public class BonesArea : MonoBehaviour
 		IEnumerable<PlatformInfo> pls = (from x in platforms 
 							where x.transform.collider == other 
 							select x);
-		
-		if( pls.Count() == 0 )
-			return;
 			
 		outPlatform = pls.First() as PlatformInfo;
 
 			
 		int index = platforms.IndexOf( outPlatform );
 		
-		platforms[index].colorState = ColorState.CS_NOTACTIVE;
-		platforms[index].transform.renderer.material.color = Color.white;
+		
+		switch( platforms.Count )
+		{
+		case 0:
+			Debug.LogError("List is empty");
+			break;
+				
+		case 1:
+			// if it is green
+			if( outPlatform != currentPlatform )
+			{
+				outPlatform.colorState = ColorState.CS_NOTACTIVE;
+				outPlatform.transform.renderer.material.color = Color.white;
+			}
+			// if it is red, do nothing special
+			
+			nextPlatformIndex = 0;
+			
+			break;
+			
+		case 2:
+			// if it is green
+			if( nextPlatformIndex == index )
+			{
+				// if there is no red
+				if( currentPlatform == null )
+				{	
+					platforms[nextPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
+					platforms[nextPlatformIndex].transform.renderer.material.color = Color.white;
+					
+					nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
+					
+					platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
+					platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
+					
+				}
+				// if there is red
+				else
+				{
+					// if red is inside magnet, meaning that there are red and green (which goes out)
+					if( platforms.Contains(currentPlatform) )
+					{
+						platforms[nextPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
+						platforms[nextPlatformIndex].transform.renderer.material.color = Color.white;
+						
+						nextPlatformIndex = 0;
+					}
+					// if red is outside of magnet, meaning that there are white and green (which goes out)
+					else
+					{
+						platforms[nextPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
+						platforms[nextPlatformIndex].transform.renderer.material.color = Color.white;
+						
+						nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
+						
+						platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
+						platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
+						
+					}
+				}
+			} 
+			
+			break;
+		
+		// 3 and more	
+		default:
+			// if it is green
+			if( nextPlatformIndex == index )
+			{
+				// if there is no red
+				if( currentPlatform == null )
+				{	
+					platforms[nextPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
+					platforms[nextPlatformIndex].transform.renderer.material.color = Color.white;
+					
+					nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
+					
+					platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
+					platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
+
+				}
+				// if there is red
+				else
+				{
+					// if red is inside magnet, meaning that there are red, whites and green (which goes out)
+					if( platforms.Contains(currentPlatform) )
+					{
+						platforms[nextPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
+						platforms[nextPlatformIndex].transform.renderer.material.color = Color.white;
+						
+						nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
+						
+						// skip the platform if it is held
+						if( platforms[nextPlatformIndex] == currentPlatform )
+							nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
+						
+						platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
+						platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
+						
+					}
+					// if red is outside of magnet, meaning that there are whites and green (which goes out)
+					else
+					{
+						platforms[nextPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
+						platforms[nextPlatformIndex].transform.renderer.material.color = Color.white;
+						
+						nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
+						
+						platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
+						platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
+
+					}
+				}
+			}
+			
+			break;
+		}
+		
 		
 		platforms.Remove(outPlatform);
+		nextPlatformIndex = nextPlatformIndex - 1 < 0 ? 0 : nextPlatformIndex - 1 ;	
 		
-		if( platforms.Count == 0 )
-			return;
-		
-		if( lastPlatformIndex == index )
-		{						
-			lastPlatformIndex = lastPlatformIndex - 1 < 0 ? 0 : lastPlatformIndex - 1;
-			
-			platforms[lastPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
-			platforms[lastPlatformIndex].transform.renderer.material.color = Color.green;
-		}
 	}
 	
 	void OnDrawGizmos(){
