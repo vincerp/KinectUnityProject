@@ -55,6 +55,8 @@ public class BonesArea : MonoBehaviour
 	public bool displayDebugValues = false;
 	public bool displayPlatformAngles = true;
 	public bool displayInterfaceBox = true;
+	public GUISkin clawSkin;
+	public Color playerColor;
 	
 	private Quaternion rotateFrom = Quaternion.identity;
 	
@@ -522,7 +524,7 @@ public class BonesArea : MonoBehaviour
 	
 	void OnDrawGizmos(){
 		Gizmos.DrawWireSphere(transform.position, (collider as SphereCollider).radius);
-		if(Application.isEditor) return;
+		if(!Application.isPlaying) return;
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(bones.CentralPoint, 0.3f);
 		Gizmos.color = Color.magenta;
@@ -560,7 +562,9 @@ public class BonesArea : MonoBehaviour
 
 		
 		if(!displayInterfaceBox) return;
- 		
+ 		GUI.skin = clawSkin;
+		GUI.color = playerColor;
+		
 		Vector3 _magPos = Camera.main.WorldToScreenPoint(transform.position);
 		_magPos = new Vector3(_magPos.x, Screen.height - _magPos.y, 0f);
 		Rect _boxyThing = new Rect(0f, 0f, 20f, 20f);
@@ -570,13 +574,19 @@ public class BonesArea : MonoBehaviour
 		float _angle = rotateTowardsAngle;
 		_distAmount *= _distPercent;
 		_distAmount += _minimumDistanceAmount;
+		_distAmount = 50f; //this is a HACK!
+		
+		bool isHolding = currentPlatform != null;
 		
 		GUIUtility.RotateAroundPivot(-rotateTowardsAngle, new Vector2(_magPos.x, _magPos.y));
 		_boxyThing.y = _magPos.y-10f;
+		_boxyThing.x = _magPos.x-10f;
+		GUI.Box(_boxyThing, "", "Target");
 		_boxyThing.x = _magPos.x - _distAmount - 10f;
-		GUI.Box(_boxyThing, "");
-		_boxyThing.x = _magPos.x + _distAmount - 10f;
-		GUI.Box(_boxyThing, "");
+		GUI.Toggle(_boxyThing, isHolding, "", "Claw");
+		_boxyThing.x = _magPos.x + _distAmount + 10f;
+		_boxyThing.width = -20f;
+		GUI.Toggle(_boxyThing, isHolding, "", "Claw");
 
 	}
 }
