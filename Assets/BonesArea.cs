@@ -104,12 +104,7 @@ public class BonesArea : MonoBehaviour
 			if( currentPlatform == null )
 			{				
 				currentPlatform = platforms[nextPlatformIndex];
-//				platforms.RemoveAt(lastPlatformIndex);
-				
-//				lastPlatformIndex--;
-//				if( lastPlatformIndex < 0 )
-//					lastPlatformIndex = 0;
-				
+			
 				currentPlatform.colorState = ColorState.CS_ACTIVE;
 				currentPlatform.transform.renderer.material.color = Color.red;
 				
@@ -126,12 +121,8 @@ public class BonesArea : MonoBehaviour
 			{
 				currentPlatform.colorState = ColorState.CS_NOTACTIVE;
 				currentPlatform.transform.renderer.material.color = Color.white;
-				
-//				platforms.Add(currentPlatform);
-				
-				currentPlatform = platforms[nextPlatformIndex];
-//				platforms.RemoveAt(nextPlatformIndex);
 
+				currentPlatform = platforms[nextPlatformIndex];
 				
 				currentPlatform.colorState = ColorState.CS_ACTIVE;
 				currentPlatform.transform.renderer.material.color = Color.red;
@@ -144,6 +135,7 @@ public class BonesArea : MonoBehaviour
 					platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
 				}	
 			}
+
 		}
 			
 		if( Input.GetKeyDown(releasePlatformsKeycode) )
@@ -155,7 +147,6 @@ public class BonesArea : MonoBehaviour
 			currentPlatform.colorState = ColorState.CS_NOTACTIVE;
 			currentPlatform.transform.renderer.material.color = Color.white;
 			
-//			platforms.Add(currentPlatform);
 			currentPlatform = null;
 			
 			// 2 cases: 
@@ -434,7 +425,14 @@ public class BonesArea : MonoBehaviour
 						
 					}
 				}
+				
+				nextPlatformIndex = nextPlatformIndex - 1 < 0 ? 0 : nextPlatformIndex - 1 ;	
 			} 
+			// white or red and list shifting to left
+			else if( index < nextPlatformIndex )
+			{
+				nextPlatformIndex = nextPlatformIndex - 1 < 0 ? 0 : nextPlatformIndex - 1 ;	
+			}
 			
 			break;
 		
@@ -487,6 +485,13 @@ public class BonesArea : MonoBehaviour
 
 					}
 				}
+				
+				nextPlatformIndex = nextPlatformIndex - 1 < 0 ? 0 : nextPlatformIndex - 1 ;	
+			}
+			// white or red and list shifting to left
+			else if( index < nextPlatformIndex )
+			{
+				nextPlatformIndex = nextPlatformIndex - 1 < 0 ? 0 : nextPlatformIndex - 1 ;	
 			}
 			
 			break;
@@ -494,8 +499,7 @@ public class BonesArea : MonoBehaviour
 		
 		
 		platforms.Remove(outPlatform);
-		nextPlatformIndex = nextPlatformIndex - 1 < 0 ? 0 : nextPlatformIndex - 1 ;	
-		
+
 	}
 	
 	void OnDrawGizmos(){
