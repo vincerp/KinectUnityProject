@@ -97,6 +97,31 @@ public class BonesArea : MonoBehaviour
 	
 	void Update()
 	{
+		
+			
+		if( Input.GetKeyDown(releasePlatformsKeycode) && currentPlatform != null )
+		{
+//			if( currentPlatform == null )
+//				return;
+			
+			
+			currentPlatform.colorState = ColorState.CS_NOTACTIVE;
+			currentPlatform.transform.renderer.material.color = Color.white;
+			
+			currentPlatform = null;
+			
+			// 2 cases: 
+			// - if there is just one platform, then it will become green
+			// - if there is more, then there will be reassignment to the same color
+			
+			if( platforms.Count > 0 )
+			{
+				platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
+				platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
+			}
+			return;
+		}
+		
 		if( Input.GetKeyDown(grabPlatformKeycode) )
 		{
 			if( platforms.Count == 0 )
@@ -137,29 +162,6 @@ public class BonesArea : MonoBehaviour
 				}	
 			}
 
-		}
-			
-		if( Input.GetKeyDown(releasePlatformsKeycode) )
-		{
-			if( currentPlatform == null )
-				return;
-			
-			
-			currentPlatform.colorState = ColorState.CS_NOTACTIVE;
-			currentPlatform.transform.renderer.material.color = Color.white;
-			
-			currentPlatform = null;
-			
-			// 2 cases: 
-			// - if there is just one platform, then it will become green
-			// - if there is more, then there will be reassignment to the same color
-			
-			if( platforms.Count > 0 )
-			{
-				platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
-				platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
-			}
-			
 		}
 		
 		if( Input.GetKeyDown(switchPlatformKeycode) )
