@@ -31,11 +31,14 @@ public class Player : MonoBehaviour {
 	
 	[HideInInspector]
 	public bool isGrounded;
+	[HideInInspector]
+	public bool canJump;
+	public bool isFacingRight;
 	public LayerMask ignoreLayers;
 	
 	//Private stuff
 	RaycastHit bottomLeft, bottomMiddle, bottomRight, left, right;
-	bool isTouchingRight, isTouchingLeft, canJump;
+	bool isTouchingRight, isTouchingLeft;
 	bool isJumping = false;
 	bool releasedJumpingRightNow = false;
 	float jumpAirTime = 0f;
@@ -150,12 +153,14 @@ public class Player : MonoBehaviour {
 		{
 			isMoving = true;
 			_rb.velocity = (new Vector3(-1f * speed * Time.deltaTime, _rb.velocity.y, 0f));
+			isFacingRight = false;
 		}
 		//moving right
 		if(Input.GetAxis(input.horizontal) > 0.1f  && lockRight <= 0f && !isTouchingRight)
 		{
 			isMoving = true;
 			_rb.velocity=(new Vector3(speed * Time.deltaTime, _rb.velocity.y, 0f));
+			isFacingRight = true;
 		}
 		
 		

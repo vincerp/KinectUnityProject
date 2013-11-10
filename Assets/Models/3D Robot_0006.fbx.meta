@@ -1,0 +1,226 @@
+fileFormatVersion: 2
+guid: 0f75b37ad596e8c4eba03bd4e8248e2a
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Backdrop Item
+    100004: BOOTS
+    100006: Camera
+    100008: CHEST
+    100010: Directional Light
+    100012: HEAD
+    100014: HEAP
+    100016: JETPACK
+    100018: L ARM
+    100020: L FOOT
+    100022: L LEG
+    100024: L SHOULDER
+    100026: R ARM
+    100028: R FOOT
+    100030: R LEG
+    100032: R SHOULDER
+    100034: Skeleton_Braccia
+    100036: 'Skeleton_Braccia '
+    100038: Skeleton_Braccia  1
+    100040: Skeleton_Braccia  10
+    100042: Skeleton_Braccia  11
+    100044: Skeleton_Braccia  12
+    100046: Skeleton_Braccia  13
+    100048: Skeleton_Braccia  14
+    100050: Skeleton_Braccia  15
+    100052: Skeleton_Braccia  16
+    100054: Skeleton_Braccia  17
+    100056: Skeleton_Braccia  2
+    100058: Skeleton_Braccia  3
+    100060: Skeleton_Braccia  4
+    100062: Skeleton_Braccia  5
+    100064: Skeleton_Braccia  6
+    100066: Skeleton_Braccia  7
+    100068: Skeleton_Braccia  8
+    100070: Skeleton_Braccia  9
+    100072: Texture Group
+    400000: //RootNode
+    400002: Backdrop Item
+    400004: BOOTS
+    400006: Camera
+    400008: CHEST
+    400010: Directional Light
+    400012: HEAD
+    400014: HEAP
+    400016: JETPACK
+    400018: L ARM
+    400020: L FOOT
+    400022: L LEG
+    400024: L SHOULDER
+    400026: R ARM
+    400028: R FOOT
+    400030: R LEG
+    400032: R SHOULDER
+    400034: Skeleton_Braccia
+    400036: 'Skeleton_Braccia '
+    400038: Skeleton_Braccia  1
+    400040: Skeleton_Braccia  10
+    400042: Skeleton_Braccia  11
+    400044: Skeleton_Braccia  12
+    400046: Skeleton_Braccia  13
+    400048: Skeleton_Braccia  14
+    400050: Skeleton_Braccia  15
+    400052: Skeleton_Braccia  16
+    400054: Skeleton_Braccia  17
+    400056: Skeleton_Braccia  2
+    400058: Skeleton_Braccia  3
+    400060: Skeleton_Braccia  4
+    400062: Skeleton_Braccia  5
+    400064: Skeleton_Braccia  6
+    400066: Skeleton_Braccia  7
+    400068: Skeleton_Braccia  8
+    400070: Skeleton_Braccia  9
+    400072: Texture Group
+    2300000: JETPACK
+    3300000: JETPACK
+    4300000: HEAD
+    4300002: CHEST
+    4300004: R SHOULDER
+    4300006: L SHOULDER
+    4300008: HEAP
+    4300010: L LEG
+    4300012: R LEG
+    4300014: L FOOT
+    4300016: R FOOT
+    4300018: R ARM
+    4300020: L ARM
+    4300022: JETPACK
+    4300024: BOOTS
+    7400000: Idle
+    7400002: Walk
+    7400004: Jump
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: BOOTS
+    13700002: CHEST
+    13700004: HEAD
+    13700006: HEAP
+    13700008: L ARM
+    13700010: L FOOT
+    13700012: L LEG
+    13700014: L SHOULDER
+    13700016: R ARM
+    13700018: R FOOT
+    13700020: R LEG
+    13700022: R SHOULDER
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations:
+    - name: Idle
+      takeName: modo_Anim
+      firstFrame: 20
+      lastFrame: 68
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      transformMask: []
+    - name: Walk
+      takeName: modo_Anim
+      firstFrame: 70
+      lastFrame: 94
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      transformMask: []
+    - name: Jump
+      takeName: modo_Anim
+      firstFrame: 100
+      lastFrame: 104
+      wrapMode: 8
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      transformMask: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00499999989
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 1
+  userData: 
