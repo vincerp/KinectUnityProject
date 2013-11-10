@@ -40,6 +40,7 @@ public class BonesArea : MonoBehaviour
 	#endregion
 	
 	private Vector3 centralPoint;
+	public float centralPointOffset = 0.6f;
 	public float magnetMovementSpeed = 10f;
 	public float distancePositionMultiplierX = 1f;
 	public float distancePositionMultiplierY = 1f;
@@ -85,7 +86,7 @@ public class BonesArea : MonoBehaviour
 			
 			centralPoint = Vector3.Lerp(skeletonController.Spine.transform.position,
 				skeletonController.Shoulder_Center.transform.position,
-				0.6f);
+				centralPointOffset);
 			break;
 		case SkeletonPart.SP_KNEES:
 			bones.bone1 = skeletonController.Knee_Left.transform;
@@ -190,6 +191,19 @@ public class BonesArea : MonoBehaviour
 			moveTo,
 			magnetMovementSpeed);
 		
+		////Magnet rotation
+		if(bones.Distance > distanceDeadZone){
+			rotateTowardsAngle = (bones.Angle+boneAngleAdjustment)*boneAngleFactor;
+			//now we snap the value so it doesn't flicker
+			if(Mathf.Abs(rotateTowardsAngle)%preciseSnap < preciseSnapRange || Mathf.Abs(rotateTowardsAngle)%preciseSnap > preciseSnap - preciseSnapRange) {
+				//here we snap to precise degree angles
+				rotateTowardsAngle = MathUtilities.SnapTo(rotateTowardsAngle, preciseSnap);
+			} else {
+				//here we snap to less precise angles
+				rotateTowardsAngle = MathUtilities.SnapTo(rotateTowardsAngle, angleSnapFactor);
+			}
+		}
+		
 		if ( currentPlatform == null ) return;
 		
 //		if(!isReleasePlatforms) return;
@@ -273,9 +287,10 @@ public class BonesArea : MonoBehaviour
 		
 					
 		////Platform Rotation
+		#region this was moved to be updated independently holding a platform or not
 		//if the bones are too close, we will have rotation issues
 		//so we will only update rotation if they are not too close
-		if(bones.Distance > distanceDeadZone){
+		/*if(bones.Distance > distanceDeadZone){
 			rotateTowardsAngle = (bones.Angle+boneAngleAdjustment)*boneAngleFactor;
 			//now we snap the value so it doesn't flicker
 			if(Mathf.Abs(rotateTowardsAngle)%preciseSnap < preciseSnapRange || Mathf.Abs(rotateTowardsAngle)%preciseSnap > preciseSnap - preciseSnapRange) {
@@ -285,7 +300,8 @@ public class BonesArea : MonoBehaviour
 				//here we snap to less precise angles
 				rotateTowardsAngle = MathUtilities.SnapTo(rotateTowardsAngle, angleSnapFactor);
 			}
-		}
+		}*/
+		#endregion
 		//platform rotation happens here
 		if (pl.pt != Platform.PlatformType.PT_VRAIL && pl.pt != Platform.PlatformType.PT_ORAIL)
 		{
@@ -504,6 +520,11 @@ public class BonesArea : MonoBehaviour
 	
 	void OnDrawGizmos(){
 		Gizmos.DrawWireSphere(transform.position, (collider as SphereCollider).radius);
+		if(Application.isEditor) return;
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(bones.CentralPoint, 0.3f);
+		Gizmos.color = Color.magenta;
+		Gizmos.DrawWireSphere(centralPoint, 0.5f);
 	}
 	
 	void OnGUI(){
