@@ -673,11 +673,11 @@ public class BonesInputHelper{
 	}
 	
 	public InputActionType grabAction = InputActionType.PRESS;
-	public KeyCode grabKey = KeyCode.Joystick1Button4;
+	public KeyCode grabKey = KeyCode.Joystick1Button5;
 	public InputActionType releaseAction = InputActionType.RELEASE;
-	public KeyCode releaseKey = KeyCode.Joystick1Button4;
+	public KeyCode releaseKey = KeyCode.Joystick1Button5;
 	public InputActionType switchNextPlatformAction = InputActionType.PRESS;
-	public KeyCode switchNextPlatformKey = KeyCode.Joystick1Button5;
+	public KeyCode switchNextPlatformKey = KeyCode.Joystick1Button4;
 	
 	public bool CheckGrab(){
 		switch(grabAction){
@@ -688,7 +688,7 @@ public class BonesInputHelper{
 		return false;
 	}
 	public bool CheckRelease(){
-		switch(grabAction){
+		switch(releaseAction){
 		case InputActionType.PRESS: return Input.GetKeyDown(grabKey);
 		case InputActionType.HOLD : return Input.GetKey(grabKey);
 		case InputActionType.RELEASE: return Input.GetKeyUp(grabKey);

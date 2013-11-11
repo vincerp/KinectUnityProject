@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class ButtonDependantChildren : MonoBehaviour {
@@ -12,7 +13,8 @@ public class ButtonDependantChildren : MonoBehaviour {
 	
 	public List<GameObject> children = new List<GameObject>();
 	
-	private void Start(){
+	private IEnumerator Start(){
+		yield return new WaitForEndOfFrame();
 		foreach(Transform child in transform){
 			children.Add(child.gameObject);
 			child.gameObject.SetActive(not);
