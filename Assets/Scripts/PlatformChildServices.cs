@@ -12,6 +12,8 @@ public class PlatformChildServices : MonoBehaviour {
 	 */
 	public int platformLayer = 9;
 	
+	int index = 0;
+	
 	/**
 	 * A parenting love story between transforms
 	 */
@@ -50,6 +52,9 @@ public class PlatformChildServices : MonoBehaviour {
 			
 			_ptr.gameObject.layer = platformLayer;
 			_ctr.name += " is now happy with his new parent";
+			
+			_ctr.name += index;
+			index++;
 		}
 	}
 }

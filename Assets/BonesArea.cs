@@ -18,7 +18,7 @@ public class BonesArea : MonoBehaviour
 	public BonePair bones = new BonePair();
 	
 	public List<PlatformInfo> platforms = new List<PlatformInfo>();
-	private PlatformInfo currentPlatform = null;
+	public PlatformInfo currentPlatform = null;
 	private int nextPlatformIndex = 0;
 	
 	public float boneScaleFactor = 1f;
@@ -131,9 +131,16 @@ public class BonesArea : MonoBehaviour
 			if( currentPlatform == null )
 			{				
 				currentPlatform = platforms[nextPlatformIndex];
-			
+			try
+				{
 				currentPlatform.colorState = ColorState.CS_ACTIVE;
-				currentPlatform.transform.renderer.material.color = Color.red;
+				currentPlatform.transform.renderer.material.color = Color.red;	
+				}
+				catch(Exception c)
+				{
+					Debug.Log("error appeared");
+				}
+					
 				
 				
 				if( platforms.Count > 1 )
@@ -389,10 +396,18 @@ public class BonesArea : MonoBehaviour
 		// find the element in the list and remove it
 		PlatformInfo outPlatform = null;
 		
-
-		IEnumerable<PlatformInfo> pls = (from x in platforms 
+		IEnumerable<PlatformInfo> pls;
+		
+		
+		try{
+		pls = (from x in platforms 
 							where x.transform.collider == other 
 							select x);
+		}
+				catch(Exception c)
+				{
+					Debug.Log("error appeared");
+				}
 			
 		outPlatform = pls.First() as PlatformInfo;
 

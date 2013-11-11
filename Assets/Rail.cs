@@ -17,7 +17,7 @@ public class Rail : EZLine {
 	}
 	
 	void LateUpdate(){
-		if( platform.transform == null )
+		if( platform == null )
 			return;
 		
 		platform.transform.position = GetPositionInLine(platform.transform.position);

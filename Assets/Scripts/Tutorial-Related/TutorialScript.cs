@@ -40,8 +40,17 @@ public class TutorialScript : MonoBehaviour {
 		
 		if(hasDragged && Input.GetButton(inputAxis) && other.hasDragged && Input.GetButton(other.inputAxis)){
 			Debug.Log("YEEEEEEAH");
-			turnOn.gameObject.SetActive(true);
+			
 			turnOff.gameObject.SetActive(false);
+			
+			BonesArea[] magnets = Component.FindObjectsOfType(typeof(BonesArea)) as BonesArea[];
+			foreach(BonesArea magnet in magnets)
+			{
+				magnet.platforms.Clear();
+				magnet.currentPlatform = null;
+			}
+			
+			turnOn.gameObject.SetActive(true);
 		}
 	}
 	
