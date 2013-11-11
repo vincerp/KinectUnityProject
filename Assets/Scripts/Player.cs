@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
 	public float jumpStrengthMultiplier;				// Should be 1, but it can be changed by other functions
 	public float gravity;								// Rigidbodies can have their own gravity, but this makes it all a bit more tweakable
 	public float jumpSustainTime;
+	public bool lockJumpSustain = true;
 	
 	public float raycastDistance = 0.40f;
 	public float raycastRaysize = 0.55f;
@@ -83,7 +84,6 @@ public class Player : MonoBehaviour {
 			Physics.Raycast (_tr.position + raycastPoint,
 				Vector3.down, canJumpRaycastSize  * _tr.localScale.y, ignoreLayers)
 		);
-		
 		isTouchingRight = Physics.Raycast (_tr.position, _tr.right, out right, 1.1f  * _tr.localScale.x, ignoreLayers);		
 		isTouchingLeft = Physics.Raycast (_tr.position, -_tr.right, out left, 1.1f  * _tr.localScale.x, ignoreLayers);		
 
@@ -95,7 +95,7 @@ public class Player : MonoBehaviour {
 		//Ends jumping when we release the button 
 		releasedJumpingRightNow = Input.GetButtonUp(input.a) || Input.GetButtonUp(input.b);
 		if(releasedJumpingRightNow) {
-			jumpAirTime = 0f;
+			if(!lockJumpSustain)jumpAirTime = 0f;
 			isJumping = false;
 		}
 		if(jumpAirTime > 0f) jumpAirTime -= Time.deltaTime;
