@@ -13,15 +13,18 @@ public class TutorialScript : MonoBehaviour {
 	public Material aPressed;
 	public Material aUnpressed;
 	
+	public GameObject turnOff;
+	public GameObject turnOn;
+	
+	
 	public bool hasDragged{
 		get{
-			return transform.localPosition.y <= -11.5f;
+			return transform.position.y <= 18.5f;
 		}
 	}
 	
 	void Start(){
 		thisPlatform = GetComponent<Platform>();
-		finalPosition = thisPlatform.rail.end + thisPlatform.rail.transform.position;
 	}
 	
 	void Update(){
@@ -37,7 +40,12 @@ public class TutorialScript : MonoBehaviour {
 		
 		if(hasDragged && Input.GetButton(inputAxis) && other.hasDragged && Input.GetButton(other.inputAxis)){
 			Debug.Log("YEEEEEEAH");
-			Application.LoadLevel(1);
+			turnOn.gameObject.SetActive(true);
+			turnOff.gameObject.SetActive(false);
 		}
+	}
+	
+	void OnDrawGizmos(){
+		Gizmos.DrawWireSphere(finalPosition, 0.5f);
 	}
 }
