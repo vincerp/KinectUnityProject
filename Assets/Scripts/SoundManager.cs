@@ -34,14 +34,14 @@ public class SoundManager : MonoBehaviour {
 		get{return _sfxVolume;}
 		set{
 			_sfxVolume = value;
-			foreach(AudioSource a in registeredSources) a.volume = value;
+			foreach(AudioSource a in registeredSources) if(a)a.volume = value;
 		}
 	}
 	public bool sfxMute{
 		get{return _sfxMute;}
 		set{
 			_sfxMute = value;
-			foreach(AudioSource a in registeredSources) a.mute = value;
+			foreach(AudioSource a in registeredSources) if(a)a.mute = value;
 		}
 	}
 	#endregion

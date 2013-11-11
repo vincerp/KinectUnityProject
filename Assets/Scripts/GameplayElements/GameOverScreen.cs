@@ -21,6 +21,7 @@ public class GameOverScreen : MonoBehaviour {
 		if(player == 2) p2.SetActive(true);
 		
 		Time.timeScale = 0f;
+		SoundManager.instance.sfxMute = true;
 		StartCoroutine(WaitForA());
 	}
 	
@@ -30,5 +31,6 @@ public class GameOverScreen : MonoBehaviour {
 		}
 		Application.LoadLevel(0);
 		Time.timeScale = 1f;
+		SoundManager.instance.sfxMute = false;
 	}
 }
