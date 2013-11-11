@@ -18,7 +18,7 @@ public class BonesArea : MonoBehaviour
 	public BonePair bones = new BonePair();
 	
 	public List<PlatformInfo> platforms = new List<PlatformInfo>();
-	private PlatformInfo currentPlatform = null;
+	public PlatformInfo currentPlatform = null;
 	private int nextPlatformIndex = 0;
 	
 	public float boneScaleFactor = 1f;
@@ -131,9 +131,16 @@ public class BonesArea : MonoBehaviour
 			if( currentPlatform == null )
 			{				
 				currentPlatform = platforms[nextPlatformIndex];
-			
+			try
+				{
 				currentPlatform.colorState = ColorState.CS_ACTIVE;
-				currentPlatform.transform.renderer.material.color = Color.red;
+				currentPlatform.transform.renderer.material.color = Color.red;	
+				}
+				catch(Exception c)
+				{
+					Debug.Log("error appeared");
+				}
+					
 				
 				
 				if( platforms.Count > 1 )
@@ -226,6 +233,11 @@ public class BonesArea : MonoBehaviour
 		
 		Platform pl = currentPlatform.transform.GetComponentInChildren<Platform>();
 		
+		if( pl == null )
+		{
+			currentPlatform = null;
+			return;
+		}
 			
 //		if (pl.pt == Platform.PlatformType.PT_RAIL)
 //		{
@@ -384,10 +396,18 @@ public class BonesArea : MonoBehaviour
 		// find the element in the list and remove it
 		PlatformInfo outPlatform = null;
 		
-
-		IEnumerable<PlatformInfo> pls = (from x in platforms 
+		IEnumerable<PlatformInfo> pls;
+		
+		
+		try{
+		pls = (from x in platforms 
 							where x.transform.collider == other 
 							select x);
+		}
+				catch(Exception c)
+				{
+					Debug.Log("error appeared");
+				}
 			
 		outPlatform = pls.First() as PlatformInfo;
 
@@ -560,12 +580,15 @@ public class BonesArea : MonoBehaviour
 			Rect _pos = new Rect(0f, 0f, 120f, 30f);
 			Vector3 _view;
 			foreach (var plat in platforms){
-				_view = Camera.main.WorldToScreenPoint(plat.transform.position);
-				
-				_pos.x = _view.x-60f;
-				_pos.y = Screen.height-_view.y-15f;
-				GUI.color = new Color(0f,0f,0f,0.7f);
-				GUI.Label(_pos, "zº:"+plat.transform.rotation.eulerAngles.z);
+				if( plat.transform != null )
+				{
+					_view = Camera.main.WorldToScreenPoint(plat.transform.position);
+					
+					_pos.x = _view.x-60f;
+					_pos.y = Screen.height-_view.y-15f;
+					GUI.color = new Color(0f,0f,0f,0.7f);
+					GUI.Label(_pos, "zº:"+plat.transform.rotation.eulerAngles.z);
+				}
 			}
 		}
 
