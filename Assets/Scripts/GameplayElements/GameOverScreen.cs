@@ -26,7 +26,12 @@ public class GameOverScreen : MonoBehaviour {
 	}
 	
 	public IEnumerator WaitForA(){
+		bool not = false;
 		while(!Input.GetButton("Jump") || !Input.GetButton("p2A")){
+			if(!not){
+				not = true;
+				pA.GetComponent<TextMesh>().text = "Loading...";
+			}
 			yield return null;
 		}
 		Application.LoadLevel(0);
