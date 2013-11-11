@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 	
+	public int playerId = 1;
 	public InputAxisNames input;
 	
 	public float speed;									// Horizontal movement speed
@@ -194,9 +195,10 @@ public class Player : MonoBehaviour {
 	public void ApplyDamage(float amount){
 		health += -amount;
 		SoundManager.instance.PlaySoundAt(audio, "Damage");
-		if(health < 0f){
+		if(health <= 0f){
 			health = 0f;
 			Debug.Log(name + " is dead!");
+			GameOverScreen.instance.PlayerDied(playerId);
 		}
 	}
 	
