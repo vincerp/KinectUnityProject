@@ -9,6 +9,11 @@ public class JumpPowerUp : BaseAbility {
 	
 	void Start(){
 		_tr = transform;
+		_tr.FindChild("Model").FindChild("BOOTS").gameObject.SetActive(true);
+	}
+	
+	void OnDestroy(){
+		_tr.FindChild("Model").FindChild("BOOTS").gameObject.SetActive(false);
 	}
 	
 	protected override void UpdateAbility ()
