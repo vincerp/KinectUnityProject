@@ -206,6 +206,26 @@ public class Player : MonoBehaviour {
 	}
 	#endregion
 	
+	public Rect healthBarRect = new Rect(0f, 0f, 30f, 5f);
+	public GUISkin healthBarSkin;
+	
+	void OnGUI(){
+		Vector3 pos = Camera.main.WorldToScreenPoint(_tr.position);
+		
+		Rect copy = healthBarRect;
+		copy.x = pos.x-(healthBarRect.width/2f);
+		copy.y += Screen.height-pos.y;
+		
+		GUI.skin = healthBarSkin;
+		
+		GUI.color = new Color(0.8f, 0f, 0f, 0.7f);
+		GUI.Box(copy, "");
+		copy.width *= (health/maxHealth);
+		if(copy.width<=0f)copy.width = 0f;
+		GUI.color = new Color(0f, 0.8f, 0f, 0.9f);
+		GUI.Box(copy, "");
+	}
+	
 #if UNITY_EDITOR
 	/*
 	 * Here we define editor-specific functions that are useful only for debuging.

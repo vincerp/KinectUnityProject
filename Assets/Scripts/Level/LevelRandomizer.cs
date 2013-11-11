@@ -27,6 +27,7 @@ public class LevelRandomizer : MonoBehaviour {
 		set{
 			_scrollType = value;
 			if(_scrollType == ScrollType.ScrollToNextPiece) waitingForChunks++;
+			else waitingForChunks = 0;
 		}
 	}
 	private int waitingForChunks = 0;
