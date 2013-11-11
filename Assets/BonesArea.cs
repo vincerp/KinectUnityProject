@@ -58,6 +58,7 @@ public class BonesArea : MonoBehaviour
 	public GUISkin clawSkin;
 	public Color playerColor;
 	public float clawSize = 40f;
+	private float _angle;
 	
 	private Quaternion rotateFrom = Quaternion.identity;
 	
@@ -582,7 +583,7 @@ public class BonesArea : MonoBehaviour
 		float _distPercent = GetBoneDistance() / boneDistanceFactor.Evaluate(1000);
 		float _minimumDistanceAmount = clawSize;
 		float _distAmount = 400f;
-		float _angle = rotateTowardsAngle;
+		_angle = Mathf.MoveTowardsAngle(_angle, rotateTowardsAngle, rotationSpeed);
 		_distAmount *= _distPercent;
 		_distAmount += _minimumDistanceAmount;
 		_distAmount = 80f; //this is a HACK!
@@ -590,7 +591,7 @@ public class BonesArea : MonoBehaviour
 		bool isHolding = currentPlatform != null;
 		float halfClaw = clawSize/2;
 		
-		GUIUtility.RotateAroundPivot(-rotateTowardsAngle, new Vector2(_magPos.x, _magPos.y));
+		GUIUtility.RotateAroundPivot(-_angle, new Vector2(_magPos.x, _magPos.y));
 		_boxyThing.y = _magPos.y-halfClaw;
 		_boxyThing.x = _magPos.x-halfClaw;
 		GUI.Box(_boxyThing, "", "Target");

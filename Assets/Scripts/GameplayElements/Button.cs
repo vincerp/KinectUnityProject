@@ -7,11 +7,19 @@ public class Button : MonoBehaviour {
 	public delegate void ButtonEvent();
 	public event ButtonEvent ButtonChanged;
 	
-	public GameObject onlyToPlayer;
+	public enum OnlyToPlayer{
+		BOTH,
+		PLAYER1,
+		PLAYER2
+	}
+	public OnlyToPlayer onlyToPlayer = OnlyToPlayer.BOTH; 
+	
+	private GameObject _onlyToPlayer;
 	public bool not = false;
 	public bool activateOnlyOnce = true;
 	private bool hasActivated = false;
 	public bool triggerScriptsInThisObject = false;
+	public bool blinkWhileInnactive = true;
 	
 	private int nOfPlayers = 0;
 	private int ignoreRaycastLayer = 2;
@@ -25,33 +33,53 @@ public class Button : MonoBehaviour {
 		}
 	}
 	
+	private Material _mat;
+	private Color _originalColor;
+	public Color blinkColor = Color.white;
+	
 	void Start () {
 		collider.isTrigger = true;
 		gameObject.layer = ignoreRaycastLayer;
+		if(audio == null) gameObject.AddComponent<AudioSource>();
+		_mat = transform.FindChild("BUTTON").renderer.material;
+		_originalColor = _mat.color;
+		
+		if(onlyToPlayer != OnlyToPlayer.BOTH){
+			string find = (onlyToPlayer == OnlyToPlayer.PLAYER1)?"Player":"Player2";
+			_onlyToPlayer = GameObject.Find(find);
+		}
+	}
+	
+	void Update(){
+		if(!blinkWhileInnactive || hasActivated) return;
+		Color _blinkColor = Color.Lerp(_originalColor, blinkColor, Mathf.Abs(Mathf.Sin(Time.time)));
+		_mat.color = _blinkColor;
 	}
 	
 	void OnTriggerEnter(Collider col){
-		if(hasActivated || col.tag != "Player" || (onlyToPlayer && col.gameObject != onlyToPlayer)) return;
+		if(hasActivated || col.tag != "Player" || (_onlyToPlayer && col.gameObject != _onlyToPlayer)) return;
 		
 		//play sound here
 		nOfPlayers ++;
 		if(nOfPlayers==1) { //this is such a shitty piece of code
-			ButtonChanged();
+			if(ButtonChanged != null)ButtonChanged();
 			if(activateOnlyOnce) hasActivated = true;
 			if(triggerScriptsInThisObject) SendMessage("Trigger", isActive);
 			animation.Play("on");
+			SoundManager.instance.PlaySoundAt(audio, "On");
 		}
 	}
 	
 	void OnTriggerExit(Collider col){
-		if(hasActivated || col.tag != "Player" || (onlyToPlayer && col.gameObject != onlyToPlayer)) return;
+		if(hasActivated || col.tag != "Player" || (_onlyToPlayer && col.gameObject != _onlyToPlayer)) return;
 		
 		//play sound here
 		nOfPlayers --;
 		if(nOfPlayers == 0) { //this is such a shitty piece of code
-			ButtonChanged();
+			if(ButtonChanged != null)ButtonChanged();
 			if(triggerScriptsInThisObject) SendMessage("Trigger", isActive);
 			animation.Play("off");
+			SoundManager.instance.PlaySoundAt(audio, "Off");
 		}
 	}
 }

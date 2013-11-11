@@ -23,6 +23,14 @@ public class Platform : MonoBehaviour {
 			return;
 		}
 		
+		if(pt == PlatformType.PT_PINNED){
+			Transform _pin = GameObject.CreatePrimitive(PrimitiveType.Cylinder).transform;
+			_pin.transform.position = transform.position + offset;
+			_pin.localRotation = Quaternion.Euler(90f, 0f, 0f);
+			_pin.renderer.material = EZGrabber.instance.GetLinkedItem("StaticMaterial") as Material;
+			_pin.parent = transform;
+		}
+		
 		if(pt == PlatformType.PT_ORAIL ||
 			pt == PlatformType.PT_ORAILPINNED ||
 			pt == PlatformType.PT_VRAIL ||
@@ -34,9 +42,11 @@ public class Platform : MonoBehaviour {
 	}
 	
 	public void OnDrawGizmos(){
-		if(offset == Vector3.zero || Application.isPlaying) return;
+		if(pt != PlatformType.PT_PINNED || Application.isPlaying) return;
 		Gizmos.color = Color.blue;
 		Gizmos.DrawWireSphere(transform.position+offset, 1f);
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(transform.position+offset, ((transform.localScale/2) + offset).magnitude);
 	}
 	
 	public enum PlatformType 

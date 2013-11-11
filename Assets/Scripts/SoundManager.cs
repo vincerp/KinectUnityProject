@@ -67,7 +67,9 @@ public class SoundManager : MonoBehaviour {
 		if(!registeredSources.Contains(source)) registeredSources.Add(source);
 		
 		AudioClip _clip = GetSound(soundId);
-		if(!_sfxMute)source.PlayOneShot(_clip, _sfxVolume);
+		source.volume = _sfxVolume;
+		source.mute = _sfxMute;
+		source.PlayOneShot(_clip);
 		//Debug.Log("Playing sound " + soundId + " at " + source.name);
 	}
 	

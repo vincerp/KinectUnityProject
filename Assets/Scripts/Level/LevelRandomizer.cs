@@ -22,6 +22,8 @@ public class LevelRandomizer : MonoBehaviour {
 	public ScrollType scrollType = ScrollType.Static;
 	public List<LevelChunkSettings> chunksLoaded;
 	
+	public float metersScrolled = 0f;
+	
 	private void Start(){
 		instance = this;
 		LevelChunkSettings _lcs;
@@ -57,6 +59,7 @@ public class LevelRandomizer : MonoBehaviour {
 				CreateNewChunk();
 			}
 		}
+		metersScrolled += verticalSpeed*Time.fixedDeltaTime;
 	}
 	
 	private void CreateNewChunk(){
@@ -81,10 +84,10 @@ public class LevelRandomizer : MonoBehaviour {
 	public LevelChunkSettings SortNewChunk(){
 		
 		List<LevelChunkSettings> _possibleChunks = new List<LevelChunkSettings>();
-		PlayerProgression _prog;
+		//PlayerProgression _prog;
 		
 		foreach(LevelChunkSettings chunk in availableChunks){
-			_prog = chunk.progressionNeeded;
+			//_prog = chunk.progressionNeeded;
 			if(PlayerProgression.CompareCompatibleSkills(currentSkillLevel, chunk.progressionNeeded, skillTolerableAmount))
 			{
 				//would be good if we could also ignore the ones that demand too little skill

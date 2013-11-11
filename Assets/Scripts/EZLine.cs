@@ -35,7 +35,6 @@ public class EZLine : MonoBehaviour {
 		if(Vector3.Angle(fromWhere-end, start-end) > 90f) return end;
 		
 		float d1 = Vector3.Distance(fromWhere, start);
-		float d2 = Vector3.Distance(fromWhere, end);
 		float ls = lineSize;
 		float eulero = d1*Mathf.Sin(Mathf.Deg2Rad*(90f - Vector3.Angle(fromWhere-start, end-start)));
 		float percent = eulero/ls;

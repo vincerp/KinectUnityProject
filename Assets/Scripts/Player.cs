@@ -18,7 +18,6 @@ public class Player : MonoBehaviour {
 	
 	private float lockLeft;								// Don't allow left movement
 	private float lockRight;							// ... or right movement
-	private bool squished;								// Are we alive or what?
 	
 	public bool enableWallJump = true;
 	public float slopeSlideLimit = 50f;
@@ -62,45 +61,42 @@ public class Player : MonoBehaviour {
 	void Update() {
 		if(PauseGame.isGamePaused) return;
 		if(_rb.IsSleeping()) _rb.WakeUp();
-		if(!squished)
-		{
-			isGrounded = (
-				//Ground raycast checks
-				Physics.Raycast (_tr.position + -raycastPoint,
-					Vector3.down, out bottomLeft,
-					raycastRaysize * _tr.localScale.y, ignoreLayers) ||
-				Physics.Raycast (_tr.position,
-					Vector3.down, out bottomMiddle,
-					raycastRaysize  * _tr.localScale.y, ignoreLayers) ||
-				Physics.Raycast (_tr.position + raycastPoint,
-					Vector3.down, out bottomRight,
-					raycastRaysize  * _tr.localScale.y, ignoreLayers)
-			);
-			canJump = (
-				//Ground raycast checks
-				Physics.Raycast (_tr.position + -raycastPoint,
-					Vector3.down, canJumpRaycastSize * _tr.localScale.y, ignoreLayers) ||
-				Physics.Raycast (_tr.position,
-					Vector3.down,canJumpRaycastSize  * _tr.localScale.y, ignoreLayers) ||
-				Physics.Raycast (_tr.position + raycastPoint,
-					Vector3.down, canJumpRaycastSize  * _tr.localScale.y, ignoreLayers)
-			);
-			
-			isTouchingRight = Physics.Raycast (_tr.position, _tr.right, out right, 1.1f  * _tr.localScale.x, ignoreLayers);		
-			isTouchingLeft = Physics.Raycast (_tr.position, -_tr.right, out left, 1.1f  * _tr.localScale.x, ignoreLayers);		
+		
+		isGrounded = (
+			//Ground raycast checks
+			Physics.Raycast (_tr.position + -raycastPoint,
+				Vector3.down, out bottomLeft,
+				raycastRaysize * _tr.localScale.y, ignoreLayers) ||
+			Physics.Raycast (_tr.position,
+				Vector3.down, out bottomMiddle,
+				raycastRaysize  * _tr.localScale.y, ignoreLayers) ||
+			Physics.Raycast (_tr.position + raycastPoint,
+				Vector3.down, out bottomRight,
+				raycastRaysize  * _tr.localScale.y, ignoreLayers)
+		);
+		canJump = (
+			//Ground raycast checks
+			Physics.Raycast (_tr.position + -raycastPoint,
+				Vector3.down, canJumpRaycastSize * _tr.localScale.y, ignoreLayers) ||
+			Physics.Raycast (_tr.position,
+				Vector3.down,canJumpRaycastSize  * _tr.localScale.y, ignoreLayers) ||
+			Physics.Raycast (_tr.position + raycastPoint,
+				Vector3.down, canJumpRaycastSize  * _tr.localScale.y, ignoreLayers)
+		);
+		
+		isTouchingRight = Physics.Raycast (_tr.position, _tr.right, out right, 1.1f  * _tr.localScale.x, ignoreLayers);		
+		isTouchingLeft = Physics.Raycast (_tr.position, -_tr.right, out left, 1.1f  * _tr.localScale.x, ignoreLayers);		
 
-			//Starts jumping when we press the button
-			if(!isJumping && (Input.GetButtonDown(input.a) || Input.GetButtonDown(input.b))){
-				StartJump();
-			}
-			
-			//Ends jumping when we release the button 
-			releasedJumpingRightNow = Input.GetButtonUp(input.a) || Input.GetButtonUp(input.b);
-			if(releasedJumpingRightNow) {
-				jumpAirTime = 0f;
-				isJumping = false;
-			}
-			
+		//Starts jumping when we press the button
+		if(!isJumping && (Input.GetButtonDown(input.a) || Input.GetButtonDown(input.b))){
+			StartJump();
+		}
+		
+		//Ends jumping when we release the button 
+		releasedJumpingRightNow = Input.GetButtonUp(input.a) || Input.GetButtonUp(input.b);
+		if(releasedJumpingRightNow) {
+			jumpAirTime = 0f;
+			isJumping = false;
 		}
 		if(jumpAirTime > 0f) jumpAirTime -= Time.deltaTime;
 		if(lockLeft > 0) lockLeft -= Time.deltaTime;
@@ -223,33 +219,6 @@ public class Player : MonoBehaviour {
 		Debug.DrawRay (_tr.position + raycastPoint, 	Vector3.down*1f, Color.blue,0.1f);
 	}
 #endif
-	
-	//not used for now
-	public void Squish(Player squishedBy=null) {
-		/*
-		if(!squished)
-		{
-			if(squishedBy)
-			{
-				//ChainJam.AddPoints(squishedBy.playerID,1	);
-				//if(ChainJam.GetTotalPoints() >= 10) ChainJam.GameEnd();
-			}
-
-			squished =true;
-			//do the squish
-			StartCoroutine(Respawn());
-		}
-		*/
-	}
-	
-	//not used for now
-	IEnumerator Respawn() {
-		yield return new WaitForSeconds(2);
-		
-		//do the respawn
-		squished = false;
-	}
-	
 
 }
 
