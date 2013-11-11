@@ -19,7 +19,17 @@ public class LevelRandomizer : MonoBehaviour {
 	
 	public int chunksAtATime = 3;
 	public float verticalSpeed = 1f;
-	public ScrollType scrollType = ScrollType.Static;
+	public ScrollType _scrollType = ScrollType.Static;
+	public ScrollType scrollType{
+		get{
+			return _scrollType;
+		}
+		set{
+			_scrollType = value;
+			if(_scrollType == ScrollType.ScrollToNextPiece) waitingForChunks++;
+		}
+	}
+	private int waitingForChunks = 0;
 	public List<LevelChunkSettings> chunksLoaded;
 	
 	public float metersScrolled = 0f;
@@ -66,7 +76,7 @@ public class LevelRandomizer : MonoBehaviour {
 		LevelChunkSettings last, newOb = Instantiate(SortNewChunk()) as LevelChunkSettings;
 		Vector3 pos;
 		
-		currentSkillLevel += chunksLoaded[0].skillAwarded;
+		//currentSkillLevel += chunksLoaded[0].skillAwarded;
 		Destroy(chunksLoaded[0].gameObject);
 		chunksLoaded.RemoveAt(0);
 		last = chunksLoaded[chunksLoaded.Count-1];
@@ -75,15 +85,32 @@ public class LevelRandomizer : MonoBehaviour {
 		last.transform.parent = transform;
 		chunksLoaded.Add(newOb);
 		
-		if(scrollType == ScrollType.ScrollToNextPiece){
+		if(scrollType == ScrollType.ScrollToNextPiece && waitingForChunks > 0){
+			waitingForChunks--;
 			//Here we make it scroll only one piece for the tutorial part
-			scrollType = ScrollType.Static;
+			if(waitingForChunks == 0)scrollType = ScrollType.Static;
 		}
 	}
 	
 	public LevelChunkSettings SortNewChunk(){
 		
-		List<LevelChunkSettings> _possibleChunks = new List<LevelChunkSettings>();
+		int _randomNumber, _max = availableChunks.Count;
+		string _chunkId;
+		//sort an ID
+		do{
+			_randomNumber = Random.Range(0, _max);
+			_chunkId = availableChunks[_randomNumber].chunkId;
+		}while(lastUsedChunkIds.Contains(_chunkId));
+		//let's use it!
+		lastUsedChunkIds.Add(_chunkId);
+		
+		//don't remember too many!
+		while(lastUsedChunkIds.Count > rememberHowManyChunks){
+			lastUsedChunkIds.RemoveAt(0);
+		}
+		return availableChunks[_randomNumber];
+		
+		/*List<LevelChunkSettings> _possibleChunks = new List<LevelChunkSettings>();
 		//PlayerProgression _prog;
 		
 		foreach(LevelChunkSettings chunk in availableChunks){
@@ -111,7 +138,7 @@ public class LevelRandomizer : MonoBehaviour {
 		while(lastUsedChunkIds.Count > rememberHowManyChunks){
 			lastUsedChunkIds.RemoveAt(0);
 		}
-		return _possibleChunks[_randomNumber];
+		return _possibleChunks[_randomNumber];*/
 	}
 }
 
@@ -123,6 +150,7 @@ public enum ScrollType{
 
 [System.Serializable]
 public class PlayerProgression{
+	//This is no longer used. At least for now.
 	public int tutorialSteps = 0;
 	public int platformMovement = 0;
 	public int platformRotating = 0;

@@ -45,10 +45,7 @@ public class BonesArea : MonoBehaviour
 	public float distancePositionMultiplierX = 1f;
 	public float distancePositionMultiplierY = 1f;
 	
-	
-	public KeyCode releasePlatformsKeycode = KeyCode.Joystick1Button5;
-	public KeyCode grabPlatformKeycode = KeyCode.Joystick1Button4;
-	public KeyCode switchPlatformKeycode = KeyCode.Joystick1Button3;
+	public BonesInputHelper bonesInput;
 //	public bool canSwitchWhileHolding = false;
 //	private bool isReleasePlatforms = false;
 	
@@ -103,7 +100,7 @@ public class BonesArea : MonoBehaviour
 	{
 		
 			
-		if( Input.GetKeyDown(releasePlatformsKeycode) && currentPlatform != null )
+		if( bonesInput.CheckRelease() && currentPlatform != null )
 		{
 //			if( currentPlatform == null )
 //				return;
@@ -126,7 +123,7 @@ public class BonesArea : MonoBehaviour
 			return;
 		}
 		
-		if( Input.GetKeyDown(grabPlatformKeycode) )
+		if( bonesInput.CheckGrab() )
 		{
 			if( platforms.Count == 0 )
 					return;
@@ -168,7 +165,7 @@ public class BonesArea : MonoBehaviour
 
 		}
 		
-		if( Input.GetKeyDown(switchPlatformKeycode) )
+		if( bonesInput.CheckSwitchNextPlatform() )
 		{
 			if( platforms.Count < 2 )
 				return;
@@ -665,5 +662,46 @@ public enum SkeletonPart
 	SP_HIPS,
 	SP_ELBOWS,
 	SP_KNEES
+}
+
+[System.Serializable]
+public class BonesInputHelper{
+	public enum InputActionType{
+		PRESS,
+		HOLD,
+		RELEASE
+	}
+	
+	public InputActionType grabAction = InputActionType.PRESS;
+	public KeyCode grabKey = KeyCode.Joystick1Button4;
+	public InputActionType releaseAction = InputActionType.RELEASE;
+	public KeyCode releaseKey = KeyCode.Joystick1Button4;
+	public InputActionType switchNextPlatformAction = InputActionType.PRESS;
+	public KeyCode switchNextPlatformKey = KeyCode.Joystick1Button5;
+	
+	public bool CheckGrab(){
+		switch(grabAction){
+		case InputActionType.PRESS: return Input.GetKeyDown(grabKey);
+		case InputActionType.HOLD : return Input.GetKey(grabKey);
+		case InputActionType.RELEASE: return Input.GetKeyUp(grabKey);
+		}
+		return false;
+	}
+	public bool CheckRelease(){
+		switch(grabAction){
+		case InputActionType.PRESS: return Input.GetKeyDown(grabKey);
+		case InputActionType.HOLD : return Input.GetKey(grabKey);
+		case InputActionType.RELEASE: return Input.GetKeyUp(grabKey);
+		}
+		return false;
+	}
+	public bool CheckSwitchNextPlatform(){
+		switch(switchNextPlatformAction){
+		case InputActionType.PRESS: return Input.GetKeyDown(switchNextPlatformKey);
+		case InputActionType.HOLD : return Input.GetKey(switchNextPlatformKey);
+		case InputActionType.RELEASE: return Input.GetKeyUp(switchNextPlatformKey);
+		}
+		return false;
+	}
 }
 #endregion
