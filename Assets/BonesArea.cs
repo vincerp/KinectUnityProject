@@ -330,7 +330,8 @@ public class BonesArea : MonoBehaviour
 		//platform rotation happens here
 		if (pl.pt != Platform.PlatformType.PT_VRAIL && pl.pt != Platform.PlatformType.PT_ORAIL && pl.pt != Platform.PlatformType.PT_EZLINE)
 		{
-			currentPlatform.transform.parent.rotation = Quaternion.Slerp(
+			rotateFrom = currentPlatform.transform.parent.rotation;
+			currentPlatform.transform.parent.rotation = Quaternion.RotateTowards(
 				rotateFrom,
 				Quaternion.AngleAxis(rotateTowardsAngle + currentPlatform.initialAngle, Vector3.forward),
 				Time.deltaTime * rotationSpeed);
