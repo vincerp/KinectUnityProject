@@ -9,8 +9,7 @@ public class PlatformChildServices : MonoBehaviour {
 	
 	/**
 	 * This is the orphan finder
-	 */
-	public int platformLayer = 9;
+    	 */
 	
 	int index = 0;
 	
@@ -26,7 +25,7 @@ public class PlatformChildServices : MonoBehaviour {
 		Dictionary<Transform, Transform> parents = new Dictionary<Transform, Transform>();
 		
 		foreach(Transform _child in _tr){
-			if(_child.gameObject.layer != platformLayer) continue;
+			if(_child.gameObject.layer != LayerMask.NameToLayer("PlatformP1") && _child.gameObject.layer != LayerMask.NameToLayer("PlatformP2")) continue;
 			//first we find a parent for the orphan platforms
 			go = new GameObject("Platform Parent");
 			parents[_child] = go.transform;
@@ -50,7 +49,7 @@ public class PlatformChildServices : MonoBehaviour {
 			_ptr.parent = _tr;
 			_ctr.parent = _ptr;
 			
-			_ptr.gameObject.layer = platformLayer;
+			_ptr.gameObject.layer = _ctr.gameObject.layer;
 			_ctr.name += " is now happy with his new parent";
 			
 			_ctr.name += index;
