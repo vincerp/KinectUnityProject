@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System;
@@ -130,6 +130,15 @@ public class BonesArea : MonoBehaviour
 			
 			if( currentPlatform == null )
 			{				
+				//grab angle here
+				magicAngle = (bones.Angle+boneAngleAdjustment)*boneAngleFactor;
+				if(Mathf.Abs(magicAngle)%preciseSnap < preciseSnapRange || Mathf.Abs(magicAngle)%preciseSnap > preciseSnap - preciseSnapRange) {
+					//here we snap to precise degree angles
+					magicAngle = MathUtilities.SnapTo(magicAngle, preciseSnap);
+				} else {
+					//here we snap to less precise angles
+					magicAngle = MathUtilities.SnapTo(magicAngle, angleSnapFactor);
+				}
 				currentPlatform = platforms[nextPlatformIndex];
 			try
 				{
@@ -190,12 +199,15 @@ public class BonesArea : MonoBehaviour
 			platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
 		}
 
+
 	}
-	
+
+	float magicAngle = 0f;
 	void FixedUpdate()
 	{
 		Vector3 moveTo = bones.CentralPoint + new Vector3((bones.CentralPoint.x - centralPoint.x)*distancePositionMultiplierX, (bones.CentralPoint.y - centralPoint.y)*distancePositionMultiplierY, 0f);
-		
+
+
 		////Magnet positioning
 		transform.position = Vector3.MoveTowards(transform.position,
 			moveTo,
@@ -333,8 +345,8 @@ public class BonesArea : MonoBehaviour
 			rotateFrom = currentPlatform.transform.parent.rotation;
 			currentPlatform.transform.parent.rotation = Quaternion.RotateTowards(
 				rotateFrom,
-				Quaternion.AngleAxis(rotateTowardsAngle + currentPlatform.initialAngle, Vector3.forward),
-				Time.deltaTime * rotationSpeed);
+				Quaternion.AngleAxis(rotateTowardsAngle + currentPlatform.initialAngle - magicAngle, Vector3.forward),
+				Time.fixedDeltaTime * rotationSpeed);
 		}
 		else if(pl.pt != Platform.PlatformType.PT_PINNED)
 		{
@@ -352,7 +364,8 @@ public class BonesArea : MonoBehaviour
 	float GetBoneDistance(){
 		return boneDistanceFactor.Evaluate(bones.Distance)*curveFactor;
 	}
-	
+
+
 	// bone area zone
 	void OnTriggerEnter( Collider other )
 	{
@@ -365,6 +378,7 @@ public class BonesArea : MonoBehaviour
 		PlatformInfo pinfo = new PlatformInfo();
 		
 		pinfo.initialAngle = other.transform.rotation.eulerAngles.z;
+
 		pinfo.initialScale = other.transform.localScale;
 		
 		pinfo.transform = other.transform;
@@ -570,14 +584,15 @@ public class BonesArea : MonoBehaviour
 				"\nDistance from center:"+Vector3.Distance(centralPoint, bones.CentralPoint)+
 				"\n1:"+bones.bone1.position.ToString()+
 				"\n2:"+bones.bone2.position.ToString()+
-				"\ntrue angle:"+transform.localRotation.z
+	            "\ntrue angle:"+transform.localRotation.z+
+	            "\nmagic angle:"+magicAngle
 				);
 			
 			GUILayout.Box("Angle:\n"+Vector3.Angle(Vector3.zero, Vector3.zero)+"\n"+Vector3.Angle(-Vector3.left, Vector3.right));
 		}
 
 		//DEBUG GUI: Shows angles for the platforms
-		if(!displayPlatformAngles){
+		if(displayPlatformAngles){
 			Rect _pos = new Rect(0f, 0f, 120f, 30f);
 			Vector3 _view;
 			foreach (var plat in platforms){
