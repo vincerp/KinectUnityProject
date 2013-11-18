@@ -63,6 +63,10 @@ public class BonesArea : MonoBehaviour
 	{
 		if (skeletonController == null)
 			return;
+
+		gameObject.layer = transform.position.x < 0 ? LayerMask.NameToLayer("BonesAreaP1")
+													: LayerMask.NameToLayer("BonesAreaP2");
+
 		// auto assignmentof bones game objects code
 		switch( part )
 		{
