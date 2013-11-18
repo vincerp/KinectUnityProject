@@ -92,6 +92,9 @@ public class KinectModelControllerV2 : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+
+		sw = DeviceOrEmulator.singleInstance.GetComponent<SkeletonWrapper>();
+
 		//store bones in a list for easier access, everything except Hip_Center will be one
 		//higher than the corresponding Kinect.NuiSkeletonPositionIndex (because of the hip_override)
 		_bones = new GameObject[(int)Kinect.NuiSkeletonPositionIndex.Count + 5] {

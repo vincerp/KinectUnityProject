@@ -13,7 +13,8 @@ public class Platform : MonoBehaviour {
 	public Vector3 offset;
 	
 	public void Start(){
-		gameObject.layer = 9;
+		gameObject.layer = transform.position.x < 0 ? LayerMask.NameToLayer("PlatformP1")
+													: LayerMask.NameToLayer("PlatformP2");
 		
 		rail = transform.GetComponentInChildren<Rail>();
 		if(rail != null){

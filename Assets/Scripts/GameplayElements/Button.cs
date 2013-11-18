@@ -57,8 +57,15 @@ public class Button : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider col){
-		if(hasActivated || col.tag != "Player" || (_onlyToPlayer && col.gameObject != _onlyToPlayer)) return;
+		if(hasActivated || col.tag != "Player") return;
+//		(col.gameObject.GetComponent<Player>().playerId == (int)onlyToPlayer)
 		
+		if(_onlyToPlayer && col.gameObject != _onlyToPlayer)
+		{
+			SoundManager.instance.PlaySoundAt(audio, "WrongButton");
+			return;
+		}
+
 		//play sound here
 		nOfPlayers ++;
 		if(nOfPlayers==1) { //this is such a shitty piece of code
