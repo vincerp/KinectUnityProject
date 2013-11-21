@@ -26,10 +26,11 @@ public class GameOverScreen : MonoBehaviour {
 	}
 	
 	public IEnumerator WaitForA(){
-		bool not = false;
-		while(!Input.GetButton("Jump") || !Input.GetButton("p2A")){
-			if(!not){
-				not = true;
+		bool buttonWasPressed = false;
+		//yield return new WaitForSeconds(0.2f);
+		while(!buttonWasPressed){
+			if(Input.GetButton("Jump") || Input.GetButton("p2A")){
+				buttonWasPressed = true;
 				pA.GetComponent<TextMesh>().text = "Loading...";
 			}
 			yield return null;
@@ -37,5 +38,15 @@ public class GameOverScreen : MonoBehaviour {
 		Application.LoadLevel(0);
 		Time.timeScale = 1f;
 		SoundManager.instance.sfxMute = false;
+	}
+
+	void Update(){
+		TextMesh tm = pA.GetComponent<TextMesh>();
+		if(!tm.text.Contains("Loading"))return;
+		int nOfDots = (int)Time.realtimeSinceStartup%2;
+		tm.text = "Loading";
+		for(int i = 0; i <= nOfDots; i++){
+			tm.text += ".";
+		} 
 	}
 }

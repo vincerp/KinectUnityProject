@@ -10,18 +10,19 @@ public class AbilitySettingsInspector : Editor {
 
 	MonoScript[] possibleScripts;
 	AbilitySettings lastTarget;
+	bool showDefaultInspector = false;
 
 	override public void OnInspectorGUI () {
 		AbilitySettings _target = (AbilitySettings)target;
 
 		string selected = _target.scriptName;
 		if(possibleScripts == null){
-			if(GUILayout.Button("Find possible scripts")){
+			if(GUILayout.Button("Find possible scripts and crash Unity maybe")){
 				possibleScripts = GetScriptAssetsOfType<BaseAbility>();
 			}
 		} else {
 			bool selectedDoesntExists = possibleScripts.FirstOrDefault(x => x.name == selected) == null;
-			if(_target.scriptName == "" || selectedDoesntExists){
+			if((_target.scriptName == "" || selectedDoesntExists) && possibleScripts != null){
 				EditorGUILayout.HelpBox("No valid script assigned! Please select one script.", MessageType.Error);
 			}
 			if(_target.animation == null){
@@ -62,9 +63,14 @@ public class AbilitySettingsInspector : Editor {
 
 		EditorGUILayout.Separator();
 		EditorGUILayout.LabelField("Notes:", boldMe);
-		_target.notes = EditorGUILayout.TextArea(_target.notes);
-
-		//DrawDefaultInspector();
+		GUIStyle notesStyle = EditorGUIUtility.GetBuiltinSkin(EditorSkin.Inspector).textArea;
+		notesStyle.wordWrap = true;
+		_target.notes = EditorGUILayout.TextArea(_target.notes, notesStyle);
+		
+		EditorGUILayout.Separator();
+		showDefaultInspector = GUILayout.Toggle(showDefaultInspector, "Show default inspector:");
+		if(showDefaultInspector)DrawDefaultInspector();
+		if(GUI.changed) EditorUtility.SetDirty(target);
 	}
 
 	public static MonoScript[] GetScriptAssetsOfType<T>()

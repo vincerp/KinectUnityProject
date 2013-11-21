@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1392b012d8abc484f9c3ec3f359115aa
+guid: 2f597204e2e3d6a43b8eca61f0674106
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
@@ -19,8 +19,7 @@ ModelImporter:
     3300002: BUTTON
     4300000: BASE
     4300002: BUTTON
-    7400000: on
-    7400002: off
+    7400000: Pressing
     9500000: //RootNode
     11100000: //RootNode
   materials:
@@ -39,11 +38,11 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: off
+      name: Pressing
       takeName: modo_Anim
-      firstFrame: 0
-      lastFrame: 30
-      wrapMode: 2
+      firstFrame: 30
+      lastFrame: 40
+      wrapMode: 8
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
@@ -61,59 +60,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: BASE
-        weight: 1
-      - path: BUTTON
-        weight: 1
-      - path: Camera
-        weight: 1
-      - path: Directional Light
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-    - serializedVersion: 16
-      name: on
-      takeName: modo_Anim
-      firstFrame: 40
-      lastFrame: 70
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: BASE
-        weight: 1
-      - path: BUTTON
-        weight: 1
-      - path: Camera
-        weight: 1
-      - path: Directional Light
-        weight: 1
+      transformMask: []
       maskType: 0
       maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .00100000005
+    globalScale: .00999999978
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
