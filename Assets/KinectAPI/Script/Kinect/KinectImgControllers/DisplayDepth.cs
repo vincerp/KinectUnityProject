@@ -9,7 +9,7 @@ public class DisplayDepth : MonoBehaviour {
 	private Texture2D tex;
 	// Use this for initialization
 	void Start () {
-		dw = DeviceOrEmulator.singleInstance.GetComponent<DepthWrapper>();
+		dw = (Component.FindObjectOfType(typeof(DeviceOrEmulator)) as DeviceOrEmulator).GetComponent<DepthWrapper>();
 
 		tex = new Texture2D(320,240,TextureFormat.ARGB32,false);
 		renderer.material.mainTexture = tex;

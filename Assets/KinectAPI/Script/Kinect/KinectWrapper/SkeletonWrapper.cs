@@ -34,7 +34,7 @@ public class SkeletonWrapper : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		kinect = DeviceOrEmulator.singleInstance.getKinect(); //devOrEmu.getKinect();
+		kinect = (Component.FindObjectOfType(typeof(DeviceOrEmulator)) as DeviceOrEmulator).getKinect(); //devOrEmu.getKinect();
 		players = new Kinect.NuiSkeletonTrackingState[Kinect.Constants.NuiSkeletonCount];
 		trackedPlayers = new int[Kinect.Constants.NuiSkeletonMaxTracked];
 		trackedPlayers[0] = -1;
