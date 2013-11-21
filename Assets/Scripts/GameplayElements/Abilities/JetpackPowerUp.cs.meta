@@ -1,5 +1,8 @@
 fileFormatVersion: 2
 guid: 000adf3adb2b2944aa5e6837d6d5d61d
+labels:
+- Jetpack
+- PowerUp
 MonoImporter:
   serializedVersion: 2
   defaultReferences:

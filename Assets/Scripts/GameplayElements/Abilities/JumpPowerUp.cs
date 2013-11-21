@@ -3,7 +3,6 @@ using System.Collections;
 
 public class JumpPowerUp : BaseAbility {
 	
-	public float jumpDamage = 200f;
 	public float raycastDistance = 1.5f;
 	Transform _tr;
 	
@@ -12,7 +11,8 @@ public class JumpPowerUp : BaseAbility {
 		_tr.FindChild("Model").FindChild("BOOTS").gameObject.SetActive(true);
 	}
 	
-	void OnDestroy(){
+	override protected void OnDestroy(){
+		base.OnDestroy();
 		_tr.FindChild("Model").FindChild("BOOTS").gameObject.SetActive(false);
 	}
 	
@@ -23,7 +23,7 @@ public class JumpPowerUp : BaseAbility {
 		if(Physics.Raycast(_tr.position, Vector3.down, out _hit, raycastDistance)){
 			if(_hit.collider.tag != "Player") return;
 			_player = _hit.collider.GetComponent<Player>();
-			_player.ApplyDamage(jumpDamage);
+			_player.ApplyDamage(abilityDamage);
 		}
 	}
 	

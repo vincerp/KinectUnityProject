@@ -61,6 +61,7 @@ public class LevelRandomizer : MonoBehaviour {
 	
 	private void FixedUpdate(){
 		Transform _ctr;
+		if(PauseGame.isGamePaused) return;
 		
 		if(scrollType == ScrollType.Static) return;
 		for(int i = chunksLoaded.Count-1; i >= 0; i--){

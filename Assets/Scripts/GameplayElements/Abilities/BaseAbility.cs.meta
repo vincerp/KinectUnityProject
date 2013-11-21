@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: cda38ffd204c13c43a4429a0afe5cdb6
+labels:
+- PowerUp
 MonoImporter:
   serializedVersion: 2
   defaultReferences: []

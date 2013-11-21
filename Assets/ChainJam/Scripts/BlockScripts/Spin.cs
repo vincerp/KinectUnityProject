@@ -2,10 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class Spin : MonoBehaviour {
-	public float speed = 1;
+	public Vector3 speed = Vector3.up;
 
 	void FixedUpdate () {
-		// This script is pretty complicated, try to wrap your head around this baby...
-		transform.Rotate(0,0, speed);
+		transform.Rotate(speed);
 	}
 }

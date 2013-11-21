@@ -58,6 +58,8 @@ public class Player : MonoBehaviour {
 		
 		raycastPoint = new Vector3(raycastDistance, 0f, 0f);
 		tag = "Player";
+
+		PauseGame.onFreezeGame += OnFreezeGameHandler;
 	}
 	
 	void Update() {
@@ -189,6 +191,16 @@ public class Player : MonoBehaviour {
 		if(!canJump){
 			timeSinceLastStep = 0f;
 		}
+	}
+
+	public void OnFreezeGameHandler(bool isFreezing){
+		if(isFreezing){
+			_rb.Sleep();
+		}
+	}
+
+	private void OnDestroy(){
+		PauseGame.onFreezeGame -= OnFreezeGameHandler;
 	}
 	
 	#region Health-related

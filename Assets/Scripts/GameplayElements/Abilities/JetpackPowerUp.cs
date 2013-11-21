@@ -18,9 +18,12 @@ public class JetpackPowerUp : BaseAbility {
 		_as.loop = true;
 		_as.clip = SoundManager.instance.GetSound("Jetpack");
 		transform.FindChild("Model").FindChild("JETPACK").gameObject.SetActive(true);
+
+		PauseGame.onFreezeGame += OnFreezeGameHandler;
 	}
 	
-	void OnDestroy(){
+	override protected void OnDestroy(){
+		PauseGame.onFreezeGame -= OnFreezeGameHandler;
 		transform.FindChild("Model").FindChild("JETPACK").gameObject.SetActive(false);
 		if(_as.isPlaying)_as.Stop();
 		Destroy(_as);
