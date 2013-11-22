@@ -45,10 +45,11 @@ public class Platform : MonoBehaviour {
 	
 	public void OnDrawGizmos(){
 		if(pt != PlatformType.PT_PINNED || Application.isPlaying) return;
+		Vector3 absOffset = new Vector3(Mathf.Abs(offset.x), Mathf.Abs(offset.y), Mathf.Abs(offset.z));
 		Gizmos.color = Color.blue;
 		Gizmos.DrawWireSphere(transform.position+offset, 1f);
 		Gizmos.color = Color.green;
-		Gizmos.DrawWireSphere(transform.position+offset, ((transform.localScale/2) + offset).magnitude);
+		Gizmos.DrawWireSphere(transform.position+offset, ((transform.localScale/2) + absOffset).magnitude);
 	}
 	
 	public enum PlatformType 

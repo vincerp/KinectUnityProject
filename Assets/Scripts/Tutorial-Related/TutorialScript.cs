@@ -28,6 +28,11 @@ public class TutorialScript : MonoBehaviour {
 	}
 	
 	void Update(){
+		if(Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.E)){
+			Advance();
+			return;
+		}
+
 		buttonQuad.enabled = hasDragged;
 		
 		if(Input.GetButton(inputAxis)){
@@ -39,19 +44,23 @@ public class TutorialScript : MonoBehaviour {
 		if(!other) return;
 		
 		if(hasDragged && Input.GetButton(inputAxis) && other.hasDragged && Input.GetButton(other.inputAxis)){
-			Debug.Log("YEEEEEEAH");
-			
-			turnOff.gameObject.SetActive(false);
-			
-			BonesArea[] magnets = Component.FindObjectsOfType(typeof(BonesArea)) as BonesArea[];
-			foreach(BonesArea magnet in magnets)
-			{
-				magnet.platforms.Clear();
-				magnet.currentPlatform = null;
-			}
-			
-			turnOn.gameObject.SetActive(true);
+			Advance();
 		}
+	}
+
+	void Advance(){
+		Debug.Log("YEEEEEEAH");
+		
+		turnOff.gameObject.SetActive(false);
+		
+		BonesArea[] magnets = Component.FindObjectsOfType(typeof(BonesArea)) as BonesArea[];
+		foreach(BonesArea magnet in magnets)
+		{
+			magnet.platforms.Clear();
+			magnet.currentPlatform = null;
+		}
+		
+		turnOn.gameObject.SetActive(true);
 	}
 	
 	void OnDrawGizmos(){

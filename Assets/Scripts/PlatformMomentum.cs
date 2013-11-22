@@ -28,37 +28,33 @@ public class PlatformMomentum : MonoBehaviour {
 			if(recordedPlayerPos != null) recordedPlayerPos.Clear();
 			return;
 		}
-		recordedPlayerPos.Add(rigidbody.position/*_transform.position*/);
+		recordedPlayerPos.Add(attachedTo.position/*_transform.position*/);
 		while(recordedPlayerPos.Count > frameTrackingAmount) recordedPlayerPos.RemoveAt(0);
-		
+
+		if(recordedPlayerPos.Count<2)return;
+		Vector3 ma, moveAmount = recordedPlayerPos[recordedPlayerPos.Count-1]-recordedPlayerPos[recordedPlayerPos.Count-2];
+		ma = new Vector3(moveAmount.x, 0f, 0f);
+		if(moveAmount.y > 0f) rigidbody.AddForce(GetMomentumVelocityVector() * velocityMultiplier);
+
+		_transform.Translate(ma);
 		//rigidbody.AddForce(GetMomentumVelocityVector() * velocityMultiplier);
 		_transform.rotation = _rotation;
 	}
 	
 	void OnCollisionEnter (Collision col) {
-	
-		if(col.gameObject.layer != LayerValues.PLATFORM_LAYER_1 || col.gameObject.layer != LayerValues.PLATFORM_LAYER_2) return;
+		if(col.gameObject.layer != LayerValues.PLATFORM_LAYER_1 && col.gameObject.layer != LayerValues.PLATFORM_LAYER_2) return;
 		
 		attachedTo = col.transform;
-		transform.parent = attachedTo;
 		print("Attached to " + attachedTo.name);
 	}
 	
 	void OnCollisionExit (Collision col) {
-
-		if(col.gameObject.layer != LayerValues.PLATFORM_LAYER_1 || col.gameObject.layer != LayerValues.PLATFORM_LAYER_2) return;
-
+		if(col.gameObject.layer != LayerValues.PLATFORM_LAYER_1 && col.gameObject.layer != LayerValues.PLATFORM_LAYER_2) return;
+		
 		if(attachedTo){
-			transform.parent = null;
 			print("Dettached from " + attachedTo.name);
-			//apply momentum force here 
-			rigidbody.AddForce(GetMomentumVelocityVector() * velocityMultiplier);
-			
-//			rigidbody.AddForce(col.contacts[0].normal * GetMomentumVelocity() * velocityMultiplier);
-			
 			attachedTo = null;
 		}
-		
 	}
 	
 	Vector3 GetMomentumVelocityVector(){
@@ -87,7 +83,11 @@ public class PlatformMomentum : MonoBehaviour {
 		
 		return result;
 	}
-	
+
+	/// <summary>
+	/// Not being used.
+	/// </summary>
+	/// <returns>The momentum velocity.</returns>
 	float GetMomentumVelocity(){
 		
 		float result = 0f;

@@ -629,7 +629,7 @@ public class BonesArea : MonoBehaviour
 		_distAmount += _minimumDistanceAmount;
 		_distAmount = 80f; //this is a HACK!
 		
-		bool isHolding = currentPlatform != null;
+		bool isHolding = Input.GetKey(bonesInput.grabKey);// currentPlatform != null;
 		float halfClaw = clawSize/2;
 		
 		GUIUtility.RotateAroundPivot(-_angle, new Vector2(_magPos.x, _magPos.y));
