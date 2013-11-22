@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿//This script is a piece of shit and might need to be redone
+using UnityEngine;
 using System.Collections;
 
 public class TutorialScript : MonoBehaviour {
@@ -28,7 +29,7 @@ public class TutorialScript : MonoBehaviour {
 	}
 	
 	void Update(){
-		if(Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.E)){
+		if(other && Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.E)){
 			Advance();
 			return;
 		}

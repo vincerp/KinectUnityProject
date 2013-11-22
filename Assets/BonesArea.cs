@@ -273,6 +273,7 @@ public class BonesArea : MonoBehaviour
 		case Platform.PlatformType.PT_EZLINE:
 			Vector3 projectedPos70 = Vector3.MoveTowards( currentPlatform.reference.transform.parent.position, new Vector3 (transform.position.x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
 			currentPlatform.reference.transform.parent.position = projectedPos70;
+			currentPlatform.reference.rail.LateUpdate();
 			break;
 		case Platform.PlatformType.PT_ORAIL:
 		case Platform.PlatformType.PT_ORAILPINNED:

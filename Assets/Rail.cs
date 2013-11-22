@@ -20,7 +20,7 @@ public class Rail : EZLine {
 		lr.material = EZGrabber.instance.GetLinkedItem("RailMaterial") as Material;
 	}
 	
-	void LateUpdate(){
+	public void LateUpdate(){
 		if( platform == null && !canUpdate)
 			return;
 		if(!canUpdate){

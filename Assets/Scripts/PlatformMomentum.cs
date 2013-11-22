@@ -11,7 +11,6 @@ public class PlatformMomentum : MonoBehaviour {
 	
 	public List<Vector3> recordedPlayerPos;
 	public int frameTrackingAmount = 5;
-	//private System.Nullable<Vector3> lastPlayerPosition;
 	private Transform _transform;
 	private Quaternion _rotation;
 	
@@ -28,17 +27,14 @@ public class PlatformMomentum : MonoBehaviour {
 			if(recordedPlayerPos != null) recordedPlayerPos.Clear();
 			return;
 		}
-		recordedPlayerPos.Add(attachedTo.position/*_transform.position*/);
+		recordedPlayerPos.Add(attachedTo.position);
 		while(recordedPlayerPos.Count > frameTrackingAmount) recordedPlayerPos.RemoveAt(0);
 
 		if(recordedPlayerPos.Count<2)return;
-		Vector3 ma, moveAmount = recordedPlayerPos[recordedPlayerPos.Count-1]-recordedPlayerPos[recordedPlayerPos.Count-2];
-		ma = new Vector3(moveAmount.x, 0f, 0f);
-		if(moveAmount.y > 0f) rigidbody.AddForce(GetMomentumVelocityVector() * velocityMultiplier);
+		Vector3 moveAmount = recordedPlayerPos[recordedPlayerPos.Count-1]-recordedPlayerPos[recordedPlayerPos.Count-2];
+		moveAmount = new Vector3(moveAmount.x, 0f, 0f);
 
-		_transform.Translate(ma);
-		//rigidbody.AddForce(GetMomentumVelocityVector() * velocityMultiplier);
-		_transform.rotation = _rotation;
+		_transform.Translate(moveAmount);
 	}
 	
 	void OnCollisionEnter (Collision col) {
@@ -56,7 +52,11 @@ public class PlatformMomentum : MonoBehaviour {
 			attachedTo = null;
 		}
 	}
-	
+
+	/// <summary>
+	/// Unnused
+	/// </summary>
+	/// <returns>The momentum velocity vector.</returns>
 	Vector3 GetMomentumVelocityVector(){
 		
 		Vector3 result = Vector3.zero;
