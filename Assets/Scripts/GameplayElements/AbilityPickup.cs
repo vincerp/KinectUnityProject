@@ -10,6 +10,8 @@ public class AbilityPickup : MonoBehaviour {
 	void Start(){
 		collider.isTrigger = true;
 		gameObject.layer = 2; //so players don't think this trigger is actually ground
+		Spin sp = gameObject.AddComponent<Spin>();
+		sp.speed = new Vector3(0f, 3f, 0f);
 	}
 	
 	void OnTriggerEnter (Collider col) {

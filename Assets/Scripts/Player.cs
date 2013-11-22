@@ -26,6 +26,8 @@ public class Player : MonoBehaviour {
 	
 	public float maxHealth = 150f;
 	public float health = 100f;
+	private float timeSinceTakenDamage = 0f;
+	public float invulnerabilityTime = 0.3f;
 	
 	public float stepTimeDistance = 0.3f;
 	private float timeSinceLastStep = 0f;
@@ -65,7 +67,11 @@ public class Player : MonoBehaviour {
 	void Update() {
 		if(PauseGame.isGamePaused) return;
 		if(_rb.IsSleeping()) _rb.WakeUp();
-		
+
+		if(timeSinceTakenDamage>0f){
+			timeSinceTakenDamage -= Time.deltaTime;
+		}
+
 		isGrounded = (
 			//Ground raycast checks
 			Physics.Raycast (_tr.position + -raycastPoint,
@@ -110,7 +116,7 @@ public class Player : MonoBehaviour {
 	
 	void StartJump(){
 		
-		if (canJump) {	
+		if (canJump || timeSinceTakenDamage > 0f) {	
 			jumpSpeed = new Vector3(0, jumpStrength * jumpStrengthMultiplier,0);
 			jumpAirTime = jumpSustainTime;
 			isJumping = true;
@@ -205,12 +211,14 @@ public class Player : MonoBehaviour {
 	
 	#region Health-related
 	public void ApplyDamage(float amount){
+		if(timeSinceTakenDamage > 0f) return;
 		health += -amount;
 		SoundManager.instance.PlaySoundAt(audio, "Damage");
+		timeSinceTakenDamage = invulnerabilityTime;
 		if(health <= 0f){
 			health = 0f;
 			Debug.Log(name + " is dead!");
-			GameOverScreen.instance.PlayerDied(playerId);
+			if(GameOverScreen.instance)GameOverScreen.instance.PlayerDied(playerId);
 		}
 	}
 	
