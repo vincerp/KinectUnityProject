@@ -4,6 +4,7 @@
 		_TextureDirection ("Tex Move Dir", Vector) = (0,0,0,0)
 		_WavesFrequency ("Waves Frequency", Float) = 1
 		_WavesPeriod ("Waves Period", Float) = 1
+		_WavesAmplitude ("Waves Amplitude", Float) = 1
 	}
 	
 	SubShader {
@@ -20,6 +21,7 @@
 			float4 _TextureDirection;
 			float _WavesFrequency;
 			float _WavesPeriod;
+			float _WavesAmplitude;
 			
 			struct v2f {
 			    float4 pos : SV_POSITION;
@@ -30,7 +32,7 @@
 			{
 			    v2f o;
 			 
-			 	v.vertex.y += sin(_WavesPeriod * (_WavesFrequency * _Time + v.vertex.x));
+			 	v.vertex.y += _WavesAmplitude * sin(_WavesPeriod * (_WavesFrequency * _Time + v.vertex.x));
 			    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
 			    
 			    o.sv_pos = o.pos;
