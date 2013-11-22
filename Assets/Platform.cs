@@ -15,7 +15,8 @@ public class Platform : MonoBehaviour {
 	public void Start(){
 		gameObject.layer = transform.position.x < 0 ? LayerMask.NameToLayer("PlatformP1")
 													: LayerMask.NameToLayer("PlatformP2");
-		
+
+
 		rail = transform.GetComponentInChildren<Rail>();
 		if(rail != null){
 			rail.transform.parent = transform.parent;

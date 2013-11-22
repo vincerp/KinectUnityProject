@@ -7,7 +7,6 @@ public class PlatformMomentum : MonoBehaviour {
 	
 	
 	public Transform attachedTo; //right now this does nothing other than check if we are attached to or not
-	public int platformLayer = 9;
 	public float velocityMultiplier = 1;
 	
 	public List<Vector3> recordedPlayerPos;
@@ -38,22 +37,22 @@ public class PlatformMomentum : MonoBehaviour {
 	
 	void OnCollisionEnter (Collision col) {
 	
-		if(col.gameObject.layer != platformLayer) return;
+		if(col.gameObject.layer != LayerValues.PLATFORM_LAYER_1 || col.gameObject.layer != LayerValues.PLATFORM_LAYER_2) return;
 		
 		attachedTo = col.transform;
-//		transform.parent = attachedTo;
+		transform.parent = attachedTo;
 		print("Attached to " + attachedTo.name);
 	}
 	
 	void OnCollisionExit (Collision col) {
 
-		if(col.gameObject.layer != platformLayer) return;
-		
+		if(col.gameObject.layer != LayerValues.PLATFORM_LAYER_1 || col.gameObject.layer != LayerValues.PLATFORM_LAYER_2) return;
+
 		if(attachedTo){
-//			transform.parent = null;
+			transform.parent = null;
 			print("Dettached from " + attachedTo.name);
 			//apply momentum force here 
-//			rigidbody.AddForce(GetMomentumVelocityVector() * velocityMultiplier);
+			rigidbody.AddForce(GetMomentumVelocityVector() * velocityMultiplier);
 			
 //			rigidbody.AddForce(col.contacts[0].normal * GetMomentumVelocity() * velocityMultiplier);
 			

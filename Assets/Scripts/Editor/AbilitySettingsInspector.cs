@@ -77,7 +77,10 @@ public class AbilitySettingsInspector : Editor {
 	{
 
 		MonoScript[] scripts = (MonoScript[])Object.FindObjectsOfTypeIncludingAssets( typeof( MonoScript ) );
-		
+		//List<MonoScript> scripts = new List<MonoScript>();
+		//Object[] scripts = AssetDatabase.LoadAllAssetsAtPath("Assets/Scripts/GameplayElements/Abilities");
+		//Debug.Log("%"+scripts.Length);
+
 		List<MonoScript> result = new List<MonoScript>();
 		
 		foreach( MonoScript m in scripts )
