@@ -55,7 +55,7 @@ public class Player : MonoBehaviour {
 	Transform _tr;
 	Rigidbody _rb;
 	
-	void Start () {
+	IEnumerator Start () {
 		Application.targetFrameRate = 30;
 		
 		_tr = transform;
@@ -70,6 +70,9 @@ public class Player : MonoBehaviour {
 		colCaps1 = Vector3.up * stairStepSize;
 		colCaps2 = Vector3.up * (colSize-stairStepSize*2f);
 		colRad = (collider as CapsuleCollider).radius;
+
+		yield return new WaitForEndOfFrame();
+		SharkManager.instance.RegisterPlayer(_tr);
 	}
 	
 	void Update() {

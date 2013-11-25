@@ -68,7 +68,7 @@ public abstract class BaseAbility : MonoBehaviour {
 		yield return new WaitForEndOfFrame();
 		GameObject go = Instantiate(introAnimation) as GameObject;
 		PauseGame.FreezeGame();
-		go.transform.position = new Vector3(0f, 0f, -6f);
+		go.transform.position = new Vector3(0f, 0f, -45f);
 		yield return new WaitForSeconds(3f);
 		PauseGame.DefreezeGame();
 		Destroy(go);

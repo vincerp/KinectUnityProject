@@ -19,7 +19,7 @@ public class DangerousObject : MonoBehaviour {
 		if(!knockbackWhenTouched && Time.time < lastCausedDamage + stayDamageCounter) return;
 		
 		Debug.Log("Ouch!");
-		_pl.ApplyDamage(damageDealt);
+		ApplyDamage(_pl);
 		
 		if(!knockbackWhenTouched) return;
 		Rigidbody _rb = col.rigidbody;
@@ -27,6 +27,10 @@ public class DangerousObject : MonoBehaviour {
 		_force = new Vector3(_force.x/knockbackXDifference, _force.y, 0f);
 		_rb.AddForce(_force);
 		lastCausedDamage = Time.time;
+	}
+
+	protected virtual void ApplyDamage(Player to){
+		to.ApplyDamage(damageDealt);
 	}
 	
 	private void OnCollisionExit(Collision col){

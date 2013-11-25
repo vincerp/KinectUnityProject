@@ -20,5 +20,6 @@ public class ActivateLava : TriggerScript {
 			lavaTransform.position = Vector3.MoveTowards(lavaTransform.position, Vector3.zero, speed * Time.deltaTime);
 			yield return null;
 		}
+		lavaTransform.SendMessage("PresentShark");
 	}
 }
