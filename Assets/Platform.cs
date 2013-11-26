@@ -78,13 +78,13 @@ public class Platform : MonoBehaviour {
 			return;
 		}
 		
-		if(pt == PlatformType.PT_PINNED){
-			Transform _pin = GameObject.CreatePrimitive(PrimitiveType.Cylinder).transform;
-			_pin.transform.position = transform.position + offset;
-			_pin.localRotation = Quaternion.Euler(90f, 0f, 0f);
-			_pin.renderer.material = EZGrabber.instance.GetLinkedItem("StaticMaterial") as Material;
-			_pin.parent = transform;
-		}
+//		if(pt == PlatformType.PT_PINNED){
+//			Transform _pin = GameObject.CreatePrimitive(PrimitiveType.Cylinder).transform;
+//			_pin.transform.position = transform.position + offset;
+//			_pin.localRotation = Quaternion.Euler(90f, 0f, 0f);
+//			_pin.renderer.material = EZGrabber.instance.GetLinkedItem("StaticMaterial") as Material;
+//			_pin.parent = transform;
+//		}
 		
 		if(pt == PlatformType.PT_ORAIL ||
 			pt == PlatformType.PT_ORAILPINNED ||
