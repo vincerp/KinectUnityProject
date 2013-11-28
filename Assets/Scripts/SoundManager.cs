@@ -47,6 +47,7 @@ public class SoundManager : MonoBehaviour {
 	#endregion
 	
 	public List<SoundFile> soundFiles = new List<SoundFile>();
+	public List<SoundFile> musicFiles = new List<SoundFile>();
 	private List<AudioSource> registeredSources = new List<AudioSource>();
 	
 	public void Start(){
@@ -65,16 +66,26 @@ public class SoundManager : MonoBehaviour {
 	
 	public void PlaySoundAt(AudioSource source, string soundId){
 		if(!registeredSources.Contains(source)) registeredSources.Add(source);
-		
+
 		AudioClip _clip = GetSound(soundId);
 		source.volume = _sfxVolume;
 		source.mute = _sfxMute;
 		source.PlayOneShot(_clip);
 		//Debug.Log("Playing sound " + soundId + " at " + source.name);
 	}
+
+	public void ChangeMusic(string musicId){
+		Debug.Log("Changing music to " + musicId);
+		_musicSource.clip = GetMusic(musicId);
+		_musicSource.Play();
+	}
 	
 	public AudioClip GetSound(string id){
 		return soundFiles.First(x => x.id == id).sound;
+	}
+
+	public AudioClip GetMusic(string id){
+		return musicFiles.First(x => x.id == id).sound;
 	}
 }
 

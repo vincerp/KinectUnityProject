@@ -49,6 +49,7 @@ public class ButtonDependantChildren : MonoBehaviour {
 			child.SetActive(
 				(not)?!isActive:isActive
 			);
+			if(!child.activeSelf) continue; //this looks ugly
 			GameObject go = Instantiate( EZGrabber.instance.GetLinkedItem("PlatformDust") as GameObject ) as GameObject;
 			go.transform.position = child.transform.position + Vector3.back*2f;
 			go.transform.rotation = child.transform.rotation;

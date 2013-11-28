@@ -76,6 +76,7 @@ public class Player : MonoBehaviour {
 
 		yield return new WaitForEndOfFrame();
 		SharkManager.instance.RegisterPlayer(_tr);
+		playerMaterial.SetInt("_AnimEnabled", 0);
 	}
 	
 	void Update() {

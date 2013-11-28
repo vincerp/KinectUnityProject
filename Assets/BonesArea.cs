@@ -607,18 +607,18 @@ public class BonesArea : MonoBehaviour
 		if(!displayInterfaceBox) return;
  		GUI.skin = clawSkin;
 		GUI.color = playerColor;
-		if(PauseGame.isGamePaused) GUI.color = new Color(playerColor.r, playerColor.g, playerColor.b, 0.3f);
+		if(PauseGame.isGamePaused || PauseGame.isGameFrozen) GUI.color = new Color(playerColor.r, playerColor.g, playerColor.b, 0.2f);
 		
 		Vector3 _magPos = Camera.main.WorldToScreenPoint(transform.position);
 		_magPos = new Vector3(_magPos.x, Screen.height - _magPos.y, 0f);
 		Rect _boxyThing = new Rect(0f, 0f, clawSize, clawSize);
 		float _distPercent = GetBoneDistance() / boneDistanceFactor.Evaluate(1000);
 		float _minimumDistanceAmount = clawSize;
-		float _distAmount = 400f;
-		_angle = Mathf.MoveTowardsAngle(_angle, rotateTowardsAngle, rotationSpeed);
-		_distAmount *= _distPercent;
-		_distAmount += _minimumDistanceAmount;
-		_distAmount = 80f; //this is a HACK!
+		float _distAmount = 80f;
+//		_angle = Mathf.MoveTowardsAngle(_angle, rotateTowardsAngle, rotationSpeed);
+//		_distAmount *= _distPercent;
+//		_distAmount += _minimumDistanceAmount;
+//		_distAmount = 80f; //this is a HACK!
 		
 		bool isHolding = Input.GetKey(bonesInput.grabKey);// currentPlatform != null;
 		float halfClaw = clawSize/2;
