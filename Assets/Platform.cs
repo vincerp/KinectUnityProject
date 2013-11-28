@@ -6,7 +6,6 @@ using System.Linq;
 
 public enum ColorState
 {
-	CS_NOTSELECTED,
 	CS_NEXTTOSELECT,
 	CS_NOTACTIVE,
 	CS_ACTIVE
@@ -29,33 +28,19 @@ public class Platform : MonoBehaviour {
 	public int railLenght;
 	public Pin pin;
 	public Rail rail;
-	public GameObject LeftEnd;
-	public GameObject RightEnd;
-	public GameObject MiddleP;
 
 	public Vector3 offset;
 
 	public ColorState colorState;
 
 	private MeshRenderer[] LEDRenderers;
+	
+	private Transform[] particleSystems;
 
 	public void Start(){
 
 		gameObject.layer = transform.position.x < 0 ? LayerMask.NameToLayer("PlatformP1")
 													: LayerMask.NameToLayer("PlatformP2");
-
-		LeftEnd = new GameObject ("LeftEnd");
-		LeftEnd.transform.parent = transform;
-		LeftEnd.transform.parent.position = new Vector3();
-
-		RightEnd = new GameObject ("RightEnd");
-		RightEnd.transform.parent = transform;
-		RightEnd.transform.parent.position = new Vector3();
-
-
-		MiddleP = new GameObject ("Middle");
-		MiddleP.transform.parent = transform;
-
 
 		LEDRenderers = 
 			(from renderer in (transform.GetComponentsInChildren<MeshRenderer>() as MeshRenderer[]) 
@@ -63,6 +48,11 @@ public class Platform : MonoBehaviour {
 			        where material.name.Contains( "LED" )
 			        select material).Any<Material>() )		 
 		select renderer).ToArray();
+
+		GameObject particles = Instantiate(EZGrabber.instance.GetLinkedItem("PARTICLES") as GameObject, 
+		                                   transform.position, transform.rotation) as GameObject;
+		particles.transform.parent = transform;
+		particleSystems = particles.GetComponentsInChildren<Transform>();
 
 //		foreach( MeshRenderer rend in (transform.GetComponentsInChildren<MeshRenderer>() as MeshRenderer[]) )
 //		{
@@ -132,7 +122,11 @@ public class Platform : MonoBehaviour {
 				rend.materials[1].color = Color.white;
 				break;
 			}
+	
+			foreach( Transform particle in particleSystems )
+				particle.gameObject.SetActive(false);
 
+			particleSystems[(int)ColorState.CS_ACTIVE].gameObject.SetActive(true);
 		}
 	}
 	
