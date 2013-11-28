@@ -44,7 +44,6 @@ public class Platform : MonoBehaviour {
 		gameObject.layer = transform.position.x < 0 ? LayerMask.NameToLayer("PlatformP1")
 													: LayerMask.NameToLayer("PlatformP2");
 
-<<<<<<< HEAD
 		LeftEnd = new GameObject ("LeftEnd");
 		LeftEnd.transform.parent = transform;
 		LeftEnd.transform.parent.position = new Vector3();
@@ -57,8 +56,7 @@ public class Platform : MonoBehaviour {
 		MiddleP = new GameObject ("Middle");
 		MiddleP.transform.parent = transform;
 
-		
-=======
+
 		LEDRenderers = 
 			(from renderer in (transform.GetComponentsInChildren<MeshRenderer>() as MeshRenderer[]) 
 			 where ((from material in renderer.materials 
@@ -87,8 +85,7 @@ public class Platform : MonoBehaviour {
 //			}
 //		}
 
-
->>>>>>> ba6b0c0c8b76e7c32f2731a97d15c07bff0b9a74
+		
 		rail = transform.GetComponentInChildren<Rail>();
 		if(rail != null){
 			rail.transform.parent = transform.parent;
