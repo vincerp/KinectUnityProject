@@ -110,8 +110,8 @@ public class BonesArea : MonoBehaviour
 //				return;
 			
 			
-			currentPlatform.colorState = ColorState.CS_NOTACTIVE;
-			currentPlatform.transform.renderer.material.color = Color.white;
+			currentPlatform.reference.SetColorState( ColorState.CS_NOTACTIVE);
+
 			
 			currentPlatform = null;
 			
@@ -121,8 +121,7 @@ public class BonesArea : MonoBehaviour
 			
 			if( platforms.Count > 0 )
 			{
-				platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
-				platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
+				platforms[nextPlatformIndex].reference.SetColorState( ColorState.CS_NEXTTOSELECT);
 			}
 			return;
 		}
@@ -146,8 +145,8 @@ public class BonesArea : MonoBehaviour
 				currentPlatform = platforms[nextPlatformIndex];
 			try
 				{
-				currentPlatform.colorState = ColorState.CS_ACTIVE;
-				currentPlatform.transform.renderer.material.color = Color.red;	
+					currentPlatform.reference.SetColorState( ColorState.CS_ACTIVE );
+
 				}
 				catch(Exception c)
 				{
@@ -160,26 +159,25 @@ public class BonesArea : MonoBehaviour
 				{
 					nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
 					
-					platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
-					platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
+					platforms[nextPlatformIndex].reference.SetColorState( ColorState.CS_NEXTTOSELECT );
+
 				}
 			}
 			else
 			{
-				currentPlatform.colorState = ColorState.CS_NOTACTIVE;
-				currentPlatform.transform.renderer.material.color = Color.white;
-
+				currentPlatform.reference.SetColorState( ColorState.CS_NOTACTIVE );
+		
 				currentPlatform = platforms[nextPlatformIndex];
 				
-				currentPlatform.colorState = ColorState.CS_ACTIVE;
-				currentPlatform.transform.renderer.material.color = Color.red;
+				currentPlatform.reference.SetColorState( ColorState.CS_ACTIVE );
+		
 				
 				if( platforms.Count > 1 )
 				{
 					nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
 					
-					platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
-					platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
+					platforms[nextPlatformIndex].reference.SetColorState( ColorState.CS_NEXTTOSELECT );
+
 				}	
 			}
 
@@ -190,17 +188,16 @@ public class BonesArea : MonoBehaviour
 			if( platforms.Count < 2 )
 				return;
 			
-			platforms[nextPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
-			platforms[nextPlatformIndex].transform.renderer.material.color = Color.white;
-			
+			platforms[nextPlatformIndex].reference.SetColorState( ColorState.CS_NOTACTIVE );
+
 			nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
 			
 			// skip the platform if it is held
 			if( currentPlatform != null && platforms[nextPlatformIndex] == currentPlatform )
 				nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
 			
-			platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
-			platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
+			platforms[nextPlatformIndex].reference.SetColorState( ColorState.CS_NEXTTOSELECT );
+		
 		}
 
 
@@ -240,14 +237,14 @@ public class BonesArea : MonoBehaviour
 		if ( currentPlatform == null ) return;
 		
 		// the platform has been deleted somewhere
-		if ( currentPlatform.transform == null )
+		if ( currentPlatform.reference == null )
 		{
 			currentPlatform = null;
 			return;
 		}
 //		if(!isReleasePlatforms) return;
 		
-		Platform pl = currentPlatform.transform.GetComponentInChildren<Platform>();
+		Platform pl = currentPlatform.reference.GetComponentInChildren<Platform>();
 		
 		if( pl == null )
 		{
@@ -265,52 +262,53 @@ public class BonesArea : MonoBehaviour
 		
 		
 		///Platform Positioning Constraints
-		float y = currentPlatform.transform.parent.position.y;
-		float x = currentPlatform.transform.parent.position.x;
-		Vector3 startingPos = currentPlatform.transform.parent.position;
+		float y = currentPlatform.reference.transform.parent.position.y;
+		float x = currentPlatform.reference.transform.parent.position.x;
+		Vector3 startingPos = currentPlatform.reference.transform.parent.position;
 		
 		
 		
 		switch(pl.pt)
 		{
 		case Platform.PlatformType.PT_EZLINE:
-			Vector3 projectedPos70 = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
-			currentPlatform.transform.parent.position = projectedPos70;
+			Vector3 projectedPos70 = Vector3.MoveTowards( currentPlatform.reference.transform.parent.position, new Vector3 (transform.position.x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
+			currentPlatform.reference.transform.parent.position = projectedPos70;
+			currentPlatform.reference.rail.LateUpdate();
 			break;
 		case Platform.PlatformType.PT_ORAIL:
 		case Platform.PlatformType.PT_ORAILPINNED:
-			Vector3 projectedPos0 = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, y, transform.position.z), Time.deltaTime * movingSpeed);
+			Vector3 projectedPos0 = Vector3.MoveTowards( currentPlatform.reference.transform.parent.position, new Vector3 (transform.position.x, y, transform.position.z), Time.deltaTime * movingSpeed);
 			float railPlatDist0 = Vector3.Distance(pl.rail.transform.position, projectedPos0);
 			if(railPlatDist0 > pl.rail.transform.localScale.y/2)
-				currentPlatform.transform.parent.position = startingPos;
+				currentPlatform.reference.transform.parent.position = startingPos;
 			else
-				currentPlatform.transform.parent.position = projectedPos0;
+				currentPlatform.reference.transform.parent.position = projectedPos0;
 			break;
 			
 		case Platform.PlatformType.PT_VRAIL:
 		case Platform.PlatformType.PT_VRAILPINNED:
-			Vector3 projectedPos1 = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
+			Vector3 projectedPos1 = Vector3.MoveTowards( currentPlatform.reference.transform.parent.position, new Vector3 (x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
 			float railPlatDist1 = Vector3.Distance(pl.rail.transform.position, projectedPos1);
 			if(railPlatDist1 > pl.rail.transform.localScale.y)
-				currentPlatform.transform.parent.position = startingPos;
+				currentPlatform.reference.transform.parent.position = startingPos;
 			else
-				currentPlatform.transform.parent.position = projectedPos1;
+				currentPlatform.reference.transform.parent.position = projectedPos1;
 			break;
 			
 			
 			
 		case Platform.PlatformType.PT_PINNED:
 //			currentPlatform.transform.parent = pl.pin.transform;
-			currentPlatform.transform.parent.position = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (x, y, transform.position.z), Time.deltaTime * movingSpeed);
+			currentPlatform.reference.transform.parent.position = Vector3.MoveTowards( currentPlatform.reference.transform.parent.position, new Vector3 (x, y, transform.position.z), Time.deltaTime * movingSpeed);
 			break;
 			
 		case Platform.PlatformType.PT_CHAINED:
-			Vector3 projectedPos2 = Vector3.MoveTowards( currentPlatform.transform.parent.position, new Vector3 (transform.position.x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
+			Vector3 projectedPos2 = Vector3.MoveTowards( currentPlatform.reference.transform.parent.position, new Vector3 (transform.position.x, transform.position.y, transform.position.z), Time.deltaTime * movingSpeed);
 			float pinPlatDist = Vector3.Distance (pl.pin.transform.position, projectedPos2);
 			if (pinPlatDist <= pl.chainLenght)
-				currentPlatform.transform.parent.position = projectedPos2;
+				currentPlatform.reference.transform.parent.position = projectedPos2;
 			else
-				currentPlatform.transform.parent.position = startingPos;
+				currentPlatform.reference.transform.parent.position = startingPos;
 			break;
 
 //		case Platform.PlatformType.PT_EVERYTHING:
@@ -346,8 +344,8 @@ public class BonesArea : MonoBehaviour
 		//platform rotation happens here
 		if (pl.pt != Platform.PlatformType.PT_VRAIL && pl.pt != Platform.PlatformType.PT_ORAIL && pl.pt != Platform.PlatformType.PT_EZLINE)
 		{
-			rotateFrom = currentPlatform.transform.parent.rotation;
-			currentPlatform.transform.parent.rotation = Quaternion.RotateTowards(
+			rotateFrom = currentPlatform.reference.transform.parent.rotation;
+			currentPlatform.reference.transform.parent.rotation = Quaternion.RotateTowards(
 				rotateFrom,
 				Quaternion.AngleAxis(rotateTowardsAngle + currentPlatform.initialAngle - magicAngle, Vector3.forward),
 				Time.fixedDeltaTime * rotationSpeed);
@@ -373,7 +371,7 @@ public class BonesArea : MonoBehaviour
 	// bone area zone
 	void OnTriggerEnter( Collider other )
 	{
-		if( currentPlatform != null && other.transform == currentPlatform.transform )
+		if( currentPlatform != null && other.transform == currentPlatform.reference )
 		{
 			platforms.Add(currentPlatform);
 			return;
@@ -385,21 +383,19 @@ public class BonesArea : MonoBehaviour
 
 		pinfo.initialScale = other.transform.localScale;
 		
-		pinfo.transform = other.transform;
+		pinfo.reference = other.GetComponent<Platform>();
 		
 		switch( platforms.Count )
 		{
 		case 0:
-			pinfo.colorState = ColorState.CS_NEXTTOSELECT;
-			pinfo.transform.renderer.material.color = Color.green;
+			pinfo.reference.SetColorState( ColorState.CS_NEXTTOSELECT );
 			
 			nextPlatformIndex = 0;
 			break;
 		case 1:
 			if( platforms.Contains( currentPlatform ) )
 			{
-				pinfo.colorState = ColorState.CS_NEXTTOSELECT;
-				pinfo.transform.renderer.material.color = Color.green;
+				pinfo.reference.SetColorState( ColorState.CS_NEXTTOSELECT );
 				
 				nextPlatformIndex = 1;
 			}
@@ -420,7 +416,7 @@ public class BonesArea : MonoBehaviour
 		
 		try{
 		pls = (from x in platforms 
-							where x.transform.collider == other 
+							where x.reference.collider == other 
 							select x);
 		}
 				catch(Exception c)
@@ -444,8 +440,7 @@ public class BonesArea : MonoBehaviour
 			// if it is green
 			if( outPlatform != currentPlatform )
 			{
-				outPlatform.colorState = ColorState.CS_NOTACTIVE;
-				outPlatform.transform.renderer.material.color = Color.white;
+				outPlatform.reference.SetColorState( ColorState.CS_NOTACTIVE );
 			}
 			// if it is red, do nothing special
 			
@@ -460,14 +455,12 @@ public class BonesArea : MonoBehaviour
 				// if there is no red
 				if( currentPlatform == null )
 				{	
-					platforms[nextPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
-					platforms[nextPlatformIndex].transform.renderer.material.color = Color.white;
-					
+					platforms[nextPlatformIndex].reference.SetColorState( ColorState.CS_NOTACTIVE );
+
 					nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
 					
-					platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
-					platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
-					
+					platforms[nextPlatformIndex].reference.SetColorState( ColorState.CS_NEXTTOSELECT );
+
 				}
 				// if there is red
 				else
@@ -475,21 +468,19 @@ public class BonesArea : MonoBehaviour
 					// if red is inside magnet, meaning that there are red and green (which goes out)
 					if( platforms.Contains(currentPlatform) )
 					{
-						platforms[nextPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
-						platforms[nextPlatformIndex].transform.renderer.material.color = Color.white;
-						
+						platforms[nextPlatformIndex].reference.SetColorState( ColorState.CS_NOTACTIVE );
+
 						nextPlatformIndex = 0;
 					}
 					// if red is outside of magnet, meaning that there are white and green (which goes out)
 					else
 					{
-						platforms[nextPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
-						platforms[nextPlatformIndex].transform.renderer.material.color = Color.white;
-						
+						platforms[nextPlatformIndex].reference.SetColorState( ColorState.CS_NOTACTIVE );
+					
 						nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
 						
-						platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
-						platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
+						platforms[nextPlatformIndex].reference.SetColorState( ColorState.CS_NEXTTOSELECT );
+
 						
 					}
 				}
@@ -512,13 +503,13 @@ public class BonesArea : MonoBehaviour
 				// if there is no red
 				if( currentPlatform == null )
 				{	
-					platforms[nextPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
-					platforms[nextPlatformIndex].transform.renderer.material.color = Color.white;
+					platforms[nextPlatformIndex].reference.SetColorState( ColorState.CS_NOTACTIVE );
+
 					
 					nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
 					
-					platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
-					platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
+					platforms[nextPlatformIndex].reference.SetColorState( ColorState.CS_NEXTTOSELECT );
+			
 
 				}
 				// if there is red
@@ -527,8 +518,8 @@ public class BonesArea : MonoBehaviour
 					// if red is inside magnet, meaning that there are red, whites and green (which goes out)
 					if( platforms.Contains(currentPlatform) )
 					{
-						platforms[nextPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
-						platforms[nextPlatformIndex].transform.renderer.material.color = Color.white;
+						platforms[nextPlatformIndex].reference.SetColorState( ColorState.CS_NOTACTIVE );
+					
 						
 						nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
 						
@@ -536,20 +527,20 @@ public class BonesArea : MonoBehaviour
 						if( platforms[nextPlatformIndex] == currentPlatform )
 							nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
 						
-						platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
-						platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
+						platforms[nextPlatformIndex].reference.SetColorState( ColorState.CS_NEXTTOSELECT);
+
 						
 					}
 					// if red is outside of magnet, meaning that there are whites and green (which goes out)
 					else
 					{
-						platforms[nextPlatformIndex].colorState = ColorState.CS_NOTACTIVE;
-						platforms[nextPlatformIndex].transform.renderer.material.color = Color.white;
+						platforms[nextPlatformIndex].reference.SetColorState(  ColorState.CS_NOTACTIVE );
+
 						
 						nextPlatformIndex = nextPlatformIndex + 1 > platforms.Count - 1 ? 0 : nextPlatformIndex + 1;
 						
-						platforms[nextPlatformIndex].colorState = ColorState.CS_NEXTTOSELECT;
-						platforms[nextPlatformIndex].transform.renderer.material.color = Color.green;
+						platforms[nextPlatformIndex].reference.SetColorState( ColorState.CS_NEXTTOSELECT );
+
 
 					}
 				}
@@ -600,14 +591,14 @@ public class BonesArea : MonoBehaviour
 			Rect _pos = new Rect(0f, 0f, 120f, 30f);
 			Vector3 _view;
 			foreach (var plat in platforms){
-				if( plat.transform != null )
+				if( plat.reference != null )
 				{
-					_view = Camera.main.WorldToScreenPoint(plat.transform.position);
+					_view = Camera.main.WorldToScreenPoint(plat.reference.transform.position);
 					
 					_pos.x = _view.x-60f;
 					_pos.y = Screen.height-_view.y-15f;
 					GUI.color = new Color(0f,0f,0f,0.7f);
-					GUI.Label(_pos, "zº:"+plat.transform.rotation.eulerAngles.z);
+					GUI.Label(_pos, "zº:"+plat.reference.transform.rotation.eulerAngles.z);
 				}
 			}
 		}
@@ -629,7 +620,7 @@ public class BonesArea : MonoBehaviour
 		_distAmount += _minimumDistanceAmount;
 		_distAmount = 80f; //this is a HACK!
 		
-		bool isHolding = currentPlatform != null;
+		bool isHolding = Input.GetKey(bonesInput.grabKey);// currentPlatform != null;
 		float halfClaw = clawSize/2;
 		
 		GUIUtility.RotateAroundPivot(-_angle, new Vector2(_magPos.x, _magPos.y));
@@ -677,25 +668,6 @@ public class BonePair{
 			return Vector3.Distance(bone1.position, bone2.position);
 		}
 	}
-}
-
-public enum ColorState
-{
-	CS_NOTSELECTED,
-	CS_NEXTTOSELECT,
-	CS_NOTACTIVE,
-	CS_ACTIVE
-}
-
-#region Other Support Classes
-[System.Serializable]
-public class PlatformInfo
-{
-	public float initialAngle;
-	public Vector3 initialScale;
-	public ColorState colorState;
-	
-	public Transform transform;
 }
 
 public enum SkeletonPart
@@ -748,4 +720,3 @@ public class BonesInputHelper{
 		return false;
 	}
 }
-#endregion

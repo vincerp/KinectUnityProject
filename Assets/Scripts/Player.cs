@@ -26,6 +26,8 @@ public class Player : MonoBehaviour {
 	
 	public float maxHealth = 150f;
 	public float health = 100f;
+	private float timeSinceTakenDamage = 0f;
+	public float invulnerabilityTime = 0.3f;
 	
 	public float stepTimeDistance = 0.3f;
 	private float timeSinceLastStep = 0f;
@@ -36,8 +38,11 @@ public class Player : MonoBehaviour {
 	public bool canJump;
 	public bool isFacingRight;
 	public LayerMask ignoreLayers;
-	
+
+	public float stairStepSize = 1f;
 	//Private stuff
+	float colRad;
+	Vector3 colCaps1, colCaps2;
 	RaycastHit bottomLeft, bottomMiddle, bottomRight, left, right;
 	bool isTouchingRight, isTouchingLeft;
 	bool isJumping = false;
@@ -50,7 +55,7 @@ public class Player : MonoBehaviour {
 	Transform _tr;
 	Rigidbody _rb;
 	
-	void Start () {
+	IEnumerator Start () {
 		Application.targetFrameRate = 30;
 		
 		_tr = transform;
@@ -60,12 +65,24 @@ public class Player : MonoBehaviour {
 		tag = "Player";
 
 		PauseGame.onFreezeGame += OnFreezeGameHandler;
+
+		float colSize = (collider as CapsuleCollider).height;
+		colCaps1 = Vector3.up * stairStepSize;
+		colCaps2 = Vector3.up * (colSize-stairStepSize*2f);
+		colRad = (collider as CapsuleCollider).radius;
+
+		yield return new WaitForEndOfFrame();
+		SharkManager.instance.RegisterPlayer(_tr);
 	}
 	
 	void Update() {
 		if(PauseGame.isGamePaused) return;
 		if(_rb.IsSleeping()) _rb.WakeUp();
-		
+
+		if(timeSinceTakenDamage>0f){
+			timeSinceTakenDamage -= Time.deltaTime;
+		}
+
 		isGrounded = (
 			//Ground raycast checks
 			Physics.Raycast (_tr.position + -raycastPoint,
@@ -87,8 +104,14 @@ public class Player : MonoBehaviour {
 			Physics.Raycast (_tr.position + raycastPoint,
 				Vector3.down, canJumpRaycastSize  * _tr.localScale.y, ignoreLayers)
 		);
-		isTouchingRight = Physics.Raycast (_tr.position, _tr.right, out right, 1.1f  * _tr.localScale.x, ignoreLayers);		
-		isTouchingLeft = Physics.Raycast (_tr.position, -_tr.right, out left, 1.1f  * _tr.localScale.x, ignoreLayers);		
+
+		Vector3 p = _tr.position;
+		isTouchingRight = Physics.CapsuleCast(p + colCaps1, p + colCaps2, colRad, Vector3.right, 1.1f, ignoreLayers);
+		//	_rb.SweepTest(Vector3.right, out right, 1.1f);
+		//	Physics.Raycast (_tr.position, _tr.right, out right, 1.1f  * _tr.localScale.x, ignoreLayers);		
+		isTouchingLeft = Physics.CapsuleCast(p + colCaps1, p + colCaps2, colRad, Vector3.left, 1.1f, ignoreLayers);
+		//	_rb.SweepTest(Vector3.left, out left, 1.1f);
+		//	Physics.Raycast (_tr.position, -_tr.right, out left, 1.1f  * _tr.localScale.x, ignoreLayers);
 
 		//Starts jumping when we press the button
 		if(!isJumping && (Input.GetButtonDown(input.a) || Input.GetButtonDown(input.b))){
@@ -110,13 +133,13 @@ public class Player : MonoBehaviour {
 	
 	void StartJump(){
 		
-		if (canJump) {	
+		if (canJump || timeSinceTakenDamage > 0f) {	
 			jumpSpeed = new Vector3(0, jumpStrength * jumpStrengthMultiplier,0);
 			jumpAirTime = jumpSustainTime;
 			isJumping = true;
 			SoundManager.instance.PlaySoundAt(audio, "Jump");
 		}
-		else if(enableWallJump && left.collider)
+		else if(enableWallJump && isTouchingLeft)
 		{
 			jumpSpeed = new Vector3(jumpStrength* jumpStrengthMultiplier*0.3f, jumpStrength * jumpStrengthMultiplier*0.7f,0);
 			lockLeft = 0.1f;
@@ -124,7 +147,7 @@ public class Player : MonoBehaviour {
 			isJumping = true;
 			SoundManager.instance.PlaySoundAt(audio, "Jump");
 		}
-		else if(enableWallJump && right.collider)
+		else if(enableWallJump && isTouchingRight)
 		{
 			jumpSpeed = new Vector3(-jumpStrength* jumpStrengthMultiplier*0.3f, jumpStrength* jumpStrengthMultiplier *0.7f,0);
 			lockRight = 0.1f;
@@ -144,7 +167,7 @@ public class Player : MonoBehaviour {
 			_rb.velocity = jumpSpeed;
 			
 		}
-		if(releasedJumpingRightNow && (_rb.velocity.y > 0f || jumpAirTime > 0f))
+		if(!lockJumpSustain && releasedJumpingRightNow && (_rb.velocity.y > 0f || jumpAirTime > 0f))
 		{
 			_rb.velocity = (new Vector3(_rb.velocity.x, _rb.velocity.y/2f, 0f));
 		}
@@ -205,12 +228,14 @@ public class Player : MonoBehaviour {
 	
 	#region Health-related
 	public void ApplyDamage(float amount){
+		if(timeSinceTakenDamage > 0f) return;
 		health += -amount;
 		SoundManager.instance.PlaySoundAt(audio, "Damage");
+		timeSinceTakenDamage = invulnerabilityTime;
 		if(health <= 0f){
 			health = 0f;
 			Debug.Log(name + " is dead!");
-			GameOverScreen.instance.PlayerDied(playerId);
+			if(GameOverScreen.instance)GameOverScreen.instance.PlayerDied(playerId);
 		}
 	}
 	
@@ -248,9 +273,14 @@ public class Player : MonoBehaviour {
 	
 	void OnDrawGizmos(){
 		if(!Application.isPlaying) return;
-		Debug.DrawRay (_tr.position + -raycastPoint, Vector3.down*1f, Color.green,0.1f);
-		Debug.DrawRay (_tr.position, 	Vector3.down*1f, Color.red,0.1f);
-		Debug.DrawRay (_tr.position + raycastPoint, 	Vector3.down*1f, Color.blue,0.1f);
+		Vector3 p = _tr.position;
+		Debug.DrawRay (p + -raycastPoint, Vector3.down*1f, Color.green,0.1f);
+		Debug.DrawRay (p, 	Vector3.down*1f, Color.red,0.1f);
+		Debug.DrawRay (p + raycastPoint, 	Vector3.down*1f, Color.blue,0.1f);
+
+		Gizmos.color = Color.cyan;
+		Gizmos.DrawWireSphere(p + colCaps1, colRad);
+		Gizmos.DrawWireSphere(p + colCaps2, colRad);
 	}
 #endif
 

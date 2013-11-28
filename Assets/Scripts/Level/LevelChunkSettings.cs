@@ -19,6 +19,7 @@ public class LevelChunkSettings : MonoBehaviour {
 	public bool showGrid = true;
 
 	void OnDrawGizmos(){
+		if(Application.isPlaying) return;
 		float levelWidth = 70f;
 		float levelDepth = 5f;
 		float levelHeight = height;
