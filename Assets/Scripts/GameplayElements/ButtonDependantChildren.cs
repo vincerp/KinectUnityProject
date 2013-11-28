@@ -45,9 +45,14 @@ public class ButtonDependantChildren : MonoBehaviour {
 		if(triggerScriptsInThisObject) SendMessage("Trigger", isActive);
 		
 		foreach(GameObject child in children){
+			if(child.activeSelf == (not)?!isActive:isActive) continue;
 			child.SetActive(
 				(not)?!isActive:isActive
 			);
+			GameObject go = Instantiate( EZGrabber.instance.GetLinkedItem("PlatformDust") as GameObject ) as GameObject;
+			go.transform.position = child.transform.position + Vector3.back*2f;
+			go.transform.rotation = child.transform.rotation;
+			Destroy(go, 2.95f);
 		}
 		foreach(ButtonTrail trail in trails){
 			trail.isOn = (not)?!isActive:isActive;

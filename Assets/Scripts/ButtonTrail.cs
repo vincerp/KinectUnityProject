@@ -33,7 +33,8 @@ public class ButtonTrail : MonoBehaviour {
 		}
 		set{
 			_isOn = value;
-			Color _c = new Color(color.r, color.g, color.b, (value)?1f:0.3f);
+			Color _c = (value)?new Color(color.r, color.g, color.b, 1f):
+				new Color(color.r, color.g, color.b, 0.4f);
 			color = _c;
 		}
 	}
