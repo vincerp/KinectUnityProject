@@ -59,7 +59,8 @@ public class Button : MonoBehaviour {
 			btr = tr.GetComponent<ButtonTrail>();
 			if(btr){
 				trails.Add(btr);
-				btr.isOn = !not;
+				btr.color = blinkColor;
+				btr.isOn = not;
 			}
 		}
 	}

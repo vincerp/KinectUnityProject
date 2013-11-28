@@ -11,9 +11,9 @@ public class ButtonTrail : MonoBehaviour {
 	[HideInInspector]
 	public List<Transform> quads = new List<Transform>();
 
-	public Color displayColor;
-
-	private Color _color;
+	public Color displayColor = Color.white;
+	
+	private Color _color = Color.white;
 	public Color color{
 		get{
 			return _color;
@@ -32,15 +32,14 @@ public class ButtonTrail : MonoBehaviour {
 			return _isOn;
 		}
 		set{
-			if(_isOn==value)return;
 			_isOn = value;
-			Color _c = color;
-			_c.a = (value)?1f:0.4f;
+			Color _c = new Color(color.r, color.g, color.b, (value)?1f:0.3f);
 			color = _c;
 		}
 	}
 
-	private void Start(){
+	private void Awake(){
+		UpdateMaterials();
 		UpdateQuads();
 	}
 
@@ -55,21 +54,37 @@ public class ButtonTrail : MonoBehaviour {
 		}
 	}
 	
+	public void UpdateMaterials(){
+		foreach(Transform tr in quads){
+			tr.renderer.material = trailMaterial;
+		}
+	}
+	
 	private void SetQuadTransform(Transform quad, Transform transformStart, Transform transformEnd){
 		Vector3 tsPos = transformStart.position;
 		Vector3 tePos = transformEnd.position;
 		float aMult = (tsPos.y<tePos.y)?-1f:1f;
 		float distance = Vector3.Distance(tsPos, tePos)+1f;
-		
+
 		quad.position = Vector3.Lerp(tsPos, tePos, 0.5f);
 		quad.rotation = Quaternion.AngleAxis(Vector3.Angle(tsPos-tePos, Vector3.right)*aMult, Vector3.forward);
 		quad.localScale = new Vector3(distance, 1f, 1f);
 		quad.renderer.material.mainTextureScale = new Vector2(Mathf.Round(distance), 1f);
+		if(quad.collider) DestroyImmediate(quad.collider);
 	}
 
 #if UNITY_EDITOR
 	[ContextMenu("Reset this Shit")]
 	private void Setup(){
+		if(trailMaterial == null){
+			Debug.LogError("No trail material found, exiting function.");
+			return;
+		}
+
+		for(int i = transform.childCount-1; i>=0; i--){
+			DestroyImmediate(transform.GetChild(i).gameObject);
+		}
+
 		trailPositions = new List<Transform>();
 		quads = new List<Transform>();
 		AddTrail();
@@ -78,6 +93,10 @@ public class ButtonTrail : MonoBehaviour {
 	}
 
 	public void AddTrailPosition(){
+		if(trailMaterial == null){
+			Debug.LogError("No trail material found, exiting function.");
+			return;
+		}
 		AddTrail();
 		AddQuad();
 	}

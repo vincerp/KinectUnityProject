@@ -12,12 +12,23 @@ public class ButtonDependantChildren : MonoBehaviour {
 	public List<Button> buttonsDependant = new List<Button>();
 	
 	public List<GameObject> children = new List<GameObject>();
+	public List<ButtonTrail> trails = new List<ButtonTrail>();
 	
 	private IEnumerator Start(){
 		yield return new WaitForEndOfFrame();
+		ButtonTrail btr;
 		foreach(Transform child in transform){
-			children.Add(child.gameObject);
-			child.gameObject.SetActive(not);
+			btr = null;
+			btr = child.GetComponent<ButtonTrail>();
+			if(btr){
+				//if it has trail, it is a trail
+				trails.Add(btr);
+				btr.isOn = not;
+			} else {
+				//if not, lets make it disapear
+				children.Add(child.gameObject);
+				child.gameObject.SetActive(not);
+			}
 		}
 		foreach(Button bt in buttonsDependant){
 			bt.ButtonChanged += VerifyIfActive;
@@ -37,6 +48,9 @@ public class ButtonDependantChildren : MonoBehaviour {
 			child.SetActive(
 				(not)?!isActive:isActive
 			);
+		}
+		foreach(ButtonTrail trail in trails){
+			trail.isOn = (not)?!isActive:isActive;
 		}
 	}
 }

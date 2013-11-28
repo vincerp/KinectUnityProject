@@ -7,12 +7,17 @@ public class Rail : EZLine {
 	public Platform platform;
 	
 	public LineRenderer lr;
-	private Transform tr;
 
 	public bool canUpdate = false;
+
+	new public Transform transform{
+		get{
+			print ("go away!");
+			return GetComponent<Transform>();
+		}
+	}
 	
 	void Start(){
-		tr = transform;
 		lr = GetComponent<LineRenderer>();
 		if(!lr)lr = gameObject.AddComponent<LineRenderer>();
 		transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
@@ -24,7 +29,7 @@ public class Rail : EZLine {
 		if( platform == null && !canUpdate)
 			return;
 		if(!canUpdate){
-			Transform p = tr;
+			Transform p = _tr;
 			while(p = p.parent){
 				if(p == platform.transform.parent) {
 					//print("this shit actually works");

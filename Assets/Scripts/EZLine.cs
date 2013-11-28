@@ -23,7 +23,7 @@ public class EZLine : MonoBehaviour {
 	}
 	
 	private Transform __tr;
-	private Transform _tr{
+	protected Transform _tr{
 		get{
 			if(__tr == null) __tr = transform;
 			return __tr;

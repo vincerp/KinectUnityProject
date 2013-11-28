@@ -14,6 +14,9 @@ public class ButtonTrailInspector : Editor {
 		if(GUILayout.Button("Update Trail")){
 			_target.UpdateQuads();
 		}
+		if(GUILayout.Button("Update Material")){
+			_target.UpdateMaterials();
+		}
 		if(GUILayout.Button("Add Trail Point")){
 			_target.AddTrailPosition();
 		}
