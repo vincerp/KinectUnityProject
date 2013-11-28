@@ -1,0 +1,594 @@
+fileFormatVersion: 2
+guid: 0dba67e900e4f414eba94ad0c0a606d5
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Jumper_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1793
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_1
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 1793
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_2
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 1793
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_3
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1793
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_4
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 1793
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_5
+      rect:
+        serializedVersion: 2
+        x: 1150
+        y: 1793
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_6
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 1793
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_7
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 1793
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1538
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_9
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 1538
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_10
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 1538
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_11
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1538
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_12
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 1538
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_13
+      rect:
+        serializedVersion: 2
+        x: 1150
+        y: 1538
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_14
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 1538
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_15
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 1538
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1283
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_17
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 1283
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_18
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 1283
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_19
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1283
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_20
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 1283
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_21
+      rect:
+        serializedVersion: 2
+        x: 1150
+        y: 1283
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_22
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 1283
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_23
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 1283
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1028
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_25
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 1028
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_26
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 1028
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_27
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1028
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_28
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 1028
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_29
+      rect:
+        serializedVersion: 2
+        x: 1150
+        y: 1028
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_30
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 1028
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_31
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 1028
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 773
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_33
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 773
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_34
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 773
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_35
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 773
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_36
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 773
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_37
+      rect:
+        serializedVersion: 2
+        x: 1150
+        y: 773
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_38
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 773
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_39
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 773
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 518
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_41
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 518
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_42
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 518
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_43
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 518
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_44
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 518
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_45
+      rect:
+        serializedVersion: 2
+        x: 1150
+        y: 518
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_46
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 518
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_47
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 518
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 263
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_49
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 263
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_50
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 263
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_51
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 263
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_52
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 263
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_53
+      rect:
+        serializedVersion: 2
+        x: 1150
+        y: 263
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_54
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 263
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_55
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 263
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_56
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 8
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_57
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 8
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_58
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 8
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_59
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 8
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Jumper_60
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 8
+        width: 230
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+  spritePackingTag: 
+  userData: 

@@ -40,6 +40,9 @@ public class Player : MonoBehaviour {
 	public LayerMask ignoreLayers;
 
 	public float stairStepSize = 1f;
+
+	public Material playerMaterial; 
+
 	//Private stuff
 	float colRad;
 	Vector3 colCaps1, colCaps2;
@@ -232,11 +235,21 @@ public class Player : MonoBehaviour {
 		health += -amount;
 		SoundManager.instance.PlaySoundAt(audio, "Damage");
 		timeSinceTakenDamage = invulnerabilityTime;
+
+		playerMaterial.SetInt("_AnimEnabled", 1);
+		StartCoroutine(StopDamageAnimation(1f));
+
 		if(health <= 0f){
 			health = 0f;
 			Debug.Log(name + " is dead!");
 			if(GameOverScreen.instance)GameOverScreen.instance.PlayerDied(playerId);
 		}
+	}
+
+	private IEnumerator StopDamageAnimation(float waitTime)
+	{
+		yield return new WaitForSeconds(waitTime);
+		playerMaterial.SetInt("_AnimEnabled", 0);
 	}
 	
 	public void Heal(float amount){

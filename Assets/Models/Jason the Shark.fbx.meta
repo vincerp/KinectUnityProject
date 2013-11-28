@@ -47,14 +47,9 @@ ModelImporter:
     4300002: JAWS
     4300004: PIN
     7400000: Look Around
-<<<<<<< HEAD
-    7400002: Swimm Around
-=======
     7400002: Swim Around
->>>>>>> 33e5fdd21ff07567285d09cce5d952583ef0f143
     7400004: Attack
     9500000: //RootNode
-    11100000: //RootNode
     13700000: BODY
     13700002: JAWS
     13700004: PIN
@@ -100,11 +95,7 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-<<<<<<< HEAD
-      name: Swimm Around
-=======
       name: Swim Around
->>>>>>> 33e5fdd21ff07567285d09cce5d952583ef0f143
       takeName: modo_Anim
       firstFrame: 210
       lastFrame: 288
@@ -158,11 +149,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-<<<<<<< HEAD
     globalScale: .00999999978
-=======
-    globalScale: .00150000001
->>>>>>> 33e5fdd21ff07567285d09cce5d952583ef0f143
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -194,5 +181,5 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  animationType: 2
   userData: 
