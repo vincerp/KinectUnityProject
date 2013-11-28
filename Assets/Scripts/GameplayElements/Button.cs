@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Collider))]
 public class Button : MonoBehaviour {
@@ -36,7 +37,9 @@ public class Button : MonoBehaviour {
 	private Material _mat;
 	private Color _originalColor;
 	public Color blinkColor = Color.white;
-	
+
+	private List<ButtonTrail> trails = new List<ButtonTrail>();
+
 	void Start () {
 		collider.isTrigger = true;
 		gameObject.layer = ignoreRaycastLayer;
@@ -49,6 +52,16 @@ public class Button : MonoBehaviour {
 			_onlyToPlayer = GameObject.Find(find);
 		}
 		animation.Play("off");
+
+		ButtonTrail btr;
+		foreach(Transform tr in transform){
+			btr = null;
+			btr = tr.GetComponent<ButtonTrail>();
+			if(btr){
+				trails.Add(btr);
+				btr.isOn = !not;
+			}
+		}
 	}
 	
 	void Update(){
@@ -75,6 +88,7 @@ public class Button : MonoBehaviour {
 			if(triggerScriptsInThisObject) SendMessage("Trigger", isActive);
 			animation.Play("on");
 			SoundManager.instance.PlaySoundAt(audio, "On");
+			UpdateTrails(true);
 		}
 	}
 	
@@ -88,6 +102,13 @@ public class Button : MonoBehaviour {
 			if(triggerScriptsInThisObject) SendMessage("Trigger", isActive);
 			animation.Play("off");
 			SoundManager.instance.PlaySoundAt(audio, "Off");
+			UpdateTrails(false);
+		}
+	}
+
+	void UpdateTrails(bool isOn){
+		foreach(ButtonTrail trail in trails){
+			trail.isOn = isOn;
 		}
 	}
 }

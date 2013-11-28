@@ -93,19 +93,27 @@ public class EditorUtils {
 	#endregion
 	
 	#region Selection Menu
-	[MenuItem("Selection/Select Parent &c")]
+	[MenuItem("Selection/Select Parent #v")]
 	public static void SelectParent(){
 		Transform _selected = Selection.activeGameObject.transform;
+		if(_selected.parent == null) {
+			Debug.LogWarning("Selected object has no parent!");
+			return;
+		}
 		Selection.activeGameObject = _selected.parent.gameObject;
 	}
 	
 	[MenuItem("Selection/Select Child #%c")]
 	public static void SelectChild(){
 		Transform _selected = Selection.activeGameObject.transform;
+		if(_selected.childCount == 0){
+			Debug.LogWarning("Selected object has no children!");
+			return;
+		}
 		Selection.activeGameObject = _selected.GetChild(0).gameObject;
 	}
 	
-	[MenuItem("Selection/Select Next Sibling #v")]
+	[MenuItem("Selection/Select Next Sibling #%v")]
 	public static void SelectSibling(){
 		Transform _selected = Selection.activeGameObject.transform;
 		int max = _selected.parent.childCount;

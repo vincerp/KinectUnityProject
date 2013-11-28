@@ -41,6 +41,8 @@ public class SharkManager : MonoBehaviour {
 		instance = this;
 		tr = transform;
 
+		if(!audio)gameObject.AddComponent<AudioSource>();
+
 		currentState = SharkState.SLEEPING;
 		tr.position = hidePosition;
 		players = new List<Transform>();
@@ -136,6 +138,7 @@ public class SharkManager : MonoBehaviour {
 		tr.rotation = lookAroundRotation;
 		GameObject part = Instantiate(lookAroundParticles) as GameObject;
 		//TODO: play sound here!
+		SoundManager.instance.PlaySoundAt(audio, "SharkIntro");
 		animation.Play("Look Around");
 		part.transform.position = lookAroundPosition;
 		yield return new WaitForSeconds(8f);
@@ -150,6 +153,7 @@ public class SharkManager : MonoBehaviour {
 		Vector3 attackPos = new Vector3(who.transform.position.x, 0f, 0f) + attackPositionOffset;
 		
 		//TODO: play sound here!
+		SoundManager.instance.PlaySoundAt(audio, "SharkAttack");
 		tr.position = attackPos;
 		tr.rotation = attackRotation;
 		if(attackPos.x > 0f) tr.Rotate(0f, 180f, 0f);

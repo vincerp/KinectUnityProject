@@ -4,7 +4,7 @@ TextureImporter:
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -24,22 +24,886 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 1
     mipBias: -1
-    wrapMode: -1
-  nPOTScale: 1
+    wrapMode: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spritePixelsToUnits: 100
-  alphaIsTransparency: 0
-  textureType: -1
+  alphaIsTransparency: 1
+  textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: Controller Moving_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1878
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_1
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 1878
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_2
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1878
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_3
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 1878
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_4
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 1878
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_5
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 1878
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_6
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 1878
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_7
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 1878
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1708
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_9
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 1708
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_10
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1708
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_11
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 1708
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_12
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 1708
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_13
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 1708
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_14
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 1708
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_15
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 1708
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1538
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_17
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 1538
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_18
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1538
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_19
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 1538
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_20
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 1538
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_21
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 1538
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_22
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 1538
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_23
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 1538
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1368
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_25
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 1368
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_26
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1368
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_27
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 1368
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_28
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 1368
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_29
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 1368
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_30
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 1368
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_31
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 1368
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1198
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_33
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 1198
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_34
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1198
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_35
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 1198
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_36
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 1198
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_37
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 1198
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_38
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 1198
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_39
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 1198
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1028
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_41
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 1028
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_42
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1028
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_43
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 1028
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_44
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 1028
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_45
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 1028
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_46
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 1028
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_47
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 1028
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 858
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_49
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 858
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_50
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 858
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_51
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 858
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_52
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 858
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_53
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 858
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_54
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 858
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_55
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 858
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_56
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 688
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_57
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 688
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_58
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 688
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_59
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 688
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_60
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 688
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_61
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 688
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_62
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 688
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_63
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 688
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_64
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 518
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_65
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 518
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_66
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 518
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_67
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 518
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_68
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 518
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_69
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 518
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_70
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 518
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_71
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 518
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_72
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 348
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_73
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 348
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_74
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 348
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_75
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 348
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_76
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 348
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_77
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 348
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_78
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 348
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_79
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 348
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_80
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 178
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_81
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 178
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_82
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 178
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_83
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 178
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_84
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 178
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_85
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 178
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_86
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 178
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_87
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 178
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_88
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 8
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_89
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 8
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_90
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 8
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_91
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 8
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_92
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 8
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_93
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 8
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_94
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 8
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Controller Moving_95
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 8
+        width: 255
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
   spritePackingTag: 
   userData: 
