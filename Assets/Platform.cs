@@ -29,7 +29,10 @@ public class Platform : MonoBehaviour {
 	public int railLenght;
 	public Pin pin;
 	public Rail rail;
-	
+	public GameObject LeftEnd;
+	public GameObject RightEnd;
+	public GameObject MiddleP;
+
 	public Vector3 offset;
 
 	public ColorState colorState;
@@ -40,6 +43,19 @@ public class Platform : MonoBehaviour {
 
 		gameObject.layer = transform.position.x < 0 ? LayerMask.NameToLayer("PlatformP1")
 													: LayerMask.NameToLayer("PlatformP2");
+
+		LeftEnd = new GameObject ("LeftEnd");
+		LeftEnd.transform.parent = transform;
+		LeftEnd.transform.parent.position = new Vector3();
+
+		RightEnd = new GameObject ("RightEnd");
+		RightEnd.transform.parent = transform;
+		RightEnd.transform.parent.position = new Vector3();
+
+
+		MiddleP = new GameObject ("Middle");
+		MiddleP.transform.parent = transform;
+
 
 		LEDRenderers = 
 			(from renderer in (transform.GetComponentsInChildren<MeshRenderer>() as MeshRenderer[]) 
@@ -69,7 +85,7 @@ public class Platform : MonoBehaviour {
 //			}
 //		}
 
-
+		
 		rail = transform.GetComponentInChildren<Rail>();
 		if(rail != null){
 			rail.transform.parent = transform.parent;
@@ -78,13 +94,13 @@ public class Platform : MonoBehaviour {
 			return;
 		}
 		
-		if(pt == PlatformType.PT_PINNED){
-			Transform _pin = GameObject.CreatePrimitive(PrimitiveType.Cylinder).transform;
-			_pin.transform.position = transform.position + offset;
-			_pin.localRotation = Quaternion.Euler(90f, 0f, 0f);
-			_pin.renderer.material = EZGrabber.instance.GetLinkedItem("StaticMaterial") as Material;
-			_pin.parent = transform;
-		}
+//		if(pt == PlatformType.PT_PINNED){
+//			Transform _pin = GameObject.CreatePrimitive(PrimitiveType.Cylinder).transform;
+//			_pin.transform.position = transform.position + offset;
+//			_pin.localRotation = Quaternion.Euler(90f, 0f, 0f);
+//			_pin.renderer.material = EZGrabber.instance.GetLinkedItem("StaticMaterial") as Material;
+//			_pin.parent = transform;
+//		}
 		
 		if(pt == PlatformType.PT_ORAIL ||
 			pt == PlatformType.PT_ORAILPINNED ||
