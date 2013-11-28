@@ -35,7 +35,7 @@ public class Platform : MonoBehaviour {
 
 	private MeshRenderer[] LEDRenderers;
 	
-	private Transform[] particleSystems;
+	private List<Transform> particleSystems = new List<Transform>();
 
 	public void Start(){
 
@@ -52,7 +52,17 @@ public class Platform : MonoBehaviour {
 		GameObject particles = Instantiate(EZGrabber.instance.GetLinkedItem("PARTICLES") as GameObject, 
 		                                   transform.position, transform.rotation) as GameObject;
 		particles.transform.parent = transform;
-		particleSystems = particles.GetComponentsInChildren<Transform>();
+
+
+		foreach( Transform child in particles.transform )
+		{
+			particleSystems.Add( child );
+			child.GetChild(0).transform.localPosition *= (collider as BoxCollider).size.x;
+			child.GetChild(1).transform.localPosition *= (collider as BoxCollider).size.x;
+		}
+
+		
+		particleSystems = particleSystems.OrderBy(x => x.name ).ToList();
 
 //		foreach( MeshRenderer rend in (transform.GetComponentsInChildren<MeshRenderer>() as MeshRenderer[]) )
 //		{
@@ -126,7 +136,7 @@ public class Platform : MonoBehaviour {
 			foreach( Transform particle in particleSystems )
 				particle.gameObject.SetActive(false);
 
-			particleSystems[(int)ColorState.CS_ACTIVE].gameObject.SetActive(true);
+			particleSystems[(int) cs].gameObject.SetActive(true);
 		}
 	}
 	
