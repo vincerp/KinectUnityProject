@@ -9,12 +9,28 @@ public class Platform : MonoBehaviour {
 	public int railLenght;
 	public Pin pin;
 	public Rail rail;
-	
+	public GameObject LeftEnd;
+	public GameObject RightEnd;
+	public GameObject MiddleP;
+
 	public Vector3 offset;
 	
 	public void Start(){
 		gameObject.layer = transform.position.x < 0 ? LayerMask.NameToLayer("PlatformP1")
 													: LayerMask.NameToLayer("PlatformP2");
+
+		LeftEnd = new GameObject ("LeftEnd");
+		LeftEnd.transform.parent = transform;
+		LeftEnd.transform.parent.position = new Vector3();
+
+		RightEnd = new GameObject ("RightEnd");
+		RightEnd.transform.parent = transform;
+		RightEnd.transform.parent.position = new Vector3();
+
+
+		MiddleP = new GameObject ("Middle");
+		MiddleP.transform.parent = transform;
+
 		
 		rail = transform.GetComponentInChildren<Rail>();
 		if(rail != null){
