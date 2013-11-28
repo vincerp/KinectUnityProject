@@ -1,0 +1,186 @@
+fileFormatVersion: 2
+guid: d10f55a5053f82448b170e5ddd5b2230
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: BODY
+    100002: //RootNode
+    100004: JAWS
+    100006: PIN
+    100008: Skeleton_Braccia
+    100010: 'Skeleton_Braccia '
+    100012: Skeleton_Braccia  1
+    100014: Skeleton_Braccia  10
+    100016: Skeleton_Braccia  11
+    100018: Skeleton_Braccia  12
+    100020: Skeleton_Braccia  13
+    100022: Skeleton_Braccia  2
+    100024: Skeleton_Braccia  3
+    100026: Skeleton_Braccia  4
+    100028: Skeleton_Braccia  5
+    100030: Skeleton_Braccia  6
+    100032: Skeleton_Braccia  7
+    100034: Skeleton_Braccia  8
+    100036: Skeleton_Braccia  9
+    100038: Texture Group
+    400000: BODY
+    400002: //RootNode
+    400004: JAWS
+    400006: PIN
+    400008: Skeleton_Braccia
+    400010: 'Skeleton_Braccia '
+    400012: Skeleton_Braccia  1
+    400014: Skeleton_Braccia  10
+    400016: Skeleton_Braccia  11
+    400018: Skeleton_Braccia  12
+    400020: Skeleton_Braccia  13
+    400022: Skeleton_Braccia  2
+    400024: Skeleton_Braccia  3
+    400026: Skeleton_Braccia  4
+    400028: Skeleton_Braccia  5
+    400030: Skeleton_Braccia  6
+    400032: Skeleton_Braccia  7
+    400034: Skeleton_Braccia  8
+    400036: Skeleton_Braccia  9
+    400038: Texture Group
+    4300000: BODY
+    4300002: JAWS
+    4300004: PIN
+    7400000: Look Around
+    7400002: Swim Around
+    7400004: Attack
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: BODY
+    13700002: JAWS
+    13700004: PIN
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Look Around
+      takeName: modo_Anim
+      firstFrame: 12
+      lastFrame: 180
+      wrapMode: 1
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Swim Around
+      takeName: modo_Anim
+      firstFrame: 210
+      lastFrame: 288
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Attack
+      takeName: modo_Anim
+      firstFrame: 300
+      lastFrame: 350
+      wrapMode: 1
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00150000001
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  userData: 

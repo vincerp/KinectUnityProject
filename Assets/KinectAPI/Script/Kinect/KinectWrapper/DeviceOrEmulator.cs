@@ -3,24 +3,24 @@ using System.Collections;
 
 public class DeviceOrEmulator : MonoBehaviour {
 
-	public static DeviceOrEmulator singleInstance = null;
+//	public static DeviceOrEmulator singleInstance = null;
 	
 	public KinectSensor device;
 	public KinectEmulator emulator;
 	
 	public bool useEmulator = false;
 
-	void Awake()
-	{
-		DontDestroyOnLoad(gameObject);
-
-		if( null == singleInstance )
-			singleInstance = this;
-		
-		if( this != singleInstance )
-			Destroy(gameObject);
-
-	}
+//	void Awake()
+//	{
+//		DontDestroyOnLoad(gameObject);
+//
+//		if( null == singleInstance )
+//			singleInstance = this;
+//		
+//		if( this != singleInstance )
+//			Destroy(gameObject);
+//
+//	}
 	
 	// Use this for initialization
 	void Start () {

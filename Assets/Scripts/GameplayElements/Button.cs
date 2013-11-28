@@ -48,6 +48,7 @@ public class Button : MonoBehaviour {
 			string find = (onlyToPlayer == OnlyToPlayer.PLAYER1)?"Player":"Player2";
 			_onlyToPlayer = GameObject.Find(find);
 		}
+		animation.Play("off");
 	}
 	
 	void Update(){

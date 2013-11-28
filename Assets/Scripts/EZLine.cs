@@ -41,7 +41,7 @@ public class EZLine : MonoBehaviour {
 		return Vector3.Lerp(start, end, percent);
 	}
 	
-	public void OnDrawGizmos(){
+	public virtual void OnDrawGizmos(){
 		Gizmos.color = Color.white;
 		Gizmos.DrawLine(start, end);
 		Gizmos.color = Color.green;
