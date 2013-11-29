@@ -23,7 +23,7 @@ public class HealthBar : MonoBehaviour {
 	private void Update(){
 		if(targetHealth == currentHealth) return;
 		currentHealth = Mathf.MoveTowards(currentHealth, targetHealth, speed*Time.deltaTime);
-		bar.material.SetFloat("_Cutoff", 1f-currentHealth);
+		bar.material.SetFloat("_Cutoff", currentHealth);
 	}
 
 	[ContextMenu("UpdateShit")]
