@@ -19,6 +19,7 @@ public class PlayMusicOnStart : MonoBehaviour {
 	}
 
 	void PlayIt(){
+		if(SoundManager.instance == null) return;
 		SoundManager.instance.ChangeMusic(musicId);
 		playedAlready = true;
 	}

@@ -1,0 +1,135 @@
+fileFormatVersion: 2
+guid: 51831076df08e2f4cb75a624990b6349
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: A Button
+    100002: Actual Button
+    100004: ACTUAL LEVER
+    100006: analog stick
+    100008: base
+    100010: Camera
+    100012: claw
+    100014: Directional Light
+    100016: Fingers
+    100018: Game Button
+    100020: LEVER
+    100022: //RootNode
+    100024: Skeleton_Braccia
+    100026: 'Skeleton_Braccia '
+    100028: Skeleton_Braccia  1
+    100030: Skeleton_Braccia  10
+    100032: Skeleton_Braccia  2
+    100034: Skeleton_Braccia  3
+    100036: Skeleton_Braccia  4
+    100038: Skeleton_Braccia  5
+    100040: Skeleton_Braccia  6
+    100042: Skeleton_Braccia  7
+    100044: Skeleton_Braccia  8
+    100046: Skeleton_Braccia  9
+    100048: Texture Group
+    400000: A Button
+    400002: Actual Button
+    400004: ACTUAL LEVER
+    400006: analog stick
+    400008: base
+    400010: Camera
+    400012: claw
+    400014: Directional Light
+    400016: Fingers
+    400018: Game Button
+    400020: LEVER
+    400022: //RootNode
+    400024: Skeleton_Braccia
+    400026: 'Skeleton_Braccia '
+    400028: Skeleton_Braccia  1
+    400030: Skeleton_Braccia  10
+    400032: Skeleton_Braccia  2
+    400034: Skeleton_Braccia  3
+    400036: Skeleton_Braccia  4
+    400038: Skeleton_Braccia  5
+    400040: Skeleton_Braccia  6
+    400042: Skeleton_Braccia  7
+    400044: Skeleton_Braccia  8
+    400046: Skeleton_Braccia  9
+    400048: Texture Group
+    2300000: A Button
+    2300002: Actual Button
+    2300004: ACTUAL LEVER
+    2300006: analog stick
+    2300008: base
+    2300010: claw
+    2300012: Game Button
+    2300014: LEVER
+    3300000: A Button
+    3300002: Actual Button
+    3300004: ACTUAL LEVER
+    3300006: analog stick
+    3300008: base
+    3300010: claw
+    3300012: Game Button
+    3300014: LEVER
+    4300000: claw
+    4300002: base
+    4300004: analog stick
+    4300006: A Button
+    4300008: Fingers
+    4300010: Game Button
+    4300012: Actual Button
+    4300014: LEVER
+    4300016: ACTUAL LEVER
+    7400000: modo_Anim
+    9500000: //RootNode
+    13700000: Fingers
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 

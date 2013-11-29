@@ -34,13 +34,16 @@ public class TutorialScript : MonoBehaviour {
 			return;
 		}
 
-		buttonQuad.enabled = hasDragged;
+		//buttonQuad.enabled = hasDragged;
 		
 		if(Input.GetButton(inputAxis)){
 			buttonQuad.material = aPressed;
 		} else {
 			buttonQuad.material = aUnpressed;
 		}
+		Color nCol = buttonQuad.material.color;
+		nCol = new Color(nCol.r, nCol.g, nCol.b, (hasDragged)?1f:0.3f);
+		buttonQuad.material.color = nCol;
 		
 		if(!other) return;
 		

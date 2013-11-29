@@ -33,8 +33,7 @@ public class PlatformMomentum : MonoBehaviour {
 		if(recordedPlayerPos.Count<2)return;
 		Vector3 moveAmount = recordedPlayerPos[recordedPlayerPos.Count-1]-recordedPlayerPos[recordedPlayerPos.Count-2];
 		moveAmount = new Vector3(moveAmount.x, 0f, 0f);
-
-		_transform.Translate(moveAmount);
+		if(moveAmount != Vector3.zero) _transform.Translate(moveAmount);
 	}
 	
 	void OnCollisionEnter (Collision col) {

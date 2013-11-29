@@ -37,6 +37,8 @@ public class Platform : MonoBehaviour {
 	
 	private List<Transform> particleSystems = new List<Transform>();
 
+	public AudioSource platSource;
+
 	public void Start(){
 
 		gameObject.layer = transform.position.x < 0 ? LayerMask.NameToLayer("PlatformP1")
@@ -61,6 +63,7 @@ public class Platform : MonoBehaviour {
 			child.GetChild(1).transform.localPosition *= (collider as BoxCollider).size.x;
 		}
 
+		platSource = gameObject.AddComponent<AudioSource>();
 		
 		particleSystems = particleSystems.OrderBy(x => x.name ).ToList();
 
@@ -115,6 +118,13 @@ public class Platform : MonoBehaviour {
 
 	public void SetColorState( ColorState cs )
 	{
+		if(colorState == ColorState.CS_ACTIVE && cs != ColorState.CS_ACTIVE){
+			//deselect sound
+			SoundManager.instance.PlaySoundAt(platSource, "ClawRelease");
+		} else if(colorState != ColorState.CS_ACTIVE && cs == ColorState.CS_ACTIVE){
+			//select sound
+			SoundManager.instance.PlaySoundAt(platSource, "ClawGrab");
+		}
 		colorState = cs;
 
 		foreach( MeshRenderer rend in LEDRenderers )
