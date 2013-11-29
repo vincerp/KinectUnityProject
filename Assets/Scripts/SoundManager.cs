@@ -28,6 +28,7 @@ public class SoundManager : MonoBehaviour {
 	#endregion
 	
 	#region SFX-Related
+	public AudioSource sfxSource;
 	private float _sfxVolume = 1f;
 	private bool _sfxMute = false;
 	public float sfxVolume{
@@ -57,7 +58,8 @@ public class SoundManager : MonoBehaviour {
 		}
 		instance = this;
 		DontDestroyOnLoad(gameObject);
-		
+		sfxSource = audio;
+
 		if(!_musicSource) {
 			_musicSource = gameObject.AddComponent<AudioSource>();
 			_musicSource.loop = true;

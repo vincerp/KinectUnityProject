@@ -43,7 +43,8 @@ public class ButtonDependantChildren : MonoBehaviour {
 		}
 		if(activateOnlyOnce && isActive) hasActivated = true;
 		if(triggerScriptsInThisObject) SendMessage("Trigger", isActive);
-		
+
+		bool atLeastOneParticle = false;
 		foreach(GameObject child in children){
 			if(child.activeSelf == (not)?!isActive:isActive) continue;
 			child.SetActive(
@@ -53,7 +54,11 @@ public class ButtonDependantChildren : MonoBehaviour {
 			GameObject go = Instantiate( EZGrabber.instance.GetLinkedItem("PlatformDust") as GameObject ) as GameObject;
 			go.transform.position = child.transform.position + Vector3.back*2f;
 			go.transform.rotation = child.transform.rotation;
+			atLeastOneParticle = true;
 			Destroy(go, 2.95f);
+		}
+		if(atLeastOneParticle){
+			SoundManager.instance.PlaySoundAt(SoundManager.instance.sfxSource, "PlatformDust");
 		}
 		foreach(ButtonTrail trail in trails){
 			trail.isOn = (not)?!isActive:isActive;
