@@ -61,6 +61,7 @@ public class SoundManager : MonoBehaviour {
 		if(!_musicSource) {
 			_musicSource = gameObject.AddComponent<AudioSource>();
 			_musicSource.loop = true;
+			musicVolume = 0.5f;
 		}
 	}
 	
