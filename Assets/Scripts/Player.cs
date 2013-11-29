@@ -24,8 +24,17 @@ public class Player : MonoBehaviour {
 	public bool enableWallJump = true;
 	public float slopeSlideLimit = 50f;
 	
-	public float maxHealth = 150f;
-	public float health = 100f;
+	public float maxHealth = 100f;
+	public float _health = 100f;
+	public float health{
+		get{
+			return _health;
+		}
+		set{
+			_health = value;
+			if(healthBar)healthBar.UpdateHealthPercentage(_health/maxHealth);
+		}
+	}
 	private float timeSinceTakenDamage = 0f;
 	public float invulnerabilityTime = 0.3f;
 	
@@ -42,6 +51,8 @@ public class Player : MonoBehaviour {
 	public float stairStepSize = 1f;
 
 	public Material playerMaterial; 
+
+	public HealthBar healthBar;
 
 	//Private stuff
 	float colRad;
@@ -77,6 +88,7 @@ public class Player : MonoBehaviour {
 		yield return new WaitForEndOfFrame();
 		SharkManager.instance.RegisterPlayer(_tr);
 		playerMaterial.SetInt("_AnimEnabled", 0);
+		health = health;
 	}
 	
 	void Update() {
@@ -258,26 +270,7 @@ public class Player : MonoBehaviour {
 		if(health > maxHealth) health = maxHealth;
 	}
 	#endregion
-	
-	public Rect healthBarRect = new Rect(0f, 0f, 30f, 5f);
-	public GUISkin healthBarSkin;
-	
-	void OnGUI(){
-		Vector3 pos = Camera.main.WorldToScreenPoint(_tr.position);
-		
-		Rect copy = healthBarRect;
-		copy.x = pos.x-(healthBarRect.width/2f);
-		copy.y += Screen.height-pos.y;
-		
-		GUI.skin = healthBarSkin;
-		
-		GUI.color = new Color(0.8f, 0f, 0f, 0.7f);
-		GUI.Box(copy, "");
-		copy.width *= (health/maxHealth);
-		if(copy.width<=0f)copy.width = 0f;
-		GUI.color = new Color(0f, 0.8f, 0f, 0.9f);
-		GUI.Box(copy, "");
-	}
+
 	
 #if UNITY_EDITOR
 	/*

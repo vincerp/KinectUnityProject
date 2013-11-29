@@ -30,7 +30,7 @@ public class SharkManager : MonoBehaviour {
 	private Quaternion swimRotation = Quaternion.identity;
 	
 	public GameObject attackParticles;
-	public float attackSoundDelay = 0.5f;
+	public float playerDeactivationDelay = 0.5f;
 	public Vector3 attackPositionOffset = new Vector3(0f, 1.5f, -2f);
 	private Quaternion attackRotation = Quaternion.identity;
 
@@ -152,7 +152,8 @@ public class SharkManager : MonoBehaviour {
 		if(currentState == SharkState.SWIM || currentState == SharkState.START_SWIM) yield return StopSwim();
 
 		Vector3 attackPos = new Vector3(who.transform.position.x, 0f, 0f) + attackPositionOffset;
-
+		
+		SoundManager.instance.PlaySoundAt(audio, "SharkAttack");
 		tr.position = attackPos;
 		tr.rotation = attackRotation;
 		if(attackPos.x > 0f) tr.Rotate(0f, 180f, 0f);
@@ -161,8 +162,7 @@ public class SharkManager : MonoBehaviour {
 		part.transform.position = attackPos;
 
 
-		yield return new WaitForSeconds(attackSoundDelay);
-		SoundManager.instance.PlaySoundAt(audio, "SharkAttack");
+		yield return new WaitForSeconds(playerDeactivationDelay);
 		who.SetActive(false);
 	}
 }
