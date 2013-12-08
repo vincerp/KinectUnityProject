@@ -4,8 +4,11 @@ using System.Collections;
 
 public class TutorialScript : MonoBehaviour {
 
+	public bool thisIsTheOne = false;
+
 	public TutorialScript other;
 	public string inputAxis = "Fire1";
+	public BonesArea magnet;
 	
 	private Platform thisPlatform;
 	public Vector3 finalPosition;
@@ -13,7 +16,11 @@ public class TutorialScript : MonoBehaviour {
 	public Renderer buttonQuad;
 	public Material aPressed;
 	public Material aUnpressed;
-	
+	public Material rbPressed;
+	public Material rbUnpressed;
+
+	public ButtonTrail trail;
+
 	public GameObject turnOff;
 	public GameObject turnOn;
 	
@@ -26,26 +33,40 @@ public class TutorialScript : MonoBehaviour {
 	
 	void Start(){
 		thisPlatform = GetComponent<Platform>();
+		trail.isOn = false;
+		trail.color = Color.gray;
 	}
 	
 	void Update(){
-		if(other && Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.E)){
+		if(thisIsTheOne && Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.E)){
 			Advance();
 			return;
 		}
 
 		//buttonQuad.enabled = hasDragged;
-		
-		if(Input.GetButton(inputAxis)){
-			buttonQuad.material = aPressed;
+		if(hasDragged){
+			if(trail.color != Color.white) trail.color = Color.white;
+			if(Input.GetButton(inputAxis)){
+				buttonQuad.material = aPressed;
+				trail.isOn = true;
+			} else {
+				buttonQuad.material = aUnpressed;
+				trail.isOn = false;
+			}
 		} else {
-			buttonQuad.material = aUnpressed;
+			if(trail.color != Color.gray) trail.color = Color.gray;
+			if(trail.isOn)trail.isOn = false;
+			if(Input.GetKey(magnet.bonesInput.grabKey)){
+				buttonQuad.material = rbPressed;
+			} else {
+				buttonQuad.material = rbUnpressed;
+			}
 		}
 		Color nCol = buttonQuad.material.color;
-		nCol = new Color(nCol.r, nCol.g, nCol.b, (hasDragged)?1f:0.3f);
+		if(hasDragged)nCol = new Color(nCol.r, nCol.g, nCol.b, (Input.GetButton(other.inputAxis))?1f:0.5f);
 		buttonQuad.material.color = nCol;
 		
-		if(!other) return;
+		if(!thisIsTheOne) return;
 		
 		if(hasDragged && Input.GetButton(inputAxis) && other.hasDragged && Input.GetButton(other.inputAxis)){
 			Advance();

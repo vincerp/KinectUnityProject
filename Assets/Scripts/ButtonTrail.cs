@@ -12,7 +12,7 @@ public class ButtonTrail : MonoBehaviour {
 	public List<Transform> quads = new List<Transform>();
 
 	public Color displayColor = Color.white;
-	
+
 	private Color _color = Color.white;
 	public Color color{
 		get{
@@ -75,6 +75,7 @@ public class ButtonTrail : MonoBehaviour {
 	}
 
 #if UNITY_EDITOR
+	public bool realtimeUpdate = false;
 	[ContextMenu("Reset this Shit")]
 	private void Setup(){
 		if(trailMaterial == null){
@@ -119,7 +120,7 @@ public class ButtonTrail : MonoBehaviour {
 	}
 
 	private void OnDrawGizmos(){
-		UpdateQuads();
+		if(realtimeUpdate)UpdateQuads();
 		for(int i = 0; i < trailPositions.Count-1; i++){
 			Gizmos.DrawLine(trailPositions[i].position, trailPositions[i+1].position);
 		}

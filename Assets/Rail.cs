@@ -10,13 +10,6 @@ public class Rail : EZLine {
 
 	public bool canUpdate = false;
 
-	new public Transform transform{
-		get{
-			print ("go away!");
-			return GetComponent<Transform>();
-		}
-	}
-	
 	void Start(){
 		lr = GetComponent<LineRenderer>();
 		if(!lr)lr = gameObject.AddComponent<LineRenderer>();

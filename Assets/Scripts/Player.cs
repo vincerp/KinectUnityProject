@@ -122,10 +122,11 @@ public class Player : MonoBehaviour {
 		);
 
 		Vector3 p = _tr.position;
-		isTouchingRight = Physics.CapsuleCast(p + colCaps1, p + colCaps2, colRad, Vector3.right, 1.1f, ignoreLayers);
+		var frontalRaycastDist = 0.6f;
+				isTouchingRight = Physics.CapsuleCast (p + colCaps1, p + colCaps2, colRad, Vector3.right, frontalRaycastDist, ignoreLayers);
 		//	_rb.SweepTest(Vector3.right, out right, 1.1f);
 		//	Physics.Raycast (_tr.position, _tr.right, out right, 1.1f  * _tr.localScale.x, ignoreLayers);		
-		isTouchingLeft = Physics.CapsuleCast(p + colCaps1, p + colCaps2, colRad, Vector3.left, 1.1f, ignoreLayers);
+		isTouchingLeft = Physics.CapsuleCast (p + colCaps1, p + colCaps2, colRad, Vector3.left, frontalRaycastDist, ignoreLayers);
 		//	_rb.SweepTest(Vector3.left, out left, 1.1f);
 		//	Physics.Raycast (_tr.position, -_tr.right, out left, 1.1f  * _tr.localScale.x, ignoreLayers);
 
@@ -187,19 +188,21 @@ public class Player : MonoBehaviour {
 		{
 			_rb.velocity = (new Vector3(_rb.velocity.x, _rb.velocity.y/2f, 0f));
 		}
-		
+
+		_rb.velocity = (new Vector3(0f, _rb.velocity.y, 0f));
 		//moving left
+		float assumedDeltaTime = 0.025f;
 		if(Input.GetAxis(input.horizontal) < -0.1f && lockLeft <= 0f && !isTouchingLeft)
 		{
 			isMoving = true;
-			_rb.velocity = (new Vector3(-1f * speed * Time.deltaTime, _rb.velocity.y, 0f));
+			_rb.velocity = (new Vector3(-1f * speed * assumedDeltaTime, _rb.velocity.y, 0f));
 			isFacingRight = false;
 		}
 		//moving right
 		if(Input.GetAxis(input.horizontal) > 0.1f  && lockRight <= 0f && !isTouchingRight)
 		{
 			isMoving = true;
-			_rb.velocity=(new Vector3(speed * Time.deltaTime, _rb.velocity.y, 0f));
+			_rb.velocity=(new Vector3(speed * assumedDeltaTime, _rb.velocity.y, 0f));
 			isFacingRight = true;
 		}
 		

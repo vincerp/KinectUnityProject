@@ -49,10 +49,11 @@ public class SoundManager : MonoBehaviour {
 	
 	public List<SoundFile> soundFiles = new List<SoundFile>();
 	public List<SoundFile> musicFiles = new List<SoundFile>();
-	private List<AudioSource> registeredSources = new List<AudioSource>();
+	public List<AudioSource> registeredSources = new List<AudioSource>();
 	
 	public void Start(){
 		if(instance != null && instance != this){
+			if(instance.registeredSources != null)instance.registeredSources.Clear();
 			Destroy(gameObject);
 			return;
 		}
@@ -65,6 +66,10 @@ public class SoundManager : MonoBehaviour {
 			_musicSource.loop = true;
 			musicVolume = 0.5f;
 		}
+	}
+
+	public void OnDestroy(){
+		if(instance.registeredSources != null)instance.registeredSources.Clear();
 	}
 	
 	public void PlaySoundAt(AudioSource source, string soundId){
